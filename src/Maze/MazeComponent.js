@@ -2,26 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tile from '../Tile/TileComponent';
 
-export const MazeComponent = (seed, maze, onMazeClick, startMaze) => {
+export const MazeComponent = ({maze, onMazeClick}) => {
     if(!maze.mazeTiles) return null;
-    return maze.mazeTiles.map((tilesArray) => (
-            tilesArray.map((tile) => (
-                <div className="tile_wrapper">
-                    <Tile  tile={tile} onClick={() => onMazeClick(tile)} /> 
-                </div>
-            ))
-        ))
+    return <div className='Maze'>
+            {
+                makeMazeTileGrid(maze.mazeTiles, onMazeClick)
+            }
+        </div>
 };
 
+const makeMazeTileGrid = (mazeTiles, onMazeClick) => {
+    return mazeTiles.map( (row, index) => (
+        <div key={index} className='RowContainer'> 
+            { makeMazeRow(row, onMazeClick) }
+        </div>
+        )
+    )
+}
+
+const makeMazeRow = (row, onMazeClick) => {
+    return row.map(
+        (tile, index) => (
+            <Tile key={index} tile={tile} onClick={ onMazeClick } /> 
+        )
+    )
+}
 
 MazeComponent.PropTypes = {
-    onClick: PropTypes.func.isRequired,
-    mazeOfTiles: 
-        PropTypes.arrayOf(
-            PropTypes.arrayOf(
-                PropTypes.object
-            )
-        ).isRequired
+    onMazeClick: PropTypes.func.isRequired,
+    maze: PropTypes.object.isRequired
 };
 
 export default MazeComponent;
