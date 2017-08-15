@@ -1,5 +1,3 @@
-import getUrlParameter from '../Utils/RequestUtils';
-
 export const MAZE_CREATE = 'MAZE_CREATE';
 export const MAZE_ACTION = 'MAZE_ACTION';
 export const MAZE_UNDO = 'MAZE_UNDO';

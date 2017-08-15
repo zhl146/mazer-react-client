@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Tile from '../Tile/TileComponent';
-import shared from 'mazer-shared';
 
 export const MazeComponent = (seed, maze, onMazeClick, startMaze) => {
-    let mazeTiles = (maze.mazeTiles? mazeTiles: []);
-    return mazeTiles.map((tilesArray) => (
+    if(!maze.mazeTiles) return null;
+    return maze.mazeTiles.map((tilesArray) => (
             tilesArray.map((tile) => (
                 <div className="tile_wrapper">
                     <Tile  tile={tile} onClick={() => onMazeClick(tile)} /> 

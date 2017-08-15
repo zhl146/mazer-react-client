@@ -1,10 +1,10 @@
-import {MAZE_ACTION, MAZE_CREATE, MAZE_RESET, MAZE_UNDO} from "./MazeActions";
+import {MAZE_ACTION, MAZE_CREATE} from "./MazeActions";
 import {mazeShared} from 'mazer-shared';
 import _ from 'lodash';
 import shared from 'mazer-shared';
 import { getUrlParameter, generateDateSeed } from '../Utils/RequestUtils';
 
-let seed = getUrlParameter(seed);
+let seed = getUrlParameter("seed");
 seed = (seed? seed: generateDateSeed());
 let maze = shared.Maze(seed);
 const initialState = {

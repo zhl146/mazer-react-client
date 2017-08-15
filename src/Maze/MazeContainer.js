@@ -2,7 +2,7 @@ import {mazeAction, mazeCreate} from './MazeActions';
 import { connect } from 'react-redux';
 import MazeComponent from './MazeComponent';
 
-const getMaze = (seed, maze, mazeTiles) => {
+const getMaze = (seed, maze) => {
     return {
         seed, 
         maze
@@ -26,9 +26,9 @@ const mapDispatchToProps  = dispatch => {
     }
 }
 
-const MazeModel = connect(
+const MazeContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(MazeComponent);
 
-export default MazeModel;
+export default MazeContainer;
