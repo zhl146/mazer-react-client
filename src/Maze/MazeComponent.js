@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Tile from '../Tile/TileComponent';
-
-export const MazeComponent = ({maze, onMazeClick}) => {
+import ScoreBoard from '../Score/ScoreComponent';
+const MazeComponent = ({maze, score, onMazeClick}) => {
+    console.log('score is: ' +JSON.stringify(score) + ' of type: '+typeof(score));
     if(!maze.mazeTiles) return null;
-    return <div className='Maze'>
+    return (
+        <div className='Maze'>
+            <ScoreBoard score={score} />
             {
                 makeMazeTileGrid(maze.mazeTiles, onMazeClick)
             }
         </div>
+    )
 };
 
 const makeMazeTileGrid = (mazeTiles, onMazeClick) => {

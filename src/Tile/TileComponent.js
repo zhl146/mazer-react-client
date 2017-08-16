@@ -4,27 +4,33 @@ import shared from 'mazer-shared';
 
 const TileComponent = ({ tile, onClick }) => {
     let cssClass;
+    let text = '';
     switch ( tile.type ) {
         case shared.MazeTileEnum.Blocker:
-            cssClass = 'FiledTile';
+            if(tile.userPlaced) cssClass = 'BlockerTile';
+            else cssClass = 'StartingBlockTile';
         break;
         case shared.MazeTileEnum.Start:
             cssClass = 'StartTile';
+            text = 'Start';
         break;
         case shared.MazeTileEnum.End:
             cssClass = 'EndTile';
+            text = 'End';
         break;
         case shared.MazeTileEnum.WayPoint:
-            cssClass = 'WaypointTile';
+            cssClass = 'WayPointTile';
+            text = tile.waypointIndex
         break;
         default:
             if(tile.scoreMod > 1){
                 cssClass = 'ScoreModTile';
             }
-            cssClass = 'EmptyTile';
+            else cssClass = 'EmptyTile';
         break;
     }
-    return <div className={cssClass} onClick={ () => onClick(tile) } />
+    if(tile.scoreZoneCenter) text = tile.scoreMod + 'x';
+    return <div className={cssClass} onClick={ () => onClick(tile) } >{text} </div>
 };
 
 TileComponent.PropTypes = {
