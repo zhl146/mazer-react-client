@@ -1,4 +1,4 @@
-import ButtonTemplate from '../Utils/Components/Button.component';
+import ButtonTemplate from '../Utils/Components/ButtonTempate.component';
 import React from 'react';
 import CustomError from '../Utils/CustomError';
 
