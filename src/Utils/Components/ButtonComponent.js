@@ -9,9 +9,6 @@ const ButtonComponent = ({onClickInput, OnClick, text}) => {
 };
 
 ButtonComponent.PropTypes = {
-    history: React.PropTypes.shape({
-        push: React.PropTypes.func.isRequired
-    }),
     onClick: PropTypes.func.isRequired,
     onClickInput: PropTypes.isRequired,
     text: PropTypes.string.isRequired

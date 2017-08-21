@@ -23,6 +23,6 @@ function submitScore({ history, maze }){
     });
 }
 
-const submitScoreButton = () => {
-    return ButtonComponent
+const submitScoreButton = ( { maze, text } ) => {
+    return ButtonComponent()
 }
