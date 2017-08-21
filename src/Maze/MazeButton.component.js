@@ -15,9 +15,8 @@ function submitScore( maze, history ){
             body: JSON.stringify(solution)
         }
     ).then( (res) => {
-        history.push('/leaderboard/')
         if(res.ok){
-
+            history.push('/leaderboard/');
         }else{
             throw CustomError("Posting back to the server failed!");
         }
