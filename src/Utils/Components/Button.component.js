@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 const ButtonComponent = ({onClickInput, OnClick, text, cssAttributes, history}) => {
     return (
-        <button onClick={ () => OnClick(onClickInput, history) } className={ cssAttributes }>{text}</button>
+        <button onClick={ () => { OnClick(onClickInput, history) } } className={ cssAttributes }>{text}</button>
     )
 };
 
 ButtonComponent.PropTypes = {
     onClick: PropTypes.func.isRequired,
-    onClickInput: PropTypes.isRequired,
+    onClickInput: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired
 };
 
