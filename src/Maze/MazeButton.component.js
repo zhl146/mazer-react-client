@@ -1,4 +1,4 @@
-import Button from '../Utils/Components/ButtonComponent';
+import Button from '../Utils/Components/Button.component';
 
 function submitScore({ history, maze }){
     let solution = {
