@@ -20,7 +20,7 @@ const TileComponent = ({ tile, onClick }) => {
         break;
         case shared.MazeTileEnum.WayPoint:
             cssClass = 'WayPointTile';
-            text = tile.waypointIndex
+            text = tile.waypointIndex;
         break;
         default:
             if(tile.scoreMod > 1){
@@ -36,6 +36,6 @@ const TileComponent = ({ tile, onClick }) => {
 TileComponent.PropTypes = {
   onClick: PropTypes.func.isRequired,
   tile: PropTypes.object.isRequired
-}
+};
 
 export default TileComponent;
