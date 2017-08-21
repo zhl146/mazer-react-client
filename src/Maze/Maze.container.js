@@ -1,6 +1,6 @@
-import { mazeAction } from './MazeActions';
+import { mazeAction } from './Maze.action';
 import { connect } from 'react-redux';
-import MazeComponent from './MazeComponent';
+import MazeComponent from './Maze.component';
 
 const getMaze = (maze) => { return maze; };
 
