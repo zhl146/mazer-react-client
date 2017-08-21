@@ -1,6 +1,6 @@
 import Button from '../Utils/Components/Button.component';
 
-function submitScore({ history, maze }){
+function submitScore( history, maze ){
     let solution = {
         seed: maze.seed,
         diffPoints: maze.getUserChanges()
@@ -23,6 +23,10 @@ function submitScore({ history, maze }){
     });
 }
 
-const submitScoreButton = ( { maze, text } ) => {
-    return ButtonComponent()
+const submitScoreButton = ( { maze, text, cssAttributes} ) => {
+    return <Button onClickInput={maze} OnClick={submitScore} text={text} cssAttributes={cssAttributes} />
+};
+
+export {
+    submitScoreButton
 }

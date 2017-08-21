@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import './Maze.css';
 import Tile from '../Tile/TileComponent';
 import ScoreBoard from '../Score/ScoreComponent';
+import { submitScoreButton } from 'MazeButton.component';
 
 const MazeComponent = ({maze, score, onMazeClick}) => {
     console.log('score is: ' +JSON.stringify(score) + ' of type: '+typeof(score));
@@ -13,7 +14,9 @@ const MazeComponent = ({maze, score, onMazeClick}) => {
             {
                 makeMazeTileGrid(maze.mazeTiles, onMazeClick)
             }
+            <submitScoreButton maze={maze} text="Submit" />
         </div>
+
     )
 };
 
@@ -24,7 +27,7 @@ const makeMazeTileGrid = (mazeTiles, onMazeClick) => {
         </div>
         )
     )
-}
+};
 
 const makeMazeRow = (row, onMazeClick) => {
     return row.map(
@@ -32,7 +35,7 @@ const makeMazeRow = (row, onMazeClick) => {
             <Tile key={index} tile={tile} onClick={ onMazeClick } /> 
         )
     )
-}
+};
 
 MazeComponent.PropTypes = {
     onMazeClick: PropTypes.func.isRequired,
