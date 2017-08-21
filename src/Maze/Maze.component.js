@@ -20,7 +20,7 @@ class MazeComponent extends Component {
                 makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick)
               }
             </div>
-            <SubmitScoreButton maze={this.props.maze} text={"Submit"} cssAttributes={"Button"}/>
+            <SubmitScoreButton history={this.props.history} maze={this.props.maze} text={"Submit"} cssAttributes={"Button"}/>
         </div>
 
     )
