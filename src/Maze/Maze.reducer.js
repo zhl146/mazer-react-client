@@ -1,4 +1,4 @@
-import {MAZE_ACTION, MAZE_CREATE} from "./MazeActions";
+import {MAZE_ACTION, MAZE_CREATE} from "./Maze.action";
 import _ from 'lodash';
 import shared from 'mazer-shared';
 import { getUrlParameter, generateDateSeed } from '../Utils/RequestUtils';
