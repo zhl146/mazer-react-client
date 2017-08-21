@@ -1,47 +1,52 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import './Maze.css';
 import Tile from './MazeTile.component';
 import ScoreBoard from '../Score/Score.component';
 import { SubmitScoreButton } from "./MazeButton.component"
-//import MazePath from "./MazePath.component";
+import MazePath from "./MazePath.component";
 
 class MazeComponent extends Component {
 
-    render() {
-      if(!this.props.maze.mazeTiles) return null;
-      return (
-          <div className='Maze'>
-              <ScoreBoard score={this.props.score} />
-            {
-              makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick)
-            }
-              <SubmitScoreButton maze={this.props.maze} text={"Submit"} cssAttributes={"Button"} />
-          </div>
-      )
-    }
+  render() {
+    if(!this.props.maze.mazeTiles) return null;
+    return (
+        <div className='Maze'>
+            <ScoreBoard score={this.props.score}/>
+            <div ref={ (div) => { this.mazeElement = div} }>
+                <MazePath parentElement={this.mazeElement} maze={this.props.maze} />
+              {
+                makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick)
+              }
+            </div>
+            <SubmitScoreButton maze={this.props.maze} text={"Submit"} cssAttributes={"Button"}/>
+        </div>
+
+    )
+  }
 }
 
 const makeMazeTileGrid = (mazeTiles, onMazeClick) => {
-    return mazeTiles.map( (row, index) => (
-        <div key={index} className='RowContainer'> 
+  return mazeTiles.map( (row, index) => (
+          <div key={index} className='RowContainer'>
             { makeMazeRow(row, onMazeClick) }
-        </div>
-        )
-    )
+          </div>
+      )
+  )
 };
 
 const makeMazeRow = (row, onMazeClick) => {
-    return row.map(
-        (tile, index) => (
-            <Tile key={index} tile={tile} onClick={ onMazeClick } /> 
-        )
-    )
+  return row.map(
+      (tile, index) => (
+          <Tile key={index} tile={tile} onClick={ onMazeClick } />
+      )
+  )
 };
 
 MazeComponent.PropTypes = {
-    onMazeClick: PropTypes.func.isRequired,
-    maze: PropTypes.object.isRequired
+  onMazeClick: PropTypes.func.isRequired,
+  maze: PropTypes.object.isRequired
 };
 
 export default MazeComponent;
