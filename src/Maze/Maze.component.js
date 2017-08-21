@@ -6,7 +6,7 @@ import ScoreBoard from '../Score/Score.component';
 import { SubmitScoreButton } from "./MazeButton.component"
 //import MazePath from "./MazePath.component";
 
-const MazeComponent = ({maze, score, onMazeClick}) => {
+const MazeComponent = ({maze, score, onMazeClick, history}) => {
     console.log('score is: ' +JSON.stringify(score) + ' of type: '+typeof(score));
     if(!maze.mazeTiles) return null;
     return (
@@ -15,7 +15,7 @@ const MazeComponent = ({maze, score, onMazeClick}) => {
             {
                 makeMazeTileGrid(maze.mazeTiles, onMazeClick)
             }
-            <SubmitScoreButton maze={maze} text={"Submit"} cssAttributes={"Button"} />
+            <SubmitScoreButton maze={maze} text={"Submit"} cssAttributes={"Button"} history={history} />
         </div>
     )
 };

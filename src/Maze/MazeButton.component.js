@@ -6,7 +6,7 @@ function submitScore( maze, history ){
     console.log("MAZE: "+JSON.stringify(maze));
     let solution = {
         seed: maze.seed,
-        diffPoints: maze.getUserChanges()
+        mazeTiles: maze.mazeTiles
     };
 
     fetch('zhenlu.info/check',
@@ -15,8 +15,9 @@ function submitScore( maze, history ){
             body: JSON.stringify(solution)
         }
     ).then( (res) => {
+        history.push('/leaderboard/')
         if(res.ok){
-            history.push('/leaderboard/');
+
         }else{
             throw CustomError("Posting back to the server failed!");
         }
@@ -26,9 +27,9 @@ function submitScore( maze, history ){
     });
 }
 
-const SubmitScoreButton = ({ maze, text, cssAttributes} ) => {
+const SubmitScoreButton = ({ maze, text, cssAttributes, history} ) => {
     return (
-        <ButtonTemplate onClickInput={maze} OnClick={submitScore} text={text} cssAttributes={cssAttributes} />
+        <ButtonTemplate onClickInput={maze} OnClick={submitScore} text={text} cssAttributes={cssAttributes} history={history} />
     )
 };
 
