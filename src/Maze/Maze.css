@@ -77,3 +77,13 @@
     font-size: 1em;
     color: black;
 }
+
+.button {
+    border: none;
+    color: darkgray;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+}
