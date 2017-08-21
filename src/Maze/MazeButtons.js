@@ -1,16 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import Button from '../Utils/Components/ButtonComponent';
 
-const ButtonComponent = ({onClickInput, OnClick, text}) => {
-    return (
-        <button onClick={ () => onClick(onClickInput) }>{text}</button>
-    )
+function submitScore({ history, maze }){
+    let solution = {
+        seed: maze.seed,
+        diffPoints: maze.getUserChanges()
+    };
+
+    fetch('zhenlu.info/check',
+        {
+            method: "POST",
+            body: JSON.stringify(solution)
+        }
+    ).then( (res) => {
+        if(res.ok){
+            history.push('/leaderboard/');
+        }else{
+            throw "Posting back to the server failed!"
+        }
+    }).catch((ex) => {
+        alert("Sending your score to the server failed, if this persists please contact the admin!");
+        console.log("ERROR: "+ex);
+    });
 }
 
-ButtonComponent.PropTypes = {
-    onClick: PropTypes.func.isRequired,
-    onClickInput: PropTypes.isRequired,
-    text: PropTypes.string.isRequired
-};
-
-export default ButtonComponent;
+const submitScoreButton = () => {
+    return ButtonComponent
+}
