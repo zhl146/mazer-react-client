@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import './Maze.css';
 import Tile from './MazeTile.component';
 import ScoreBoard from '../Score/Score.component';
-import MazePath from "./MazePath.component";
+import { SubmitScoreButton } from "./MazeButton.component"
+//import MazePath from "./MazePath.component";
 
 const MazeComponent = ({maze, score, onMazeClick}) => {
     console.log('score is: ' +JSON.stringify(score) + ' of type: '+typeof(score));
@@ -11,8 +12,10 @@ const MazeComponent = ({maze, score, onMazeClick}) => {
     return (
         <div className='Maze'>
             <ScoreBoard score={score} />
-            <MazePath maze={maze} />
-            {makeMazeTileGrid(maze.mazeTiles, onMazeClick)}
+            {
+                makeMazeTileGrid(maze.mazeTiles, onMazeClick)
+            }
+            <SubmitScoreButton maze={maze} text={"Submit"} cssAttributes={"Button"} />
         </div>
     )
 };

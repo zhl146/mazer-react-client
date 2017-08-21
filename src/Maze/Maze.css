@@ -1,0 +1,89 @@
+.BlockerTile {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: red;
+}
+
+.StartingBlockTile {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: maroon;
+}
+
+.EmptyTile {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: gray;
+}
+
+.StartTile {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: green;
+}
+
+.EndTile {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: pink;
+}
+
+.WayPointTile{
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: yellowgreen;
+}
+
+.ScoreModTile{
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    line-height: 40px;
+    text-align: center;
+    flex: auto;
+    background-color: silver;
+}
+
+.RowContainer {
+    display: flex;
+}
+
+.ScoreBoard {
+    text-align: center;
+    font-size: 1em;
+    color: black;
+}
+
+.button {
+    border: none;
+    color: darkgray;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+}

@@ -1,6 +1,9 @@
-import Button from '../Utils/Components/Button.component';
+import ButtonTemplate from '../Utils/Components/Button.component';
+import React from 'react';
+import CustomError from '../Utils/CustomError';
 
-function submitScore({ history, maze }){
+function submitScore( maze, history ){
+    console.log("MAZE: "+JSON.stringify(maze));
     let solution = {
         seed: maze.seed,
         diffPoints: maze.getUserChanges()
@@ -15,7 +18,7 @@ function submitScore({ history, maze }){
         if(res.ok){
             history.push('/leaderboard/');
         }else{
-            throw "Posting back to the server failed!"
+            throw CustomError("Posting back to the server failed!");
         }
     }).catch((ex) => {
         alert("Sending your score to the server failed, if this persists please contact the admin!");
@@ -23,6 +26,12 @@ function submitScore({ history, maze }){
     });
 }
 
-const submitScoreButton = ( { maze, text } ) => {
-    return ButtonComponent()
-}
+const SubmitScoreButton = ({ maze, text, cssAttributes} ) => {
+    return (
+        <ButtonTemplate onClickInput={maze} OnClick={submitScore} text={text} cssAttributes={cssAttributes} />
+    )
+};
+
+export {
+    SubmitScoreButton
+};

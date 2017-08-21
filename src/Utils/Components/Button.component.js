@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
-const ButtonComponent = ({onClickInput, OnClick, text}) => {
+const ButtonComponent = ({onClickInput, OnClick, text, cssAttributes, history}) => {
     return (
-        <button onClick={ () => onClick(onClickInput) }>{text}</button>
+        <button onClick={ () => OnClick(onClickInput, history) } className={ cssAttributes }>{text}</button>
     )
 };
 
@@ -14,4 +13,4 @@ ButtonComponent.PropTypes = {
     text: PropTypes.string.isRequired
 };
 
-export default withRouter(ButtonComponent);
+export default ButtonComponent;
