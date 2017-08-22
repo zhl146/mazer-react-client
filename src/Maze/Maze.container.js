@@ -1,4 +1,4 @@
-import { mazeAction } from './Maze.action';
+import { mazeAction } from './actions/Maze.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 

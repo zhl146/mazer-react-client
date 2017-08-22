@@ -27,4 +27,8 @@ const MazePath = ({ maze }) => {
     )
 };
 
+MazePath.PropTypes = {
+  maze: PropTypes.object.isRequired
+};
+
 export default MazePath;

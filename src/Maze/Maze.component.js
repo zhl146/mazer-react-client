@@ -3,17 +3,21 @@ import PropTypes from 'prop-types';
 
 import './Maze.css';
 import Tile from './MazeTile.component';
-import ScoreBoard from '../Score/Score.component';
+import MazeHeader from './MazeHeader.component';
 import { SubmitScoreButton } from "./MazeButton.component"
 import MazePath from "./MazePath.component";
 
 class MazeComponent extends Component {
+  constructor(props) {
+    super(props);
+    console.log(this)
+  }
 
   render() {
     if(!this.props.maze.mazeTiles) return null;
     return (
-        <div className='Maze'>
-            <ScoreBoard score={this.props.score}/>
+        <div ref={(ref) => this.elRef = ref} className='Maze'>
+            <MazeHeader scoreValue={this.props.score}/>
           <div>
             {
               makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick)
