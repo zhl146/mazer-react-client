@@ -14,13 +14,15 @@ class MazeComponent extends Component {
     return (
         <div className='Maze'>
             <ScoreBoard score={this.props.score}/>
-            <div ref={ (div) => { this.mazeElement = div} }>
-                <MazePath parentElement={this.mazeElement} maze={this.props.maze} />
-              {
-                makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick)
-              }
+          <div>
+            {
+              makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick)
+            }
+            <div className="maze-path">
+              <MazePath  maze={this.props.maze} />
             </div>
-            <SubmitScoreButton history={this.props.history} maze={this.props.maze} text={"Submit"} cssAttributes={"Button"}/>
+          </div>
+          <SubmitScoreButton history={this.props.history} maze={this.props.maze} text={"Submit"} cssAttributes={"Button"}/>
         </div>
 
     )
@@ -29,7 +31,7 @@ class MazeComponent extends Component {
 
 const makeMazeTileGrid = (mazeTiles, onMazeClick) => {
   return mazeTiles.map( (row, index) => (
-          <div key={index} className='RowContainer'>
+          <div key={index} className='container-row'>
             { makeMazeRow(row, onMazeClick) }
           </div>
       )

@@ -1,78 +1,28 @@
-.BlockerTile {
+.tile {
+    position: relative;
     height: 40px;
     width: 40px;
     vertical-align: middle;
     line-height: 40px;
     text-align: center;
     flex: auto;
+}
+
+.tile-blocker {
     background-color: red;
 }
 
-.StartingBlockTile {
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-    text-align: center;
-    flex: auto;
-    background-color: maroon;
+.blocker-polygon-overlay {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
 }
 
-.EmptyTile {
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-    text-align: center;
-    flex: auto;
-    background-color: gray;
-}
-
-.StartTile {
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-    text-align: center;
-    flex: auto;
-    background-color: green;
-}
-
-.EndTile {
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-    text-align: center;
-    flex: auto;
-    background-color: pink;
-}
-
-.WayPointTile{
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-    text-align: center;
-    flex: auto;
-    background-color: yellowgreen;
-}
-
-.ScoreModTile{
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-    text-align: center;
-    flex: auto;
-    background-color: silver;
-}
-
-.RowContainer {
+.container-row {
     display: flex;
 }
 
-.ScoreBoard {
+.score-board {
     text-align: center;
     font-size: 1em;
     color: black;
@@ -86,4 +36,25 @@
     text-decoration: none;
     display: inline-block;
     font-size: 1em;
+}
+
+.maze-path {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.svg-paths {
+    fill: none;
+    fill-rule: evenodd;
+    stroke-opacity: 0.8;
+    stroke: #4E8D00;
+    stroke-width: 4;
+    stroke-linecap: butt;
+    stroke-linejoin: bevel;
+}
+
+.svg-paths-dashed {
+    stroke-dasharray: 10;
 }

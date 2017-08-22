@@ -1,14 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const MazePath = ({ maze, parentElement }) => {
+const MazePath = ({ maze }) => {
     const pathSegments = maze.findPath();
-
-    console.log(parentElement)
-
-    function getTileCenter(tile) {
-
-    }
 
     function generatePathString(pathSegment) {
       return pathSegment.reduce( (string, point, index) => {
@@ -16,7 +10,7 @@ const MazePath = ({ maze, parentElement }) => {
         if (index !== 0) {
           operation = 'L'
         }
-        return string + operation + ' ' + point.x*10 + ' ' + point.y*10 + ' ';
+        return string + operation + point.x + ' ' + point.y + ' ';
       }, 'M ')
     }
 
@@ -28,7 +22,7 @@ const MazePath = ({ maze, parentElement }) => {
 
     return (
         <svg xmlns="http://www.w3.org/2000/svg">
-            <g>{ renderPath() }</g>
+            <g className="svg-paths svg-paths-dashed">{ renderPath() }</g>
         </svg>
     )
 };

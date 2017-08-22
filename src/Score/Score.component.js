@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ScoreComponent = ({score}) => {
     return (
-        <div className='ScoreBoard'>
+        <div className='score-board'>
             SCORE: {score}
         </div>
     )
