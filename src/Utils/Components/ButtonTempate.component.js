@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonTemplate = ( {onClickInput, OnClick, text, cssAttributes, history}) => {
+const ButtonTemplate = ( {onClickInput, OnClick, text, cssAttributes}) => {
     return (
-        <button onClick={ () => { OnClick(onClickInput, history) } } className={ cssAttributes }>{text}</button>
+        <button onClick={ () => { OnClick(onClickInput) } } className={ cssAttributes }>{text}</button>
     )
 };
 

@@ -34,7 +34,12 @@ const initialState = calculateInitialState();
 function MazeReducer(state = initialState, action){
     switch ( action.type ) {
         case MAZE_CREATE:
-            return calculateInitialState(state.seed);
+            return Object.assign(
+                {},
+                state,
+                calculateInitialState(state.seed)
+            );
+        break;
         case MAZE_ACTION:
             return Object.assign(
                 {}, 
@@ -45,6 +50,7 @@ function MazeReducer(state = initialState, action){
                     state.ScoreMgr
                 )
             );
+        break;
         default:
             return state;
     }

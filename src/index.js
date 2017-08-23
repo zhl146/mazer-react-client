@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from "react-redux";
-
+import promiseMiddleware from "redux-promise-middleware"
 import MazeReducer from './Maze/reducers/Maze.reducer';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from "react-router-dom";
 
-let store = createStore(MazeReducer);
+let store = createStore(MazeReducer, applyMiddleware(promiseMiddleware));
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,4 +1,4 @@
-import { mazeAction } from './actions/Maze.action';
+import {mazeAction, mazeCreate} from './actions/Maze.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
@@ -16,7 +16,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps  = dispatch => {
     return {
         onMazeClick: tile => {
-            dispatch(mazeAction(tile))
+            dispatch(mazeAction(tile));
+        },
+        onResetClick: seed => {
+            dispatch(mazeCreate(seed));
         }
     }
 }

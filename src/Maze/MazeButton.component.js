@@ -27,12 +27,18 @@ function submitScore( maze, history ){
     });
 }
 
-const SubmitScoreButton = ({ maze, text, cssAttributes, history} ) => {
+const SubmitScoreButton = (props) => {
+    let input = { "maze": props.maze, "history":props.history };
     return (
-        <ButtonTemplate onClickInput={maze} OnClick={submitScore} text={text} cssAttributes={cssAttributes} history={history} />
+        <ButtonTemplate onClickInput={input} OnClick={submitScore} cssAttributes={props.cssAttributes} text="Submit" />
     )
 };
 
+const ResetMazeButton = ({ seed, onResetClick, cssAttributes}) => {
+    return <ButtonTemplate onClickInput={seed} OnClick={onResetClick} cssAttributes={cssAttributes} text="Reset" />
+};
+
 export {
-    SubmitScoreButton
+    SubmitScoreButton,
+    ResetMazeButton
 };
