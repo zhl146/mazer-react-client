@@ -19,7 +19,6 @@ function LeaderBoardReducer(state = initialState, action){
                     leaderBoardPending: true
                 }
             );
-        break;
         case `${LEADERBOARD_TYPE}_FULFILLED`:
             return Object.assign(
                 {},
@@ -29,7 +28,6 @@ function LeaderBoardReducer(state = initialState, action){
                     leaderBoardPending: false
                 }
             );
-        break;
         case `${LEADERBOARD_TYPE}_REJECTED`:
             return Object.assign(
                 {},
@@ -39,7 +37,6 @@ function LeaderBoardReducer(state = initialState, action){
                     leaderBoardPending: false
                 }
             );
-        break;
         default:
             return state;
     }

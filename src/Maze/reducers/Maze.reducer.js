@@ -39,7 +39,6 @@ function MazeReducer(state = initialState, action){
                 state,
                 calculateInitialState(state.seed)
             );
-        break;
         case MAZE_ACTION:
             return Object.assign(
                 {}, 
@@ -50,7 +49,6 @@ function MazeReducer(state = initialState, action){
                     state.ScoreMgr
                 )
             );
-        break;
         default:
             return state;
     }
