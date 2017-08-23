@@ -9,7 +9,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from "react-router-dom";
 
-let store = createStore(MazeReducer, applyMiddleware(promiseMiddleware));
+//, applyMiddleware(promiseMiddleware)
+let store = createStore(MazeReducer);
 
 ReactDOM.render(
     <Provider store={store}>
