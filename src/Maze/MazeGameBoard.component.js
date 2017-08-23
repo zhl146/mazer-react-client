@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
+import Dimensions from 'react-dimensions';
 
 import MazePath from "./MazePath.component";
 import Tile from "./MazeTile.component";
 
-export default class MazeGameBoardComponent extends Component{
+// this component is class based because we need the reference to the dom element
+// so we can pass it to mazePath and do measurement calculations
+class MazeGameBoardComponent extends Component{
 
   render() {
     return (
-        <div ref={ (ref) => this.elRef = ref}>
+        <div>
           { makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick) }
-          <MazePath  maze={this.props.maze} mazeRef={this.elRef} />
+          <MazePath maze={this.props.maze}
+                    parentWidth={this.props.containerWidth} parentHeight={this.props.containerHeight}/>
         </div>
     )
   }
-};
+}
 
 const makeMazeTileGrid = (mazeTiles, onMazeClick) => {
   return mazeTiles.map( (row, index) => (
@@ -31,3 +35,5 @@ const makeMazeRow = (row, onMazeClick) => {
       )
   )
 };
+
+export default Dimensions({elementResize: true})(MazeGameBoardComponent);

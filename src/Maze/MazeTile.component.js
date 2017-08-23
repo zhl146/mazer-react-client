@@ -21,6 +21,12 @@ const TileComponent = ({ tile, onClick }) => {
     content = tile.waypointIndex;
   }
 
+  if (tile.type === shared.MazeTileEnum.Path) {
+    colorStyle = {
+      background: 'pink'
+    };
+  }
+
   // tile is a score modifier zone
   if(tile.scoreMod > 1){
     colorStyle = {
