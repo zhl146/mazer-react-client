@@ -1,42 +1,52 @@
-import {FETCH_LEADERBOARD_FULFILLED} from "../actions/LeaderBoard.action";
+import {FETCH_LEADERBOARD, FETCH_LEADERBOARD_FULFILLED, FETCH_LEADERBOARD_ERROR} from "../actions/LeaderBoard.action";
+import {generateDateSeed, getUrlParameter} from "../../Utils/RequestUtils";
 
-function calculateInitialState() {
+function calculateInitialState(seed=null) {
+    if(!seed){
+        seed = getUrlParameter("seed");
+        seed = (seed? seed: generateDateSeed());
+    }
+
     return {
+        seed: seed,
         scores: [],
-        leaderBoardPending: true
+        pending: true,
+        error: null
     }
 }
 
 const initialState = calculateInitialState();
 
 function LeaderBoardReducer(state = initialState, action){
+    console.log(action);
     switch ( action.type ) {
-        // case `${LEADERBOARD_TYPE}_PENDING`:
-        //     return Object.assign(
-        //         {},
-        //         state,
-        //         {
-        //             leaderBoardPending: true
-        //         }
-        //     );
+        case FETCH_LEADERBOARD:
+            return Object.assign(
+                {},
+                state,
+                {
+                    leaderBoardPending: true
+                }
+            );
         case FETCH_LEADERBOARD_FULFILLED:
             return Object.assign(
                 {},
                 state,
                 {
-                    scores: action.payload.scores,
+                    scores: action.scores,
                     leaderBoardPending: false
                 }
             );
-        // case `${LEADERBOARD_TYPE}_REJECTED`:
-        //     return Object.assign(
-        //         {},
-        //         state,
-        //         {
-        //             scores: [],
-        //             leaderBoardPending: false
-        //         }
-        //     );
+        case FETCH_LEADERBOARD_ERROR:
+            return Object.assign(
+                {},
+                state,
+                {
+                    scores: [],
+                    leaderBoardPending: false,
+                    error: action.error
+                }
+            );
         default:
             return state;
     }
