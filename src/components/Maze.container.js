@@ -1,17 +1,13 @@
-import {mazeAction, mazeCreate} from './actions/Maze.action';
+import {mazeAction, mazeCreate} from '../model/actions/Maze.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
-const getMaze = (maze) => { return maze; };
-
-const getScore = (score) => { return score; };
-
-const mapStateToProps = state => {
+const mapStateToProps = ({ maze, score }) => {
   return {
-    maze: getMaze(state.maze),
-    score: getScore(state.score)
+    maze,
+    score,
   }
-}
+};
 
 const mapDispatchToProps  = dispatch => {
     return {
@@ -22,7 +18,7 @@ const mapDispatchToProps  = dispatch => {
             dispatch(mazeCreate(seed));
         }
     }
-}
+};
 
 const MazeContainer = connect(
     mapStateToProps,

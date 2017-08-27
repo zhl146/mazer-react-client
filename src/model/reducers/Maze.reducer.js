@@ -1,7 +1,8 @@
-import {MAZE_ACTION, MAZE_CREATE} from "../actions/Maze.action";
 import _ from 'lodash';
+
 import shared from 'mazer-shared';
 import { getUrlParameter, generateDateSeed } from '../../Utils/RequestUtils';
+import {MAZE_ACTION, MAZE_CREATE} from "../actions/Maze.action";
 
 function calculateInitialState(seed=null){
     if(!seed){

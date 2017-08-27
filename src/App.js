@@ -1,9 +1,9 @@
 import React from 'react';
-
 import {Redirect, Route, Switch} from 'react-router-dom';
+
 import './App.css';
-import {LeaderBoardComponent} from "./LeaderBoard/LeaderBoard.component";
-import MazeContainer from "./Maze/Maze.container";
+import {LeaderBoardComponent} from "./components/LeaderBoard.component";
+import MazeContainer from "./components/Maze.container";
 
 
 const App = () => (

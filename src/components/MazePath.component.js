@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const MazePath = ({ maze, parentWidth }) => {
+const MazePath = ({ maze }) => {
     const pathSegments = maze.findPath();
 
     //const tileSize = parentWidth / maze.params.numColumns;

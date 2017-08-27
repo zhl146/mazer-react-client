@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Dimensions from 'react-dimensions';
 
 import MazePath from "./MazePath.component";
 import Tile from "./MazeTile.component";
@@ -12,8 +11,7 @@ class MazeGameBoardComponent extends Component{
     return (
         <div>
           { makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick) }
-          <MazePath maze={this.props.maze}
-                    parentWidth={this.props.containerWidth} parentHeight={this.props.containerHeight}/>
+          <MazePath maze={this.props.maze}/>
         </div>
     )
   }
@@ -36,4 +34,4 @@ const makeMazeRow = (row, onMazeClick) => {
   )
 };
 
-export default Dimensions({elementResize: true})(MazeGameBoardComponent);
+export default MazeGameBoardComponent;
