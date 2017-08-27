@@ -33,7 +33,6 @@ function updateMazeState(maze, tile, ScoreMgr){
 const initialState = calculateInitialState();
 
 function MazeReducer(state = initialState, action){
-    console.log("state: "+JSON.stringify(state));
     switch ( action.type ) {
         case MAZE_CREATE:
             return Object.assign(

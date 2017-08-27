@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
 const mapStateToProps = (state) => {
-    console.log(JSON.stringify(state));
+    console.log(state);
     return {
-        state
+        maze: state.MazeReducer.maze,
+        score: state.MazeReducer.score
     }
 };
 
