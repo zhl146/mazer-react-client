@@ -2,11 +2,11 @@ import {mazeAction, mazeCreate} from '../model/actions/Maze.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
-const mapStateToProps = ({ maze, score }) => {
-  return {
-    maze,
-    score,
-  }
+const mapStateToProps = (state) => {
+    console.log(JSON.stringify(state));
+    return {
+        state
+    }
 };
 
 const mapDispatchToProps  = dispatch => {

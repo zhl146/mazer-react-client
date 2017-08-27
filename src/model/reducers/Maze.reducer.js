@@ -11,7 +11,7 @@ function calculateInitialState(seed=null){
     }
     let maze = shared.Maze(seed);
     let ScoreMgr = shared.Score(maze);
-
+    console.log("seed: "+seed);
     return {
         seed: seed,
         maze: maze,
@@ -33,6 +33,7 @@ function updateMazeState(maze, tile, ScoreMgr){
 const initialState = calculateInitialState();
 
 function MazeReducer(state = initialState, action){
+    console.log("state: "+JSON.stringify(state));
     switch ( action.type ) {
         case MAZE_CREATE:
             return Object.assign(
@@ -45,8 +46,8 @@ function MazeReducer(state = initialState, action){
                 {}, 
                 state, 
                 updateMazeState(
-                    state.maze, 
-                    action.tile, 
+                    state.maze,
+                    action.tile,
                     state.ScoreMgr
                 )
             );

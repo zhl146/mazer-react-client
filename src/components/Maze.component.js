@@ -7,7 +7,8 @@ import {ResetMazeButton, SubmitScoreButton} from "./MazeButton.component"
 import MazeGameBoard from "./MazeGameBoard.component";
 
 const MazeComponent = ({maze, onMazeClick, onResetClick, history, score}) => {
-    if(!maze.mazeTiles) return null;
+    console.log("maze: "+JSON.stringify(maze));
+    if(!maze || !maze.mazeTiles) return null;
     return (
         <div className='Maze'>
             <MazeHeader scoreValue={score}/>
