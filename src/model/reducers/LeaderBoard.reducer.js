@@ -34,7 +34,8 @@ function LeaderBoardReducer(state = initialState, action){
                 state,
                 {
                     scores: action.scores,
-                    leaderBoardPending: false
+                    leaderBoardPending: false,
+                    seed: action.seed
                 }
             );
         case FETCH_LEADERBOARD_ERROR:
