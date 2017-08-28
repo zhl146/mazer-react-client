@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import shared from 'mazer-shared';
 import { getUrlParameter, generateDateSeed } from '../../Utils/RequestUtils';
-import {MAZE_ACTION, MAZE_CREATE} from "../actions/Maze.action";
+import {MAZE_ACTION, MAZE_CREATE, MAZE_ERROR} from "../actions/Maze.action";
 
 function calculateInitialState(seed=null){
     if(!seed){
@@ -16,17 +16,8 @@ function calculateInitialState(seed=null){
         seed: seed,
         maze: maze,
         ScoreMgr: ScoreMgr,
-        score: 0
-    }
-}
-
-function updateMazeState(maze, tile, ScoreMgr){
-    let newMaze = _.cloneDeep(maze);
-    newMaze.doActionOnTile(tile);
-    let score = ScoreMgr.calculateScore(newMaze);
-    return {
-        maze: newMaze,
-        score: score
+        score: 0,
+        pathError: false
     }
 }
 
@@ -44,11 +35,13 @@ function MazeReducer(state = initialState, action){
             return Object.assign(
                 {}, 
                 state, 
-                updateMazeState(
-                    state.maze,
-                    action.tile,
-                    state.ScoreMgr
-                )
+                action.payload
+            );
+        case MAZE_ERROR:
+            return Object.assign(
+                {},
+                state,
+                action.payload
             );
         default:
             return state;

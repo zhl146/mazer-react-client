@@ -6,13 +6,16 @@ import MazeHeader from './MazeHeader.component';
 import MazeFooter from './MazeFooter.component';
 import MazeGameBoard from "./MazeGameBoard.component";
 
-const MazeComponent = ({maze, onMazeClick, onResetClick, history, score}) => {
+const MazeComponent = ({maze, onMazeClick, ScoreMgr, onResetClick, history, score}) => {
     console.log(maze);
     if(!maze || !maze.mazeTiles) return null;
+    let onTileClick = (tile) => {
+        onMazeClick(maze, tile, ScoreMgr);
+    };
     return (
         <div className='Maze'>
             <MazeHeader maze={maze} scoreValue={score}/>
-            <MazeGameBoard maze={maze} onMazeClick={onMazeClick} />
+            <MazeGameBoard maze={maze} onMazeClick={onTileClick} />
             <MazeFooter maze={maze} onResetClick={onResetClick} history={history} />
         </div>
     )

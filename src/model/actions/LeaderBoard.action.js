@@ -3,13 +3,13 @@ export const FETCH_LEADERBOARD_FULFILLED = 'FETCH_LEADERBOARD_FULFILLED';
 export const FETCH_LEADERBOARD_ERROR = 'FETCH_LEADERBOARD_ERROR';
 
 const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
-const TEST_URL = 'https://zhenlu.info/maze/leaderboard/20170825?start=0&length=2';
+const args = "?start=0&length=10";
 
 export const fetchLeaderBoard = (dispatch, seed) => (
     {
         type: FETCH_LEADERBOARD,
         //ENDPOINT LOOKS LIKE : BASE_URL + :seed + ?start=:startIndex&length=:howManyScores
-        payload: fetch(TEST_URL).then(
+        payload: fetch(BASE_URL+seed+args).then(
                 (res) => {
                     console.log(res);
                     if(!res.ok) {

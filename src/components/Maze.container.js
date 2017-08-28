@@ -6,14 +6,15 @@ const mapStateToProps = (state) => {
     console.log(state);
     return {
         maze: state.MazeReducer.maze,
-        score: state.MazeReducer.score
+        score: state.MazeReducer.score,
+        ScoreMgr: state.MazeReducer.ScoreMgr
     }
 };
 
 const mapDispatchToProps  = dispatch => {
     return {
-        onMazeClick: tile => {
-            dispatch(mazeAction(tile));
+        onMazeClick: (maze, tile, ScoreMgr) => {
+            dispatch(mazeAction(maze, tile, ScoreMgr));
         },
         onResetClick: seed => {
             dispatch(mazeCreate(seed));
