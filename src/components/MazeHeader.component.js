@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MazeHeaderComponent = ({scoreValue, actionsUsed, actionsTotal}) => {
+const MazeHeaderComponent = ({maze, scoreValue}) => {
 
   return (
       <table style={{width:'100%'}}>
@@ -14,15 +14,18 @@ const MazeHeaderComponent = ({scoreValue, actionsUsed, actionsTotal}) => {
         <tr style={{textAlign:'center'}}>
           <td>{scoreValue}</td>
           <td>9000</td>
-          <td>99/99</td>
+          <td>{maze.params.maxActionPoints - maze.actionsUsed}/{maze.params.maxActionPoints}</td>
         </tr>
         </tbody>
       </table>
   )
 };
 
-MazeHeaderComponent.PropTypes = {
 
+MazeHeaderComponent.PropTypes = {
+    maze: PropTypes.object.isRequired,
+    scoreValue: PropTypes.number.isRequired
 };
+
 
 export default MazeHeaderComponent;

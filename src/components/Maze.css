@@ -30,7 +30,7 @@
 .button {
     border: none;
     color: darkgray;
-    padding: 15px 15px;
+    padding: 15px 15px 15px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
