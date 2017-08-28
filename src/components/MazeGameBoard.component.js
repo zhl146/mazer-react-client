@@ -9,7 +9,7 @@ class MazeGameBoardComponent extends Component{
 
   render() {
     return (
-        <div>
+        <div className="game-board">
           { makeMazeTileGrid(this.props.maze.mazeTiles, this.props.onMazeClick) }
           <MazePath maze={this.props.maze}/>
         </div>

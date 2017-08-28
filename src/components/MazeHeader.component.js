@@ -1,23 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+let verticalDiv = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+let headerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between'
+};
+
 const MazeHeaderComponent = ({maze, scoreValue}) => {
 
+  let getActionString = () => (
+      maze.params.maxActionPoints - maze.actionsUsed +
+      '/' + maze.params.maxActionPoints
+  );
+
   return (
-      <table style={{width:'100%'}}>
-        <tbody>
-        <tr>
-          <th>SCORE</th>
-          <th>HIGH SCORE</th>
-          <th>ACTIONS</th>
-        </tr>
-        <tr style={{textAlign:'center'}}>
-          <td>{scoreValue}</td>
-          <td>9000</td>
-          <td>{maze.params.maxActionPoints - maze.actionsUsed}/{maze.params.maxActionPoints}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div className="header-container">
+        <div>
+          <span>SCORE</span>
+          <span>{scoreValue}</span>
+        </div>
+        <div>
+          <span>HIGH SCORE</span>
+          <span>9000</span>
+        </div>
+        <div>
+          <span>ACTIONS</span>
+          <span>{getActionString()}</span>
+        </div>
+      </div>
   )
 };
 

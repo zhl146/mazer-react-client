@@ -21,10 +21,11 @@
     display: flex;
 }
 
-.score-board {
-    text-align: center;
-    font-size: 1em;
-    color: black;
+.game-board {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
 }
 
 .button {
@@ -42,20 +43,28 @@
     top: 0;
     left: 0;
     pointer-events: none;
-    height: 100%;
-    width: 100%
 }
 
-.svg-paths {
-    fill: none;
-    fill-rule: evenodd;
-    stroke-opacity: 0.8;
-    stroke: #4E8D00;
-    stroke-width: 4;
-    stroke-linecap: butt;
-    stroke-linejoin: bevel;
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
 }
 
-.svg-paths-dashed {
-    stroke-dasharray: 10;
+.header-container :first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
+
+.header-container :nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-container :last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
