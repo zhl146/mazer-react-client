@@ -14,9 +14,9 @@ const TileComponent = ({ tile, onClick }) => {
   }
   // set text if tile is start, end, or waypoint ( mutually exclusive )
   if (tile.type === shared.MazeTileEnum.Start) {
-    content = 'Start';
+    content = 'S';
   } else if(tile.type === shared.MazeTileEnum.End) {
-    content = 'End';
+    content = 'E';
   } else if (tile.type === shared.MazeTileEnum.WayPoint) {
     content = tile.waypointIndex;
   }

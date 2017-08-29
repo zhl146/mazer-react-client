@@ -1,4 +1,5 @@
-import {mazeAction, mazeCreate} from '../model/actions/Maze.action';
+import { mazeAction, mazeCreate} from '../model/actions/Maze.action';
+import { toggleHelp } from '../model/actions/View.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
@@ -7,17 +8,23 @@ const mapStateToProps = (state) => {
     return {
         maze: state.MazeReducer.maze,
         score: state.MazeReducer.score,
-        ScoreMgr: state.MazeReducer.ScoreMgr
+        scoreMgr: state.MazeReducer.scoreMgr,
+        viewState: state.ViewReducer,
     }
 };
 
 const mapDispatchToProps  = dispatch => {
     return {
-        onMazeClick: (maze, tile, ScoreMgr) => {
+        clickHandlers: {
+          onMazeClick: (maze, tile, ScoreMgr) => {
             dispatch(mazeAction(maze, tile, ScoreMgr));
-        },
-        onResetClick: seed => {
+          },
+          onResetClick: seed => {
             dispatch(mazeCreate(seed));
+          },
+          onHelpClick: () => {
+            dispatch(toggleHelp())
+          }
         }
     }
 };

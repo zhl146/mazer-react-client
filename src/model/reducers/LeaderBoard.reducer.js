@@ -18,7 +18,6 @@ function calculateInitialState(seed=null) {
 const initialState = calculateInitialState();
 
 function LeaderBoardReducer(state = initialState, action){
-    console.log(action);
     switch ( action.type ) {
         case FETCH_LEADERBOARD:
             return Object.assign(
