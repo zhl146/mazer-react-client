@@ -47,6 +47,7 @@ class MazePath extends Component {
     this.fullPath.forEach( point => {
       let xCoord = this.translateCoord(point.x);
       let yCoord = this.translateCoord(point.y);
+      context.lineTo(xCoord, yCoord);
     } );
     context.stroke();
   }
