@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './Maze.css';
@@ -6,30 +6,34 @@ import MazeHeader from './MazeHeader.component';
 import MazeFooter from './MazeFooter.component';
 import MazeGameBoard from "./MazeGameBoard.component";
 
-const MazeComponent = ({maze,
-                         clickHandlers,
-                         ScoreMgr,
-                         history,
-                         score,
-                         viewState }) => {
-    console.log(maze);
+class MazeComponent extends Component {
 
-    if(!maze || !maze.mazeTiles) return null;
-    let onTileClick = (tile) => {
-        clickHandlers.onMazeClick(maze, tile, ScoreMgr);
-    };
-    return (
-        <div className='Maze'>
-            <MazeHeader maze={maze} scoreValue={score}/>
-            <MazeGameBoard maze={maze} onMazeClick={onTileClick} />
-            <MazeFooter  maze={maze}
-                         displayHelp={viewState.helpDisplay}
-                         onResetClick={clickHandlers.onResetClick}
-                         onHelpClick={clickHandlers.onHelpClick}
-                         history={history} />
-        </div>
-    )
-};
+  onTileClick = (tile) => {
+    this.props.clickHandlers.onMazeClick(this.props.maze,
+        tile,
+        this.props.scoreMgr);
+  };
+
+    render() {
+      if(!this.props.maze || !this.props.maze.mazeTiles) return null;
+      return (
+          <div className='Maze'>
+              <MazeHeader maze={this.props.maze}
+                          scoreValue={this.props.score}/>
+              <MazeGameBoard maze={this.props.maze}
+                             path={this.props.path}
+                             onMazeClick={this.onTileClick} />
+              <MazeFooter  maze={this.props.maze}
+                           displayHelp={this.props.viewState.helpDisplay}
+                           onResetClick={this.props.clickHandlers.onResetClick}
+                           onHelpClick={this.props.clickHandlers.onHelpClick}
+                           history={this.props.history} />
+          </div>
+      )
+    }
+
+
+}
 
 MazeComponent.PropTypes = {
     onResetClick: PropTypes.func.isRequired,

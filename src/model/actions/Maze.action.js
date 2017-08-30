@@ -1,4 +1,3 @@
-import shared from 'mazer-shared';
 import _ from 'lodash';
 
 export const MAZE_CREATE = 'MAZE_CREATE';
@@ -15,12 +14,14 @@ export function mazeAction(maze, tile, ScoreMgr){
     let newMaze = _.cloneDeep(maze);
     newMaze.doActionOnTile(tile);
     try {
-        let score = ScoreMgr.calculateScore(newMaze);
+        let newPath = newMaze.findPath();
+        let newScore = ScoreMgr.calculateScore(newPath);
         return {
             type: MAZE_ACTION,
             payload: {
                 maze: newMaze,
-                score: score
+                path: newPath,
+                score: newScore
             }
         }
     }
@@ -30,7 +31,6 @@ export function mazeAction(maze, tile, ScoreMgr){
         return {
             type: MAZE_ERROR,
             payload: {
-                maze: maze,
                 pathError: true
             }
         }

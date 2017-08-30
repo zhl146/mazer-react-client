@@ -5,9 +5,6 @@ import './App.css';
 import LeaderBoardContainer from "./components/LeaderBoard.container";
 import MazeContainer from "./components/Maze.container";
 
-
-
-
 const App = () => (
     <Switch>
         <Redirect from="/" exact to="/maze/" />

@@ -5,7 +5,7 @@ import {ResetMazeButton, SubmitScoreButton} from "./MazeButton.component";
 const MazeFooterComponent = ({maze, onResetClick, history, onHelpClick, displayHelp}) => {
 
   let renderHelp = () => {
-    if (!displayHelp) return;
+    if (!displayHelp) return null;
     return (
         <div id="info-container" >
           <p>Make the longest maze between S and E to beat the high score!</p>

@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         maze: state.MazeReducer.maze,
         score: state.MazeReducer.score,
         scoreMgr: state.MazeReducer.scoreMgr,
+        path: state.MazeReducer.path,
         viewState: state.ViewReducer,
     }
 };

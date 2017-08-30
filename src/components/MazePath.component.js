@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 
 class MazePath extends Component {
 
-  //const tileSize = parentWidth / maze.params.numColumns;
+  //tileSize = parentWidth / maze.params.numColumns;
   tileSize = 30; // this is here just so we can test pathfinding we will move to automatically calculating later
   tileOffset = this.tileSize / 2;
   width = this.tileSize * this.props.maze.params.numColumns;
@@ -13,26 +14,21 @@ class MazePath extends Component {
     return coord * this.tileSize + this.tileOffset;
   }
 
-  fullPath = this.props.maze.findPath().reduce( (path, segment) => path.concat(segment) );
+  fullPath = null;
   elRef = null;
 
   componentDidMount() {
+    this.fullPath = this.props.path.reduce( (path, segment) => path.concat(segment) );
     let context = this.elRef.getContext('2d');
+    console.log(ReactDOM.findDOMNode(this).offsetWidth)
     this.drawPath(context);
   }
 
   componentDidUpdate() {
+    this.fullPath = this.props.path.reduce( (path, segment) => path.concat(segment) );
     let context = this.elRef.getContext('2d');
+    context.clearRect(0, 0, this.width, this.height);
     this.drawPath(context);
-  }
-
-  animatePath(context, offset = 0) {
-    let newOffset = offset + 1;
-    if (newOffset > 16) {
-      let newOffset = 0;
-    }
-    this.drawPath(context, newOffset);
-    setTimeout(this.animatePath(context, newOffset), 200);
   }
 
   drawPath(context) {
