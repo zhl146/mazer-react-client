@@ -4,9 +4,6 @@ import MazePath from "./MazePath.component";
 import Tile from "./MazeTile.component";
 
 const MazeGameBoardComponent = ({path, maze, onMazeClick}) =>{
-
-    console.log(path);
-
     return (
         <div className="game-board">
           { makeMazeTileGrid(maze.mazeTiles, onMazeClick) }

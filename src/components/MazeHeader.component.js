@@ -1,16 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-let verticalDiv = {
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-let headerStyle = {
-  display: 'flex',
-  justifyContent: 'space-between'
-};
-
 const MazeHeaderComponent = ({maze, scoreValue}) => {
 
   let getActionString = () => (

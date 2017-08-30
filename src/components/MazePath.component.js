@@ -26,6 +26,8 @@ class MazePath extends Component {
 
   componentDidUpdate() {
     this.fullPath = this.props.path.reduce( (path, segment) => path.concat(segment) );
+    console.log(this.props.maze.mazeTiles);
+    console.log(this.fullPath);
     let context = this.elRef.getContext('2d');
     context.clearRect(0, 0, this.width, this.height);
     this.drawPath(context);

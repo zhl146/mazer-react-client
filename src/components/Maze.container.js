@@ -24,7 +24,7 @@ const mapDispatchToProps  = dispatch => {
           },
           onHelpClick: () => {
             dispatch(toggleHelp())
-          }
+          },
         }
     }
 };

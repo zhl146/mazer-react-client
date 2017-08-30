@@ -1,6 +1,6 @@
 import shared from 'mazer-shared';
 import { getUrlParameter, generateDateSeed } from '../../Utils/RequestUtils';
-import {MAZE_ACTION, MAZE_CREATE, MAZE_ERROR} from "../actions/Maze.action";
+import { MAZE_ACTION, MAZE_CREATE, MAZE_ERROR, MAZE_RESET } from "../actions/Maze.action";
 
 function calculateInitialState(seed=null){
     if(!seed){
@@ -41,6 +41,17 @@ function MazeReducer(state = initialState, action){
                 {},
                 state,
                 action.payload
+            );
+      case MAZE_RESET:
+            let newMaze = shared.Maze(action.seed);
+            let initialPath = newMaze.findPath();
+            return Object.assign(
+                {},
+                state,
+                {
+                    maze: newMaze,
+                    path: initialPath,
+                }
             );
         default:
             return state;
