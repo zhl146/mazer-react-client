@@ -10,18 +10,16 @@ export function mazeCreate(seed){
     return { type: MAZE_CREATE, seed: seed }
 }
 
-export function mazeAction(maze, tile, ScoreMgr){
+export function mazeAction(maze, tile){
     let newMaze = _.cloneDeep(maze);
     newMaze.doActionOnTile(tile);
+    newMaze.updatePath();
+    newMaze.updateScore();
     try {
-        let newPath = newMaze.findPath();
-        let newScore = ScoreMgr.calculateScore(newPath);
         return {
             type: MAZE_ACTION,
             payload: {
-                maze: newMaze,
-                path: newPath,
-                score: newScore
+                maze: newMaze
             }
         }
     }

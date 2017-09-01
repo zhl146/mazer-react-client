@@ -8,14 +8,9 @@ function calculateInitialState(seed=null){
         seed = (seed? seed: generateDateSeed());
     }
     let maze = shared.Maze(seed);
-    let scoreMgr = shared.Score(maze);
-    let path = maze.findPath();
     return {
         seed,
         maze,
-        scoreMgr,
-        score: 0,
-        path,
         pathError: false
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MazeHeaderComponent = ({maze, scoreValue}) => {
+const MazeHeaderComponent = ({maze}) => {
 
   let getActionString = () => (
       maze.params.maxActionPoints - maze.actionsUsed +
@@ -12,7 +12,7 @@ const MazeHeaderComponent = ({maze, scoreValue}) => {
       <div className="header-container">
         <div>
           <span>SCORE</span>
-          <span>{scoreValue}</span>
+          <span>{maze.score}</span>
         </div>
         <div>
           <span>HIGH SCORE</span>

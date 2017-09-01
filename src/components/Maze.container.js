@@ -6,9 +6,8 @@ import MazeComponent from './Maze.component';
 const mapStateToProps = (state) => {
     return {
         maze: state.MazeReducer.maze,
-        score: state.MazeReducer.score,
-        scoreMgr: state.MazeReducer.scoreMgr,
-        path: state.MazeReducer.path,
+        score: state.MazeReducer.maze.score,
+        path: state.MazeReducer.maze.path,
         viewState: state.ViewReducer,
     }
 };
@@ -16,8 +15,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps  = dispatch => {
     return {
         clickHandlers: {
-          onMazeClick: (maze, tile, ScoreMgr) => {
-            dispatch(mazeAction(maze, tile, ScoreMgr));
+          onMazeClick: (maze, tile) => {
+            dispatch(mazeAction(maze, tile));
           },
           onResetClick: seed => {
             dispatch(mazeCreate(seed));

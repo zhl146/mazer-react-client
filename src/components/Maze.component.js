@@ -10,8 +10,7 @@ class MazeComponent extends Component {
 
   onTileClick = (tile) => {
     this.props.clickHandlers.onMazeClick(this.props.maze,
-        tile,
-        this.props.scoreMgr);
+        tile);
   };
 
     render() {

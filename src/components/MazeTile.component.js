@@ -2,46 +2,49 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shared from 'mazer-shared';
 
-const TileComponent = ({ tile, onClick }) => {
+const TileComponent = ({ tile, onClick, colors }) => {
 
-  let content = null;
+  let blockerOverlay = null;
+  let textOverlay = null;
+  let pulseOverlay = null;
   let colorStyle = {};
 
   // set proper blocker overlay as content if tile is a blocker
   if (tile.type === shared.MazeTileEnum.Blocker) {
-    if(tile.userPlaced) content = <div className="blocker-polygon-overlay" style={{background: 'red'}} />;
-    else content = <div className="blocker-polygon-overlay" style={{background: 'green'}} />;
+    if(tile.userPlaced) blockerOverlay = <div className="blocker-polygon-overlay" style={{background: colors.blockerUser}} />;
+    else blockerOverlay = <div className="blocker-polygon-overlay" style={{background: colors.blockerNatural}} />;
   }
   // set text if tile is start, end, or waypoint ( mutually exclusive )
   if (tile.type === shared.MazeTileEnum.Start) {
-    content = 'S';
+    textOverlay = 'S';
   } else if(tile.type === shared.MazeTileEnum.End) {
-    content = 'E';
+    textOverlay = 'E';
   } else if (tile.type === shared.MazeTileEnum.WayPoint) {
-    content = tile.waypointIndex;
-  }
-
-  if (tile.type === shared.MazeTileEnum.Path) {
-    colorStyle = {
-      background: 'pink'
-    };
+    textOverlay = tile.waypointIndex;
   }
 
   // tile is a score modifier zone
   if(tile.scoreMod > 1){
-    colorStyle = {
-        background: 'lightgreen'
-    };
-    if(tile.scoreZoneCenter) content = tile.scoreMod + 'x';
+    if(tile.scoreZoneCenter) textOverlay = <div className="tile-pulse">{tile.scoreMod + 'x'}</div>;
+    else pulseOverlay = <div className="tile-pulse" />;
   }
   // tile has default color
-  else colorStyle = {
-      background: 'sandybrown'
-  };
+  if (tile.userPlaced && tile.type === shared.MazeTileEnum.Empty) {
+    colorStyle = {
+      background: colors.groundUser
+    }
+  }
+  else {
+    colorStyle = {
+      background: colors.groundNatural
+    }
+  }
 
   return (
       <div className='tile ' style={colorStyle} onClick={ () => onClick(tile) } >
-        { content }
+        { pulseOverlay }
+        { blockerOverlay }
+        { textOverlay }
       </div>
   )
 };

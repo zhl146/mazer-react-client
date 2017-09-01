@@ -6,25 +6,25 @@ import Tile from "./MazeTile.component";
 const MazeGameBoardComponent = ({path, maze, onMazeClick}) =>{
     return (
         <div className="game-board">
-          { makeMazeTileGrid(maze.mazeTiles, onMazeClick) }
+          { makeMazeTileGrid(maze.mazeTiles, onMazeClick, maze.params.mazeColors.colors) }
           <MazePath maze={maze} path={path} />
         </div>
     )
 };
 
-const makeMazeTileGrid = (mazeTiles, onMazeClick) => {
+const makeMazeTileGrid = (mazeTiles, onMazeClick, colors) => {
   return mazeTiles.map( (row, index) => (
           <div key={index} className='container-row'>
-            { makeMazeRow(row, onMazeClick) }
+            { makeMazeRow(row, onMazeClick, colors) }
           </div>
       )
   )
 };
 
-const makeMazeRow = (row, onMazeClick) => {
+const makeMazeRow = (row, onMazeClick, colors) => {
   return row.map(
       (tile, index) => (
-          <Tile key={index} tile={tile} onClick={ onMazeClick } />
+          <Tile key={index} colors={colors} tile={tile} onClick={ onMazeClick } />
       )
   )
 };
