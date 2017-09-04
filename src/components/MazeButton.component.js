@@ -31,6 +31,7 @@ function submitScore( maze, history, user, token ){
 
 const SubmitScoreButton = (props) => {
     let disabled = false;
+    console.log(props);
     if(!props.user || !props.token){
         disabled = true;
     }
