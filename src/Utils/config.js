@@ -1,8 +1,12 @@
 import configJSON from '../config.json';
 
 let config = {
-    clientId: configJSON.clientId,
-    domain: configJSON.domain
+    apiKey: configJSON.apiKey,
+    authDomain: configJSON.authDomain,
+    databaseURL: configJSON.databaseURL,
+    projectId: configJSON.projectId,
+    storageBucket: configJSON.storageBucket,
+    messagingSenderId: configJSON.messagingSenderId,
 };
 
 export default config;

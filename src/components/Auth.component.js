@@ -1,61 +1,41 @@
 import React, { Component } from 'react';
 import ButtonTemplate from '../Utils/Components/ButtonTempate.component';
+import MyFireBase from '../Utils/AuthUtil';
 
 class AuthComponent extends Component{
-    constructor(props){
-        super(props);
-        if(!props.profile && props.hash && props.id_token){
-            props.setAuthHash(props.hash, props.id_token);
-        }
-    }
 
-    OnClickHandler(){
-        if(!this.props.profile){
-            return () => {
-                this.props.lock.magiclink();
-                this.props.lock.emailcode( (error, profile, id_token, access_token, state, refresh_token) => {
-                    if(!error){
-                        this.props.setAuthProfile(profile);
-                    }
-                    else{
-                        this.props.authError(error);
-                    }
-                });
+    componentWillMount(){
+        MyFireBase.auth().getRedirectResult().then( (result) => {
+            if(result.credential){
+                this.props.setAuthProfile(result.credential.accessToken, result.user);
             }
-        }
-        else{
-            return () => {
-                this.props.lock.logout();
+        }).catch(
+            (err) => {
+                this.props.authError(err);
             }
-        }
+        );
     }
-
-
 
     render(){
         console.log(this.props);
-        let buttonText = (this.props.profile? "Logout":"Login");
+        let buttonText = (this.props.user? "Logout":"Login");
         console.log("ButtonText: "+buttonText);
         return (
             <ButtonTemplate
                 OnClick={
-                    function() {
+                    () => {
                         console.log(this.props);
-                        if(!this.props.profile) {
-                            this.props.lock.magiclink();
-                            this.props.lock.emailcode((error, profile, id_token, access_token, state, refresh_token) => {
-                                if (!error) {
-                                    this.props.setAuthProfile(profile);
-                                }
-                                else {
-                                    this.props.authError(error);
-                                }
-                            });
-                            console.log('done altering lock, should see pop-up');
+                        if(!this.props.user) {
+                            console.log(MyFireBase.auth);
+                            MyFireBase.auth().signInWithRedirect(new MyFireBase.auth.GoogleAuthProvider());
                         }else{
-                            this.props.lock.logout();
+                            MyFireBase.auth().signOut().then(
+                                () => { this.props.setAuthProfile(null, null); }
+                            ).catch( (error) => {
+                                this.props.authError(error);
+                            });
                         }
-                    }.bind({props: this.props})
+                    }
                 }
                 text={buttonText} cssAttributes="btn-generic"/>
         )

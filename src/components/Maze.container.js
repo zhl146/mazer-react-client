@@ -9,6 +9,8 @@ const mapStateToProps = (state) => {
         score: state.MazeReducer.maze.score,
         path: state.MazeReducer.maze.path,
         viewState: state.ViewReducer,
+        user: state.AuthReducer.user,
+        token: state.AuthReducer.token
     }
 };
 

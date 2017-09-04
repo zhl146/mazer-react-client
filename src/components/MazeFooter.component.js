@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {ResetMazeButton, SubmitScoreButton} from "./MazeButton.component";
 
-const MazeFooterComponent = ({maze, onResetClick, history, onHelpClick, displayHelp}) => {
+const MazeFooterComponent = ({maze, onResetClick, history, onHelpClick, user, token, displayHelp}) => {
 
   let renderHelp = () => {
     if (!displayHelp) return null;
@@ -31,7 +31,7 @@ const MazeFooterComponent = ({maze, onResetClick, history, onHelpClick, displayH
               </div>
               <div id="footer-right">
                   <ResetMazeButton seed={maze.params.seed} onResetClick={onResetClick} cssAttributes="btn-generic"  />
-                  <SubmitScoreButton history={history} maze={maze} cssAttributes="btn-generic" />
+                  <SubmitScoreButton user={user} token={token} history={history} maze={maze} cssAttributes="btn-generic" />
               </div>
           </div>
       </div>

@@ -1,10 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonTemplate = ( {onClickInput, OnClick, text, cssAttributes}) => {
-    return (
-        <button onClick={ () => { OnClick(onClickInput) } } className={ cssAttributes }>{text}</button>
-    )
+const ButtonTemplate = ( {onClickInput, OnClick, text, cssAttributes, disabled}) => {
+    console.log('disabled: '+disabled);
+    if(disabled) {
+        return (
+            <button
+                disabled onClick={() => {
+                    OnClick(onClickInput)
+                }}
+                className={cssAttributes}
+            >{text}</button>
+        )
+    }else{
+        return (
+            <button
+                onClick={() => {
+                    OnClick(onClickInput)
+                }}
+                className={cssAttributes}
+            >{text}</button>
+        )
+    }
 };
 
 ButtonTemplate.PropTypes = {

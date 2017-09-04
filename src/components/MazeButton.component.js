@@ -2,11 +2,13 @@ import ButtonTemplate from '../Utils/Components/ButtonTempate.component';
 import React from 'react';
 import CustomError from '../Utils/CustomError';
 
-function submitScore( maze, history ){
+function submitScore( maze, history, user, token ){
     console.log("MAZE: "+JSON.stringify(maze));
     let solution = {
         seed: maze.seed,
-        mazeTiles: maze.mazeTiles
+        mazeTiles: maze.mazeTiles,
+        user: user,
+        token: token,
     };
 
     fetch('zhenlu.info/check',
@@ -28,9 +30,19 @@ function submitScore( maze, history ){
 }
 
 const SubmitScoreButton = (props) => {
-    let input = { "maze": props.maze, "history":props.history };
+    let disabled = false;
+    if(!props.user || !props.token){
+        disabled = true;
+    }
+    let input = { "maze": props.maze, "history": props.history, "user": props.user, "token": props.token };
     return (
-        <ButtonTemplate onClickInput={input} OnClick={submitScore} cssAttributes={props.cssAttributes} text="Submit" />
+        <ButtonTemplate
+            onClickInput={input}
+            OnClick={submitScore}
+            cssAttributes={props.cssAttributes}
+            disabled={disabled}
+            text="Submit"
+        />
     )
 };
 

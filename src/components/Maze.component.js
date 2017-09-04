@@ -26,6 +26,7 @@ class MazeComponent extends Component {
                            displayHelp={this.props.viewState.helpDisplay}
                            onResetClick={this.props.clickHandlers.onResetClick}
                            onHelpClick={this.props.clickHandlers.onHelpClick}
+                           user={this.props.user}
                            history={this.props.history} />
           </div>
       )
