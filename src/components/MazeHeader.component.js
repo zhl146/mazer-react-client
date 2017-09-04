@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AuthContainer from './Auth.container';
 
 const MazeHeaderComponent = ({maze}) => {
 
@@ -22,6 +23,7 @@ const MazeHeaderComponent = ({maze}) => {
           <span>ACTIONS</span>
           <span>{getActionString()}</span>
         </div>
+        <AuthContainer/>
       </div>
   )
 };

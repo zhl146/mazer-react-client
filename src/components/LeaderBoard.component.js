@@ -11,6 +11,7 @@ class LeaderBoardComponent extends Component {
     }
 
     componentWillMount(){
+        console.log(this.props);
         this.props.fetchLeaderBoard(this.state.seed);
     }
 
