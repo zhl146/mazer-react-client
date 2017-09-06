@@ -9,7 +9,7 @@ const MazeGameBoardComponent = ({path, maze, onMazeClick}) =>{
           { makeMazeTileGrid(maze.mazeTiles, onMazeClick, maze.params.mazeColors.colors) }
           <MazePath maze={maze} path={path} />
         </div>
-    )
+    );
 };
 
 const makeMazeTileGrid = (mazeTiles, onMazeClick, colors) => {
@@ -18,7 +18,7 @@ const makeMazeTileGrid = (mazeTiles, onMazeClick, colors) => {
             { makeMazeRow(row, onMazeClick, colors) }
           </div>
       )
-  )
+  );
 };
 
 const makeMazeRow = (row, onMazeClick, colors) => {
@@ -26,7 +26,7 @@ const makeMazeRow = (row, onMazeClick, colors) => {
       (tile, index) => (
           <Tile key={index} colors={colors} tile={tile} onClick={ onMazeClick } />
       )
-  )
+  );
 };
 
 export default MazeGameBoardComponent;
