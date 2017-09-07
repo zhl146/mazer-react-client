@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-
+import React, {Component} from 'react';
+import LeaderBoardScore from './LeaderBoardScore.component';
 
 class LeaderBoardComponent extends Component {
     constructor(props){
@@ -29,7 +29,12 @@ class LeaderBoardComponent extends Component {
         return (
             <div>
                 <h1>LeaderBoard: {JSON.stringify(this.props.seed)} </h1>
-                <h2>Scores: {JSON.stringify(this.props.scores, null, 2)}</h2>
+                <h2>Scores: </h2>
+                {this.props.scores.map(
+                    (score, index) => {
+                       return <LeaderBoardScore score={score} key={index} />;
+                    }
+                )}
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Seed:
@@ -38,7 +43,7 @@ class LeaderBoardComponent extends Component {
                     <input type="submit" value="Submit" />
                 </form>
             </div>
-        )
+        );
     }
 }
 

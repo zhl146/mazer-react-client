@@ -19,8 +19,9 @@ class MazeHeaderComponent extends Component{
                 }
                 res.json().then(
                     (data) => {
+                        console.log("data: ");
                         console.log(data);
-                        this.setState({highscore: data.scores[0]});
+                        this.setState({highscore: data.scores[0].name + ":" + data.scores[0].score});
                     }
                 ).catch( (err) => {
                     console.log(err);
