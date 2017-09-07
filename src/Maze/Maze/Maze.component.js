@@ -13,19 +13,15 @@ class MazeComponent extends Component {
         tile);
   };
 
-  componentDidMount() {
-
-  }
-
   render() {
     if(!this.props.maze || !this.props.maze.mazeTiles) return null;
     return (
-        <div className='Maze'>
+        <div className='mazeview-container'>
           <MazeHeader maze={this.props.maze}
                       scoreValue={this.props.score}/>
           <MazeGameBoard maze={this.props.maze}
                          path={this.props.path}
-                         onMazeClick={this.onTileClick} />
+                         onMazeClick={this.onTileClick}/>
           <MazeFooter  maze={this.props.maze}
                        displayHelp={this.props.viewState.helpDisplay}
                        onResetClick={this.props.clickHandlers.onResetClick}

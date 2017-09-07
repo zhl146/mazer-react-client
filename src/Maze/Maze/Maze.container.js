@@ -1,5 +1,5 @@
 import { mazeAction, mazeCreate} from './Maze.action';
-import { toggleHelp } from '../View.action';
+import { resizeMazeBoard, toggleHelp } from '../View.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 
@@ -16,6 +16,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps  = dispatch => {
     return {
+        onMazeResize: (xDimension, yDimension) => {
+          dispatch(resizeMazeBoard(xDimension, yDimension))
+        },
         clickHandlers: {
           onMazeClick: (maze, tile) => {
             dispatch(mazeAction(maze, tile));
