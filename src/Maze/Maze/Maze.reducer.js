@@ -1,6 +1,6 @@
 import shared from 'mazer-shared';
 import { getUrlParameter, generateDateSeed } from '../../Utils/RequestUtils';
-import { MAZE_ACTION, MAZE_CREATE, MAZE_ERROR, MAZE_RESET } from "../actions/Maze.action";
+import { MAZE_ACTION, MAZE_CREATE, MAZE_ERROR, MAZE_RESET } from "./Maze.action";
 
 function calculateInitialState(seed=null){
     if(!seed){

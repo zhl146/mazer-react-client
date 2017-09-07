@@ -1,11 +1,10 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import './App.css';
-import LeaderBoardContainer from "./components/LeaderBoard.container";
-import MazeContainer from "./components/Maze.container";
+import LeaderBoardContainer from "./Maze/Leaderboard/LeaderBoard.container";
+import MazeContainer from "./Maze/Maze/Maze.container";
 
-const App = () => (
+const Routes = () => (
     <Switch>
         <Redirect from="/" exact to="/maze/" />
         <Route exact path="/maze/:seed?" component={ MazeContainer } />
@@ -13,5 +12,4 @@ const App = () => (
     </Switch>
 );
 
-
-export default App;
+export default Routes;

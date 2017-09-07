@@ -1,4 +1,4 @@
-import {FETCH_LEADERBOARD, FETCH_LEADERBOARD_FULFILLED, FETCH_LEADERBOARD_ERROR} from "../actions/LeaderBoard.action";
+import {FETCH_LEADERBOARD, FETCH_LEADERBOARD_FULFILLED, FETCH_LEADERBOARD_ERROR} from "./LeaderBoard.action";
 import {generateDateSeed, getUrlParameter} from "../../Utils/RequestUtils";
 
 function calculateInitialState(seed=null) {

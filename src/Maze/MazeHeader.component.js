@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import AuthContainer from './Auth.container';
+import AuthContainer from './Auth/Auth.container';
 
 class MazeHeaderComponent extends Component{
     constructor(props){
@@ -10,7 +10,7 @@ class MazeHeaderComponent extends Component{
         this.urlArgs = "?start=0&length=10";
     }
 
-    componentWillMount(){
+    componentDidMount(){
         fetch(this.BASE_URL+this.props.maze.seed+this.urlArgs).then(
             (res) => {
                 console.log(res);

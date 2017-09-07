@@ -1,4 +1,4 @@
-import { RESIZE_MAZEBOARD, TOGGLE_HELP } from "../actions/View.action";
+import { RESIZE_MAZEBOARD, TOGGLE_HELP } from "./View.action";
 
 const initialState = {
   dimensions: {

@@ -1,5 +1,5 @@
-import { mazeAction, mazeCreate} from '../model/actions/Maze.action';
-import { toggleHelp } from '../model/actions/View.action';
+import { mazeAction, mazeCreate} from './Maze.action';
+import { toggleHelp } from '../View.action';
 import { connect } from 'react-redux';
 import MazeComponent from './Maze.component';
 

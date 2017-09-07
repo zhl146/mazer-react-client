@@ -1,4 +1,4 @@
-import { fetchLeaderBoard } from '../model/actions/LeaderBoard.action';
+import { fetchLeaderBoard } from './LeaderBoard.action';
 import { connect } from 'react-redux';
 import LeaderBoardComponent from './LeaderBoard.component';
 

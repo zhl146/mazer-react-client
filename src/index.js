@@ -6,13 +6,13 @@ import { Provider } from "react-redux";
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
-import App from './App';
-import configureStore from './model/store-config';
+import Routes from './Routes.component';
+import configureStore from './store-config';
 
 ReactDOM.render(
     <Provider store={configureStore()}>
         <BrowserRouter>
-            <App />
+            <Routes />
         </BrowserRouter>
     </Provider>,
     document.getElementById('root'));

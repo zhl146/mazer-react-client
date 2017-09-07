@@ -1,4 +1,4 @@
-import { setAuthProfile, authError } from '../model/actions/Auth.action';
+import { setAuthProfile, authError } from './Auth.action';
 import { connect } from 'react-redux';
 import AuthComponent from './Auth.component';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ButtonTemplate from '../Utils/Components/ButtonTempate.component';
-import MyFireBase from '../Utils/AuthUtil';
+import ButtonTemplate from '../../Utils/Components/ButtonTempate.component';
+import MyFireBase from '../../Utils/AuthUtil';
 
 class AuthComponent extends Component{
 
