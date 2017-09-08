@@ -8,22 +8,41 @@ import MazeGameBoard from "./MazeGameBoard.component";
 
 class MazeComponent extends Component {
 
+  mazeContainerRef = null;
+
   onTileClick = (tile) => {
     this.props.clickHandlers.onMazeClick(this.props.maze,
         tile);
   };
 
+  onWindowResize = () => {
+    this.props.onWindowResize(this.props.maze,
+        {width: window.innerWidth, height: window.innerHeight});
+  };
+
+  componentDidMount() {
+    window.addEventListener('resize', this.onWindowResize);
+    this.onWindowResize();
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowResize);
+  }
+
   render() {
     if(!this.props.maze || !this.props.maze.mazeTiles) return null;
     return (
-        <div className='mazeview-container'>
+        <div className='mazeview-container'
+             ref={ elRef => { this.mazeContainerRef = elRef }}>
           <MazeHeader maze={this.props.maze}
                       scoreValue={this.props.score}/>
           <MazeGameBoard maze={this.props.maze}
                          path={this.props.path}
+                         tileSize={this.props.tileSize}
+                         rotateMaze={this.props.rotateMaze}
                          onMazeClick={this.onTileClick}/>
           <MazeFooter  maze={this.props.maze}
-                       displayHelp={this.props.viewState.helpDisplay}
+                       displayHelp={this.props.helpDisplay}
                        onResetClick={this.props.clickHandlers.onResetClick}
                        onHelpClick={this.props.clickHandlers.onHelpClick}
                        user={this.props.user}

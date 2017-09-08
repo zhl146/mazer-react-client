@@ -5,36 +5,47 @@ import Tile from "./MazeTile.component";
 
 class MazeGameBoardComponent extends Component{
 
-  mazeGameBoardRef = null;
-
-  componentDidMount() {
-    console.log(this.mazeGameBoardRef.getBoundingClientRect());
-  }
-
   render() {
     return (
-        <div className="game-board" ref={ elRef => { this.mazeGameBoardRef = elRef }}>
+        <div className="game-board">
           { makeMazeTileGrid(this.props.maze.mazeTiles,
-              this.props.onMazeClick, this.props.maze.params.mazeColors.colors) }
-          <MazePath maze={this.props.maze} path={this.props.path} />
+              this.props.rotateMaze,
+              this.props.onMazeClick,
+              this.props.maze.params.mazeColors.colors,
+              this.props.tileSize) }
+          <MazePath maze={this.props.maze}
+                    path={this.props.path}
+                    rotateMaze={this.props.rotateMaze}
+                    tileSize={this.props.tileSize}/>
         </div>
     );
   }
 }
 
-const makeMazeTileGrid = (mazeTiles, onMazeClick, colors) => {
-  return mazeTiles.map( (row, index) => (
+const makeMazeTileGrid = (mazeTiles, rotateMaze, onMazeClick, colors, tileSize) => {
+  let tiles;
+  if (rotateMaze) {
+    const transpose = m => m[0].map((x,i) => m.map(x => x[i]));
+    tiles = transpose(mazeTiles);
+  } else {
+    tiles = mazeTiles;
+  }
+  return tiles.map( (row, index) => (
           <div key={index} className='container-row'>
-            { makeMazeRow(row, onMazeClick, colors) }
+            { makeMazeRow(row, onMazeClick, colors, tileSize) }
           </div>
       )
   );
 };
 
-const makeMazeRow = (row, onMazeClick, colors) => {
+const makeMazeRow = (row, onMazeClick, colors, tileSize) => {
   return row.map(
       (tile, index) => (
-          <Tile key={index} colors={colors} tile={tile} onClick={ onMazeClick } />
+          <Tile size={tileSize}
+                key={index}
+                colors={colors}
+                tile={tile}
+                onClick={ onMazeClick } />
       )
   );
 };

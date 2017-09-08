@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shared from 'mazer-shared';
 
-const TileComponent = ({ tile, onClick, colors }) => {
+const TileComponent = ({ tile, onClick, colors, size }) => {
 
   let blockerOverlay = null;
   let textOverlay = null;
@@ -40,8 +40,15 @@ const TileComponent = ({ tile, onClick, colors }) => {
     }
   }
 
+  const tileStyle = Object.assign({}, colorStyle, {
+    height: size + 'px',
+    width: size + 'px'
+  });
+
   return (
-      <div className='tile ' style={colorStyle} onClick={ () => onClick(tile) } >
+      <div className='tile '
+           style={tileStyle}
+           onClick={ () => onClick(tile) } >
         { pulseOverlay }
         { blockerOverlay }
         { textOverlay }

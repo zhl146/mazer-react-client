@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 
 class MazePath extends Component {
 
-  //tileSize = parentWidth / maze.params.numColumns;
-  tileSize = 30; // this is here just so we can test pathfinding we will move to automatically calculating later
-  tileOffset = this.tileSize / 2;
-  width = this.tileSize * this.props.maze.params.numColumns;
-  height = this.tileSize * this.props.maze.params.numRows;
+  tileOffset = this.props.tileSize / 2;
+  width = this.props.tileSize * this.props.maze.params.numColumns;
+  height = this.props.tileSize * this.props.maze.params.numRows;
 
   translateCoord(coord) {
-    return coord * this.tileSize + this.tileOffset;
+    return coord * this.props.tileSize + this.tileOffset;
   }
 
   fullPath = null;
