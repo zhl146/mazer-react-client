@@ -99,6 +99,7 @@
 #info-container {
     position: absolute;
     background: darkseagreen;
+    transition: all 200ms ease-in-out;
     transform: translateY(-100%);
 }
 

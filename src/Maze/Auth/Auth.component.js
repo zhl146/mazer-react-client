@@ -17,14 +17,11 @@ class AuthComponent extends Component{
     }
 
     render(){
-        console.log(this.props);
         let buttonText = (this.props.user? "Logout":"Login");
-        console.log("ButtonText: "+buttonText);
         return (
             <ButtonTemplate
                 clickHandler={
                     () => {
-                        console.log(this.props);
                         if(!this.props.user) {
                             console.log(MyFireBase.auth);
                             MyFireBase.auth().signInWithPopup(new MyFireBase.auth.GoogleAuthProvider()).then(

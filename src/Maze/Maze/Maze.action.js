@@ -85,8 +85,6 @@ export const updateBoardViewParams = (maze, windowParams) => {
   // we limit the tile dimension to 30px so we default to 30 if the calculated dimension is too large
   tileSize = tileSize > 30 ? 30 : tileSize;
 
-  console.log(tileSize);
-
   return {
     type: UPDATE_BOARDVIEWPARAMS,
     payload: {

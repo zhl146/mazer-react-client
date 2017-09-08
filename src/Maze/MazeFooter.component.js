@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {ResetMazeButton, SubmitScoreButton} from "./MazeButton.component";
 
-const MazeFooterComponent = ({maze, onResetClick, history, onHelpClick, user, token, displayHelp}) => {
+const MazeFooterComponent = ({maze,
+                               onResetClick,
+                               history,
+                               onHelpClick,
+                               user,
+                               token,
+                               displayHelp}) => {
 
   let renderHelp = () => {
     if (!displayHelp) return null;

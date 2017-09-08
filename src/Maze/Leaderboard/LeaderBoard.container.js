@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import LeaderBoardComponent from './LeaderBoard.component';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         seed: state.LeaderBoardReducer.seed,
         scores: state.LeaderBoardReducer.scores,

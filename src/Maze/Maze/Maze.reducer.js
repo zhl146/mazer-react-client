@@ -13,9 +13,7 @@ function calculateInitialState(seed=null){
     seed = getUrlParameter("seed");
     seed = (seed? seed: generateDateSeed());
   }
-  console.log("Seed is: "+seed);
   let maze = shared.Maze(seed);
-  console.log("maze seed is: "+maze.seed);
   return {
     seed,
     maze,

@@ -9,11 +9,9 @@ class MazePath extends Component {
 
   setDimensions() {
     if (this.props.rotateMaze) {
-      console.log('maze rotated');
       this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows;
       this.canvasHeight = this.props.tileSize * this.props.maze.params.numColumns;
     } else {
-      console.log('maze not rotated');
       this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns;
       this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows;
     }

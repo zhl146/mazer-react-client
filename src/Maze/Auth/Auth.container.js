@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import AuthComponent from './Auth.component';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         token: state.AuthReducer.token,
         user: state.AuthReducer.user,

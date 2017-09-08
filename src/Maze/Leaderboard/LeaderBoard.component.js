@@ -11,7 +11,6 @@ class LeaderBoardComponent extends Component {
     }
 
     componentWillMount(){
-        console.log(this.props);
         this.props.fetchLeaderBoard(this.state.seed);
     }
 
@@ -25,7 +24,6 @@ class LeaderBoardComponent extends Component {
     }
 
     render(){
-        console.log(this.props);
         return (
             <div>
                 <h1>LeaderBoard: {JSON.stringify(this.props.seed)} </h1>
