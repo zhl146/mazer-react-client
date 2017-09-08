@@ -13,9 +13,11 @@ class MazePath extends Component {
 
   setDimensions() {
     if (this.props.rotateMaze) {
+      console.log('maze rotated')
       this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows;
       this.canvasHeight = this.props.tileSize * this.props.maze.params.numColumns;
     } else {
+      console.log('maze not rotated')
       this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns;
       this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows;
     }
@@ -28,10 +30,13 @@ class MazePath extends Component {
     this.drawPath(context);
   }
 
+  componentWillUpdate() {
+    this.setDimensions();
+  };
+
   componentDidUpdate() {
     let context = this.elRef.getContext('2d');
     context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    this.setDimensions();
     this.drawPath(context);
   }
 
