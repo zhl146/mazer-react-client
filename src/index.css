@@ -4,7 +4,7 @@
    ========================================================================== */
 
 /**
- * 1. Correct the line height in all browsers.
+ * 1. Correct the line canvasHeight in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
  */
@@ -172,7 +172,7 @@ small {
 }
 
 /**
- * Prevent `sub` and `sup` elements from affecting the line height in
+ * Prevent `sub` and `sup` elements from affecting the line canvasHeight in
  * all browsers.
  */
 

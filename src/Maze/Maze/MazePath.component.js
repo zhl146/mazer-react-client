@@ -3,29 +3,35 @@ import PropTypes from 'prop-types';
 
 class MazePath extends Component {
 
-  tileOffset = this.props.tileSize / 2;
-  width = this.props.tileSize * this.props.maze.params.numColumns;
-  height = this.props.tileSize * this.props.maze.params.numRows;
+  canvasWidth;
+  canvasHeight;
 
-  translateCoord(coord) {
-    return coord * this.props.tileSize + this.tileOffset;
+  constructor(props) {
+    super(props);
+    this.setDimensions();
   }
 
-  fullPath = null;
+  setDimensions() {
+    if (this.props.rotateMaze) {
+      this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows;
+      this.canvasHeight = this.props.tileSize * this.props.maze.params.numColumns;
+    } else {
+      this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns;
+      this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows;
+    }
+  }
+
   elRef = null;
 
   componentDidMount() {
-    this.fullPath = this.props.maze.path.reduce( (path, segment) => path.concat(segment) );
     let context = this.elRef.getContext('2d');
     this.drawPath(context);
   }
 
   componentDidUpdate() {
-    this.fullPath = this.props.maze.path.reduce( (path, segment) => path.concat(segment) );
-    // console.log(this.props.maze.mazeTiles);
-    // console.log(this.fullPath);
     let context = this.elRef.getContext('2d');
-    context.clearRect(0, 0, this.width, this.height);
+    context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.setDimensions();
     this.drawPath(context);
   }
 
@@ -34,13 +40,13 @@ class MazePath extends Component {
     context.lineJoin = 'miter';
     context.lineWidth = 3;
     context.strokeStyle = 'rgba(20,150,150,0.5)';
-    let startingX = this.translateCoord(this.fullPath[0].x);
-    let startingY = this.translateCoord(this.fullPath[0].y);
+    let startingX = this.props.path[0].x;
+    let startingY = this.props.path[0].y;
     context.beginPath();
     context.moveTo(startingX, startingY);
-    this.fullPath.forEach( point => {
-      let xCoord = this.translateCoord(point.x);
-      let yCoord = this.translateCoord(point.y);
+    this.props.path.forEach( point => {
+      let xCoord = point.x;
+      let yCoord = point.y;
       context.lineTo(xCoord, yCoord);
     } );
     context.stroke();
@@ -48,7 +54,7 @@ class MazePath extends Component {
 
   render() {
     return <canvas className="maze-path" ref={(elRef) => this.elRef = elRef}
-                   width={this.width} height={this.height}/>
+                   width={this.canvasWidth} height={this.canvasHeight}/>
   }
 
 }

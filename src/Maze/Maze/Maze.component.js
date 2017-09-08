@@ -10,13 +10,19 @@ class MazeComponent extends Component {
 
   mazeContainerRef = null;
 
-  onTileClick = (tile) => {
+  constructor(props) {
+    super(props);
+    this.onWindowResize = this.onWindowResize.bind(this);
+    this.onTileClick = this.onTileClick.bind(this);
+  }
+
+  onTileClick(tile) {
     this.props.clickHandlers.onMazeClick(this.props.maze,
         tile);
   };
 
-  onWindowResize = () => {
-    this.props.onWindowResize(this.props.maze,
+  onWindowResize() {
+    this.props.updateBoardViewParams(this.props.maze,
         {width: window.innerWidth, height: window.innerHeight});
   };
 

@@ -19,7 +19,7 @@ function calculateInitialState(seed=null){
   return {
     seed,
     maze,
-    path: calculatePath(30, false),
+    path: calculatePath(maze.path, 30, false),
     pathError: false,
     rotateMaze: false,
     tileSize: 30,
@@ -27,8 +27,21 @@ function calculateInitialState(seed=null){
   }
 }
 
-function calculatePath(tileSize, rotateMaze) {
+function calculatePath(path, tileSize, rotateMaze) {
+  const tileOffset = tileSize / 2;
 
+  const fullPath = path.reduce( (path, segment) => path.concat(segment) );
+
+  if (rotateMaze) {
+    return fullPath.map( point => ({
+      x: point.y * tileSize + tileOffset,
+      y: point.x * tileSize + tileOffset,
+    }) )
+  }
+  return fullPath.map( point => ({
+    x: point.x * tileSize + tileOffset,
+    y: point.y * tileSize + tileOffset,
+  }) )
 }
 
 const initialState = calculateInitialState();
@@ -45,7 +58,8 @@ function MazeReducer(state = initialState, action){
       return Object.assign(
           {},
           state,
-          action.payload
+          action.payload,
+          { path: calculatePath(action.payload.maze.path, state.tileSize, state.rotateMaze) }
       );
     case MAZE_ERROR:
       return Object.assign(
@@ -69,7 +83,12 @@ function MazeReducer(state = initialState, action){
       return Object.assign({}, state, {helpDisplay: !state.helpDisplay});
 
     case UPDATE_BOARDVIEWPARAMS:
-      return Object.assign({}, state, action.payload);
+      return Object.assign(
+          {},
+          state,
+          action.payload,
+          { path: calculatePath(state.maze.path, action.payload.tileSize, action.payload.rotateMaze) }
+      );
 
     default:
       return state;

@@ -42,7 +42,8 @@ const TileComponent = ({ tile, onClick, colors, size }) => {
 
   const tileStyle = Object.assign({}, colorStyle, {
     height: size + 'px',
-    width: size + 'px'
+    width: size + 'px',
+    fontSize: size /2 + 'px',
   });
 
   return (

@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps  = dispatch => {
   return {
-    onWindowResize: (maze, params) => {
+    updateBoardViewParams: (maze, params) => {
       dispatch(updateBoardViewParams(maze, params));
     },
     clickHandlers: {
