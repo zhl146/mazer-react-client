@@ -22,7 +22,7 @@ class AuthComponent extends Component{
         console.log("ButtonText: "+buttonText);
         return (
             <ButtonTemplate
-                OnClick={
+                clickHandler={
                     () => {
                         console.log(this.props);
                         if(!this.props.user) {

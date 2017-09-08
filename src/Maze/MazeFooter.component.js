@@ -30,8 +30,14 @@ const MazeFooterComponent = ({maze, onResetClick, history, onHelpClick, user, to
                   <button id="help-btn" className="btn-generic" onClick={onHelpClick} >?</button>
               </div>
               <div id="footer-right">
-                  <ResetMazeButton seed={maze.params.seed} onResetClick={onResetClick} cssAttributes="btn-generic"  />
-                  <SubmitScoreButton user={user} token={token} history={history} maze={maze} cssAttributes="btn-generic" />
+                  <ResetMazeButton seed={maze.params.seed}
+                                   onResetClick={onResetClick}
+                                   cssAttributes="btn-generic"  />
+                  <SubmitScoreButton user={user}
+                                     token={token}
+                                     history={history}
+                                     maze={maze}
+                                     cssAttributes="btn-generic" />
               </div>
           </div>
       </div>

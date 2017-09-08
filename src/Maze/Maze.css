@@ -59,6 +59,11 @@
     text-decoration: none;
     display: inline-block;
     font-size: 1em;
+    cursor: pointer;
+}
+
+.btn-generic:disabled {
+    cursor: not-allowed;
 }
 
 .maze-path {
