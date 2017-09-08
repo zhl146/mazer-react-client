@@ -9,11 +9,13 @@ import MazeGameBoard from "./MazeGameBoard.component";
 class MazeComponent extends Component {
 
   mazeContainerRef = null;
+  resizeTimeout;
 
   constructor(props) {
     super(props);
     this.onWindowResize = this.onWindowResize.bind(this);
     this.onTileClick = this.onTileClick.bind(this);
+    this.resizeThrottler = this.resizeThrottler.bind(this);
   }
 
   onTileClick(tile) {
@@ -26,13 +28,23 @@ class MazeComponent extends Component {
         {width: window.innerWidth, height: window.innerHeight});
   };
 
+  resizeThrottler() {
+    // ignore resize events as long as an actualResizeHandler execution is in the queue
+    if ( !this.resizeTimeout ) {
+      this.resizeTimeout = setTimeout(() => {
+        this.resizeTimeout = null;
+        this.onWindowResize();
+      }, 250);
+    }
+  }
+
   componentDidMount() {
-    window.addEventListener('resize', this.onWindowResize);
     this.onWindowResize();
+    window.addEventListener("resize", this.resizeThrottler, false);
   };
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('resize', this.resizeThrottler);
   }
 
   render() {
