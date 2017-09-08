@@ -7,35 +7,32 @@ const args = "?start=0&length=10";
 
 export const fetchLeaderBoard = (dispatch, seed) => (
     {
-        type: FETCH_LEADERBOARD,
-        //ENDPOINT LOOKS LIKE : BASE_URL + :seed + ?start=:startIndex&length=:howManyScores
-        payload: fetch(BASE_URL+seed+args).then(
-                (res) => {
-                    console.log(res);
-                    if(!res.ok) {
-                        throw Error(res.statusText);
-                    }
-                    res.json().then(
-                        (data) => {
-                            console.log(data);
-                            dispatch(fetchLeaderBoardFulfilled(data.scores, seed));
-                        }
-                    ).catch( (err) => {
-                        dispatch(fetchLeaderBoardFailed(err));
-                    });
-                }
-            ).catch( (err) => {
-                dispatch(fetchLeaderBoardFailed(err));
-            })
+      type: FETCH_LEADERBOARD,
+      //ENDPOINT LOOKS LIKE : BASE_URL + :seed + ?start=:startIndex&length=:howManyScores
+      payload: fetch(BASE_URL+seed+args)
+          .then( (res) => {
+            if (! res.ok) {
+              throw Error(res.statusText);
+            }
+            return res
+          })
+          .then( res => res.json())
+          .then( (data) => {
+            console.log(data);
+            dispatch(fetchLeaderBoardFulfilled(data.scores, seed));
+          })
+          .catch( (err) => {
+            dispatch(fetchLeaderBoardFailed(err));
+          })
     }
 );
 
 export const fetchLeaderBoardFulfilled = (payload, seed) => ({
-    type: FETCH_LEADERBOARD_FULFILLED,
-    scores: payload,
-    seed: seed
+  type: FETCH_LEADERBOARD_FULFILLED,
+  scores: payload,
+  seed: seed
 });
 
 export const fetchLeaderBoardFailed = (err=null) => ({
-    type: FETCH_LEADERBOARD_ERROR, scores: [], error: err
+  type: FETCH_LEADERBOARD_ERROR, scores: [], error: err
 });

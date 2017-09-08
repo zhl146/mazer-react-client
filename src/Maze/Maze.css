@@ -1,6 +1,10 @@
 .mazeview-container {
     display: flex;
     flex-direction: column;
+    max-width: 1400px;
+    margin: auto;
+    max-height: 1500px;
+    padding: 15px;
 }
 
 .tile {
