@@ -1,8 +1,8 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import LeaderBoardContainer from "./Maze/Leaderboard/LeaderBoard.container";
-import MazeContainer from "./Maze/Maze/Maze.container";
+import LeaderBoardContainer from "./Features/Leaderboard/LeaderBoard.container";
+import MazeContainer from "./Features/Maze/Maze.container";
 
 const Routes = () => (
     <Switch>

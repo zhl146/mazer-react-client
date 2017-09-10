@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import '../Maze.css';
-import MazeHeader from '../MazeHeader.component';
-import MazeFooter from '../MazeFooter.component';
-import MazeGameBoard from "./MazeGameBoard.component";
+import './Maze.css';
+import MazeHeader from './MazeHeader.component';
+import MazeFooter from './MazeFooter.component';
+import MazeGameBoard from "./GameBoard/MazeGameBoard.component";
 
 class MazeComponent extends Component {
 

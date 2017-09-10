@@ -1,6 +1,6 @@
-import ButtonTemplate from '../Utils/Components/ButtonTempate.component';
+import ButtonTemplate from '../../Utils/Components/ButtonTempate.component';
 import React from 'react';
-import CustomError from '../Utils/CustomError';
+import CustomError from '../../Utils/CustomError';
 
 function submitScore( maze, history, user, token ){
   console.log("MAZE: "+JSON.stringify(maze));
