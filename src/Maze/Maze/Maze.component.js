@@ -8,7 +8,6 @@ import MazeGameBoard from "./MazeGameBoard.component";
 
 class MazeComponent extends Component {
 
-  mazeContainerRef = null;
   resizeTimeout;
 
   constructor(props) {
@@ -50,8 +49,7 @@ class MazeComponent extends Component {
   render() {
     if(!this.props.maze || !this.props.maze.mazeTiles) return null;
     return (
-        <div className='mazeview-container'
-             ref={ elRef => { this.mazeContainerRef = elRef }}>
+        <div className='mazeview-container'>
           <MazeHeader maze={this.props.maze}
                       scoreValue={this.props.score}/>
           <MazeGameBoard maze={this.props.maze}

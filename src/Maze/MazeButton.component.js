@@ -11,22 +11,25 @@ function submitScore( maze, history, user, token ){
     token: token,
   };
 
-  fetch('zhenlu.info/check',
-      {
+  fetch('zhenlu.info/check', {
         method: "POST",
         body: JSON.stringify(solution)
-      }
-  ).then( (res) => {
-    history.push('/leaderboard/');
-    if(res.ok){
-
-    }else{
-      throw CustomError("Posting back to the server failed!");
-    }
-  }).catch((ex) => {
-    alert("Sending your score to the server failed, if this persists please contact the admin!");
-    console.log("ERROR: "+ex);
-  });
+      })
+      .then( (res) => {
+        history.push('/leaderboard/');
+        if(!res.ok){
+          throw CustomError("Posting back to the server failed!");
+        }
+        return res;
+      })
+      .then( res => res.json())
+      .then( data => {
+          console.log(data);
+      })
+      .catch((ex) => {
+        alert("Sending your score to the server failed, if this persists please contact the admin!");
+        console.log("ERROR: "+ex);
+      });
 }
 
 const SubmitScoreButton = (props) => {
