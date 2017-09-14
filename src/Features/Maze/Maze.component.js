@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, object} from 'prop-types';
 
 import './Maze.css';
 import MazeHeader from './MazeHeader.component';
@@ -7,6 +7,14 @@ import MazeFooter from './MazeFooter.component';
 import MazeGameBoard from "./GameBoard/MazeGameBoard.component";
 
 class MazeComponent extends Component {
+
+  static propTypes = {
+    onResetClick: func.isRequired,
+    onMazeClick: func.isRequired,
+    maze: object.isRequired,
+    score: object.isRequired,
+    history: object.isRequired
+  };
 
   resizeTimeout;
 
@@ -59,16 +67,6 @@ class MazeComponent extends Component {
         </div>
     )
   }
-
-
 }
-
-MazeComponent.PropTypes = {
-  onResetClick: PropTypes.func.isRequired,
-  onMazeClick: PropTypes.func.isRequired,
-  maze: PropTypes.object.isRequired,
-  score: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
-};
 
 export default MazeComponent;
