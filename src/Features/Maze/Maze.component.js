@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object} from 'prop-types';
+import { func, object, number } from 'prop-types';
 
 import './Maze.css';
 import MazeHeader from './MazeHeader.component';
@@ -9,10 +9,9 @@ import MazeGameBoard from "./GameBoard/MazeGameBoard.component";
 class MazeComponent extends Component {
 
   static propTypes = {
-    onResetClick: func.isRequired,
-    onMazeClick: func.isRequired,
+    clickHandlers: object.isRequired,
     maze: object.isRequired,
-    score: object.isRequired,
+    score: number.isRequired,
     history: object.isRequired
   };
 
@@ -65,7 +64,7 @@ class MazeComponent extends Component {
                        user={this.props.user}
                        history={this.props.history} />
         </div>
-    )
+    );
   }
 }
 

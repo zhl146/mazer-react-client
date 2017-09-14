@@ -14,7 +14,7 @@ export const fetchLeaderBoard = (dispatch, seed) => (
             if (! res.ok) {
               throw Error(res.statusText);
             }
-            return res
+            return res;
           })
           .then( res => res.json())
           .then( (data) => {

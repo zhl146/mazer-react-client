@@ -12,7 +12,7 @@ function calculateInitialState(seed=null) {
         scores: [],
         pending: true,
         error: null
-    }
+    };
 }
 
 const initialState = calculateInitialState();

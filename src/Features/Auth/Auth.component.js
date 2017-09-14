@@ -43,7 +43,7 @@ class AuthComponent extends Component{
                     }
                 }
                 text={buttonText} cssAttributes="btn-generic"/>
-        )
+        );
     }
 }
 

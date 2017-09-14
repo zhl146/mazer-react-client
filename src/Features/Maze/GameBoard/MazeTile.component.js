@@ -32,12 +32,12 @@ const TileComponent = ({ tile, onClick, colors, size }) => {
   if (tile.userPlaced && tile.type === TileTypes.Empty) {
     colorStyle = {
       background: colors.groundUser
-    }
+    };
   }
   else {
     colorStyle = {
       background: colors.groundNatural
-    }
+    };
   }
 
   const tileStyle = Object.assign({}, colorStyle, {
@@ -54,7 +54,7 @@ const TileComponent = ({ tile, onClick, colors, size }) => {
         { blockerOverlay }
         { textOverlay }
       </div>
-  )
+  );
 };
 
 TileComponent.PropTypes = {

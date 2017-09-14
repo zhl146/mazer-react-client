@@ -53,14 +53,16 @@ const SubmitScoreButton = (props) => {
           disabled={disabled}
           text="Submit"
       />
-  )
+  );
 };
 
 const ResetMazeButton = ({ seed, onResetClick, cssAttributes}) => {
-  return <ButtonTemplate onClickInput={seed}
+  return (
+      <ButtonTemplate onClickInput={seed}
                          clickHandler={onResetClick}
                          cssAttributes={cssAttributes}
                          text="Reset" />
+  );
 };
 
 export {

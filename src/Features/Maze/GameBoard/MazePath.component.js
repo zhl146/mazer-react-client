@@ -48,7 +48,7 @@ class MazePath extends Component {
   render() {
     this.setDimensions();
     return <canvas className="maze-path" ref={(elRef) => this.elRef = elRef}
-                   width={this.canvasWidth} height={this.canvasHeight}/>
+                   width={this.canvasWidth} height={this.canvasHeight}/>;
   }
 
 }

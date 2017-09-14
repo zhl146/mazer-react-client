@@ -20,7 +20,7 @@ class MazeHeaderComponent extends Component{
           res.json().then(
               (data) => {
                 if (data.scores.length === 0) {
-                  this.setState({highscore: '0'})
+                  this.setState({highscore: '0'});
                 } else {
                   this.setState({highscore: data.scores[0].name + ":" + data.scores[0].score});
                 }

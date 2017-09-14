@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
     helpDisplay: state.MazeReducer.helpDisplay,
     user: state.AuthReducer.user,
     token: state.AuthReducer.token
-  }
+  };
 };
 
 const mapDispatchToProps  = dispatch => {
@@ -28,10 +28,10 @@ const mapDispatchToProps  = dispatch => {
         dispatch(mazeCreate(seed));
       },
       onHelpClick: () => {
-        dispatch(toggleHelp())
+        dispatch(toggleHelp());
       },
     }
-  }
+  };
 };
 
 const MazeContainer = connect(

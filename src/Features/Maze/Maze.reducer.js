@@ -22,7 +22,7 @@ function calculateInitialState(seed=null){
     rotateMaze: false,
     tileSize: 30,
     helpDisplay: false,
-  }
+  };
 }
 
 function calculatePath(path, tileSize, rotateMaze) {
@@ -34,12 +34,12 @@ function calculatePath(path, tileSize, rotateMaze) {
     return fullPath.map( point => ({
       x: point.y * tileSize + tileOffset,
       y: point.x * tileSize + tileOffset,
-    }) )
+    }) );
   }
   return fullPath.map( point => ({
     x: point.x * tileSize + tileOffset,
     y: point.y * tileSize + tileOffset,
-  }) )
+  }) );
 }
 
 const initialState = calculateInitialState();

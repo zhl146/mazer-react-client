@@ -9,16 +9,16 @@ const ButtonTemplate = ( {onClickInput, clickHandler, text, cssAttributes, disab
                 disabled
                 className={cssAttributes}
             >{text}</button>
-        )
+        );
     }else{
         return (
             <button
                 onClick={() => {
-                    clickHandler(onClickInput)
+                    clickHandler(onClickInput);
                 }}
                 className={cssAttributes}
             >{text}</button>
-        )
+        );
     }
 };
 

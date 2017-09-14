@@ -10,7 +10,7 @@ export const TOGGLE_HELP = 'TOGGLE_HELP';
 export const UPDATE_BOARDVIEWPARAMS = 'UPDATE_BOARDVIEWPARAMS';
 
 export function mazeCreate(seed){
-    return { type: MAZE_CREATE, seed: seed }
+    return { type: MAZE_CREATE, seed: seed };
 }
 
 export function mazeAction(maze, tile){
@@ -24,7 +24,7 @@ export function mazeAction(maze, tile){
             payload: {
                 maze: newMaze
             }
-        }
+        };
     }
     catch(ex){
         console.log("error, you probably blocked the maze: ");
@@ -34,16 +34,16 @@ export function mazeAction(maze, tile){
             payload: {
                 pathError: true
             }
-        }
+        };
     }
 }
 
 export function mazeUndo() {
-    return { type: MAZE_UNDO }
+    return { type: MAZE_UNDO };
 }
 
 export function mazeReset() {
-    return { type: MAZE_RESET }
+    return { type: MAZE_RESET };
 }
 
 export const toggleHelp = () => ({ type: TOGGLE_HELP });
@@ -91,5 +91,5 @@ export const updateBoardViewParams = (maze, windowParams) => {
       tileSize: tileSize,
       rotateMaze: rotateMaze,
     },
-  }
+  };
 };

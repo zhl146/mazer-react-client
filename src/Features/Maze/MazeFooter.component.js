@@ -1,14 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func, object } from 'prop-types';
 import {ResetMazeButton, SubmitScoreButton} from "./MazeButton.component";
 
-const MazeFooterComponent = ({maze,
+MazeFooterComponent.propTypes = {
+  onResetClick: func.isRequired,
+  maze: object.isRequired,
+  history: object.isRequired
+};
+
+function MazeFooterComponent({maze,
                                onResetClick,
                                history,
                                onHelpClick,
                                user,
                                token,
-                               displayHelp}) => {
+                               displayHelp}) {
 
   let renderHelp = () => {
     if (!displayHelp) return null;
@@ -24,38 +30,31 @@ const MazeFooterComponent = ({maze,
           <p>Cost to add a blocker: 1 AP</p>
           <p id="removal-cost">Cost to remove a blocker: 2 AP</p>
         </div>
-    )
+    );
   };
 
   return (
       <div>
         {renderHelp()}
 
-          <div id="footer-buttons">
-              <div id="footer-left">
-                  <button id="help-btn" className="btn-generic" onClick={onHelpClick} >?</button>
-              </div>
-              <div id="footer-right">
-                  <ResetMazeButton seed={maze.params.seed}
-                                   onResetClick={onResetClick}
-                                   cssAttributes="btn-generic"  />
-                  <SubmitScoreButton user={user}
-                                     token={token}
-                                     history={history}
-                                     maze={maze}
-                                     cssAttributes="btn-generic" />
-              </div>
+        <div id="footer-buttons">
+          <div id="footer-left">
+            <button id="help-btn" className="btn-generic" onClick={onHelpClick} >?</button>
           </div>
+          <div id="footer-right">
+            <ResetMazeButton seed={maze.params.seed}
+                             onResetClick={onResetClick}
+                             cssAttributes="btn-generic"  />
+            <SubmitScoreButton user={user}
+                               token={token}
+                               history={history}
+                               maze={maze}
+                               cssAttributes="btn-generic" />
+          </div>
+        </div>
       </div>
-  )
-};
-
-MazeFooterComponent.PropTypes = {
-  onResetClick: PropTypes.func.isRequired,
-  maze: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
-};
-
+  );
+}
 
 export default MazeFooterComponent;
 
