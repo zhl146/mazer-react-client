@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import shared from 'mazer-shared';
+import { TileTypes } from 'mazer-shared';
 
 const TileComponent = ({ tile, onClick, colors, size }) => {
 
@@ -10,16 +10,16 @@ const TileComponent = ({ tile, onClick, colors, size }) => {
   let colorStyle = {};
 
   // set proper blocker overlay as content if tile is a blocker
-  if (tile.type === shared.MazeTileEnum.Blocker) {
+  if (tile.type === TileTypes.Blocker) {
     if(tile.userPlaced) blockerOverlay = <div className="blocker-polygon-overlay" style={{background: colors.blockerUser}} />;
     else blockerOverlay = <div className="blocker-polygon-overlay" style={{background: colors.blockerNatural}} />;
   }
   // set text if tile is start, end, or waypoint ( mutually exclusive )
-  if (tile.type === shared.MazeTileEnum.Start) {
+  if (tile.type === TileTypes.Start) {
     textOverlay = 'S';
-  } else if(tile.type === shared.MazeTileEnum.End) {
+  } else if(tile.type === TileTypes.End) {
     textOverlay = 'E';
-  } else if (tile.type === shared.MazeTileEnum.WayPoint) {
+  } else if (tile.type === TileTypes.WayPoint) {
     textOverlay = tile.waypointIndex;
   }
 
@@ -29,7 +29,7 @@ const TileComponent = ({ tile, onClick, colors, size }) => {
     else pulseOverlay = <div className="tile-pulse" />;
   }
   // tile has default color
-  if (tile.userPlaced && tile.type === shared.MazeTileEnum.Empty) {
+  if (tile.userPlaced && tile.type === TileTypes.Empty) {
     colorStyle = {
       background: colors.groundUser
     }
