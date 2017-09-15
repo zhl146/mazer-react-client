@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 
-import { initializeMaze, updateView } from './maze.action';
+import { fetchHighScore, initializeMaze, updateView } from './maze.action';
 import { MazeComponent } from './maze.component';
 
 const mapStateToProps = state => {
   return {
     maze: state.MazeReducer.maze,
     path: state.MazeReducer.path,
+    highScore: state.MazeReducer.highScore,
     rotateMaze: state.MazeReducer.rotateMaze,
     tileSize: state.MazeReducer.tileSize
   };
@@ -14,6 +15,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps  = dispatch => {
   return {
+    fetchHighScore: seed => {
+      dispatch(fetchHighScore(dispatch, seed));
+    },
     updateViewPort: params => {
       dispatch(updateView(params));
     },

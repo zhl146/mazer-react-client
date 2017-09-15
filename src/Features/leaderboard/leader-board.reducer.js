@@ -1,8 +1,7 @@
 import {
   FETCH_LEADERBOARD,
   FETCH_LEADERBOARD_FULFILLED,
-  FETCH_LEADERBOARD_ERROR,
-  INIT_LEADERBOARD
+  FETCH_LEADERBOARD_ERROR
 } from "./leader-board.action";
 
 export const initialState = {

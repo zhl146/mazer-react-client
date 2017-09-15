@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import { string, func } from 'prop-types';
 
 import { generateDateSeed, getUrlParameter } from "../../Utils/RequestUtils";
@@ -57,6 +58,7 @@ export class LeaderBoardComponent extends Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
+          <Link to='/maze'>Back to game</Link>
         </div>
     );
   }

@@ -6,8 +6,7 @@ import LeaderBoardReducer, {
 import {
   FETCH_LEADERBOARD,
   FETCH_LEADERBOARD_ERROR,
-  FETCH_LEADERBOARD_FULFILLED,
-  INIT_LEADERBOARD
+  FETCH_LEADERBOARD_FULFILLED
 } from "../../src/Features/leaderboard/leader-board.action";
 
 test('leaderboard reducer should default to the initial state', assert => {

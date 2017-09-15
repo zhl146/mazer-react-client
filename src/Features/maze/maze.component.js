@@ -11,8 +11,10 @@ import { Link } from "react-router-dom";
 export class MazeComponent extends Component {
 
   static propTypes = {
+    fetchHighScore: func.isRequired,
     initializeMaze: func.isRequired,
     updateViewPort: func.isRequired,
+    highScore: number,
     maze: object
   };
 
@@ -20,6 +22,7 @@ export class MazeComponent extends Component {
     maze: null
   };
 
+  highScoreFetchInterval = null;
   resizeTimeout = null;
 
   componentDidMount() {
@@ -27,15 +30,31 @@ export class MazeComponent extends Component {
       let seed = getUrlParameter("seed");
       seed = ( seed || generateDateSeed());
       this.props.initializeMaze(seed);
+    } else {
+      this.startFetchingHighScore();
+      this.onWindowResize();
     }
-
-    if (this.props.maze) this.onWindowResize();
     window.addEventListener("resize", this.resizeThrottler, false);
   };
 
+  componentDidUpdate() {
+    this.startFetchingHighScore();
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeThrottler);
+    clearInterval(this.highScoreFetchInterval);
   }
+
+  startFetchingHighScore = () => {
+    if (this.highScoreFetchInterval) clearInterval(this.highScoreFetchInterval);
+    this.fetchHighScore();
+    this.highScoreFetchInterval = setInterval(this.fetchHighScore, 30000);
+  };
+
+  fetchHighScore = () => {
+    this.props.fetchHighScore(this.props.maze.seed);
+  };
 
   onWindowResize = () => {
     this.props.updateViewPort({width: window.innerWidth, height: window.innerHeight});
@@ -56,7 +75,7 @@ export class MazeComponent extends Component {
     return (
         <div className='maze-component'>
           <MazeTopBar
-              highScore={9000}
+              highScore={this.props.highScore}
               usedActions={this.props.maze.actionsUsed}
               maxActions={this.props.maze.params.maxActionPoints}
               scoreValue={this.props.maze.score}
@@ -73,38 +92,3 @@ export class MazeComponent extends Component {
     );
   }
 }
-
-// this used to be in the maze-top-bar component, but it should go here and not use local state
-// TODO: make an action to do this and call it every minute or so from this component
-//
-// state = {highScore: '...'};
-// BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
-// urlArgs = "?start=0&length=10";
-//
-// componentDidMount(){
-//   fetch(this.BASE_URL+this.props.maze.seed+this.urlArgs).then(
-//       (res) => {
-//         console.log(res);
-//         if(!res.ok) {
-//           throw Error(res.statusText);
-//         }
-//         res.json().then(
-//             (data) => {
-//               if (data.scores.length === 0) {
-//                 this.setState({highScore: '0'});
-//               } else {
-//                 this.setState({highScore: data.scores[0].name + ":" + data.scores[0].score});
-//               }
-//             }
-//         ).catch( (err) => {
-//           console.log(err);
-//           this.setState({highScore:"Error Loading High Score"});
-//         });
-//       }
-//   ).catch(
-//       (ex) => {
-//         console.log(ex);
-//         this.setState({highScore:"Error Fetching High Score"});
-//       }
-//   );
-// }

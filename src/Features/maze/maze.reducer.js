@@ -7,7 +7,7 @@ import {
   RESET_MAZE,
   TOGGLE_HELP,
   UPDATE_VIEWPARAMS,
-  RESET_ACTIONERROR
+  RESET_ACTIONERROR, UPDATE_HIGHSCORE
 } from "./maze.action";
 import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
 
@@ -19,6 +19,7 @@ export const initialState = {
   rotateMaze: false,
   tileSize: 30,
   displayHelp: false,
+  highScore: null
 };
 
 export default function MazeReducer(state = initialState, action){
@@ -40,6 +41,11 @@ export default function MazeReducer(state = initialState, action){
         ),
         pathError,
         actionError
+      });
+    case UPDATE_HIGHSCORE:
+      return ({
+        ...state,
+        highScore: action.score
       });
     case RESET_PATHERROR:
       return ({
