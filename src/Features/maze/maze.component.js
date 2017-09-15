@@ -4,22 +4,37 @@ import { func, object, number } from 'prop-types';
 import './maze.css';
 import { MazeTopBar } from './maze-ui-bars/maze-top-bar.component';
 import { MazeGameBoard } from "./maze-game-board/maze-game-board.component";
-import { MazeBottomBarContainer } from "./maze-ui-bars/maze-bottom-bar.container";
+import { ConnectedMazeBottomBar } from "./maze-ui-bars/maze-bottom-bar.container";
+import { generateDateSeed, getUrlParameter } from "../../Utils/RequestUtils";
 
 export class MazeComponent extends Component {
 
   static propTypes = {
-    clickHandlers: object.isRequired,
-    maze: object.isRequired,
-    score: number.isRequired
+    initializeMaze: func.isRequired,
+    updateBoardViewParams: func.isRequired,
+    maze: object
+  };
+
+  static defaultProps = {
+    maze: null
   };
 
   resizeTimeout = null;
 
-  onTileClick = tile => {
-    this.props.clickHandlers.onMazeClick(this.props.maze,
-        tile);
+  componentDidMount() {
+    if (!this.props.maze ) {
+      let seed = getUrlParameter("seed");
+      seed = ( seed || generateDateSeed());
+      this.props.initializeMaze(seed);
+    }
+
+    if (this.props.maze) this.onWindowResize();
+    window.addEventListener("resize", this.resizeThrottler, false);
   };
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resizeThrottler);
+  }
 
   onWindowResize = () => {
     this.props.updateBoardViewParams(this.props.maze,
@@ -36,29 +51,23 @@ export class MazeComponent extends Component {
     }
   };
 
-  componentDidMount() {
-    this.onWindowResize();
-    window.addEventListener("resize", this.resizeThrottler, false);
-  };
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeThrottler);
-  }
-
   render() {
     if(!this.props.maze || !this.props.maze.mazeTiles) return null;
     return (
         <div className='mazeview-container'>
-          <MazeTopBar highScore={9000}
-                      usedActions={this.props.maze.actionsUsed}
-                      maxActions={this.props.maze.params.maxActionPoints}
-                      scoreValue={this.props.score}/>
-          <MazeGameBoard maze={this.props.maze}
-                         path={this.props.path}
-                         tileSize={this.props.tileSize}
-                         rotateMaze={this.props.rotateMaze}
-                         onMazeClick={this.onTileClick}/>
-          <MazeBottomBarContainer history={this.props.history}/>
+          <MazeTopBar
+              highScore={9000}
+              usedActions={this.props.maze.actionsUsed}
+              maxActions={this.props.maze.params.maxActionPoints}
+              scoreValue={this.props.maze.score}
+          />
+          <MazeGameBoard
+              tileSize={this.props.tileSize}
+              maze={this.props.maze}
+              path={this.props.path}
+              rotateMaze={this.props.rotateMaze}
+          />
+          <ConnectedMazeBottomBar/>
         </div>
     );
   }

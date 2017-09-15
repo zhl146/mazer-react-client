@@ -3,9 +3,9 @@ import MyFireBase from '../../Utils/AuthUtil';
 
 import { ButtonTemplate } from '../../Utils/Components/ButtonTempate.component';
 
-export class AuthComponent extends Component{
+export class SignInButton extends Component{
 
-  componentWillMount(){
+  componentDidMount(){
     MyFireBase.auth().getRedirectResult().then( (result) => {
       if(result.credential){
         this.props.setAuthProfile(result.credential.accessToken, result.user);
@@ -47,3 +47,5 @@ export class AuthComponent extends Component{
     );
   }
 }
+
+// TODO: move all of this call logic into actions, components shouldn't deal with implementation

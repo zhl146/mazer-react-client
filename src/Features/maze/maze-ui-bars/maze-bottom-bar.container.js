@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { MazeBottomBar } from "./maze-bottom-bar.component";
-import { mazeCreate, toggleHelp } from "../maze.action";
+import { resetMaze, toggleHelp } from "../maze.action";
 
 const mapStateToProps = state => ({
   maze: state.MazeReducer.maze,
@@ -11,15 +11,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onResetClick: seed => {
-    dispatch(mazeCreate(seed));
+  onResetClick: () => {
+    dispatch(resetMaze());
   },
   onHelpClick: () => {
-    dispatch(toggleHelp);
+    dispatch(toggleHelp());
   }
 });
 
-export const MazeBottomBarContainer = connect(
+export const ConnectedMazeBottomBar = connect(
     mapStateToProps,
     mapDispatchToProps
 )(MazeBottomBar);

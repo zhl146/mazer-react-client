@@ -1,25 +1,21 @@
 import React from 'react';
 import { bool, func, object } from 'prop-types';
-import { SubmitScoreButton} from "./maze-submit-button.component";
-import { ResetButton } from "./maze-reset-button.component";
 
 MazeBottomBar.propTypes = {
-  maze: object.isRequired,
   onResetClick: func.isRequired,
-  history: object.isRequired,
   onHelpClick: func.isRequired,
   user: object,
   token: object,
   displayHelp: bool.isRequired
 };
 
-export function MazeBottomBar({maze,
-                                history,
+export function MazeBottomBar({
                                 onResetClick,
                                 onHelpClick,
                                 user,
                                 token,
-                                displayHelp}) {
+                                displayHelp
+                              }) {
 
   let renderHelp = () => {
     if (!displayHelp) return null;
@@ -38,6 +34,13 @@ export function MazeBottomBar({maze,
     );
   };
 
+  let renderSubmit = () => {
+    if ( user && token) {
+      return <button className='btn-generic'>Submit</button>;
+    }
+    return <button className='btn-generic'>Login</button>;
+  };
+
   return (
       <div>
         {renderHelp()}
@@ -47,14 +50,8 @@ export function MazeBottomBar({maze,
             <button id="help-btn" className="btn-generic" onClick={onHelpClick} >?</button>
           </div>
           <div id="footer-right">
-            <ResetButton seed={maze.params.seed}
-                         onResetClick={onResetClick}
-                         cssAttributes="btn-generic"  />
-            <SubmitScoreButton user={user}
-                               token={token}
-                               history={history}
-                               maze={maze}
-                               cssAttributes="btn-generic" />
+            <button onClick={onResetClick} className="btn-generic">Reset</button>
+            {renderSubmit()}
           </div>
         </div>
       </div>

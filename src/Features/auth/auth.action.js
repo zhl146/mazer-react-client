@@ -1,7 +1,7 @@
 export const AUTH_SET_PROFILE = 'AUTH_SET_PROFILE';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
-export const authError = (error) => (
+export const authError = error => (
     {
         type: AUTH_ERROR,
         error: error,

@@ -1,50 +1,17 @@
-import _ from 'lodash';
+import CustomError from '../../Utils/CustomError';
 
-export const MAZE_CREATE = 'MAZE_CREATE';
-export const MAZE_ACTION = 'MAZE_ACTION';
-export const MAZE_UNDO = 'MAZE_UNDO';
-export const MAZE_RESET = 'MAZE_RESET';
-export const MAZE_ERROR = 'MAZE_RESET';
-
+export const INIT_MAZE = 'INIT_MAZE';
+export const UNDO_ACTION = 'UNDO_ACTION';
+export const RESET_MAZE = 'RESET_MAZE';
+export const MAZE_ERROR = 'MAZE_ERROR';
 export const TOGGLE_HELP = 'TOGGLE_HELP';
 export const UPDATE_BOARDVIEWPARAMS = 'UPDATE_BOARDVIEWPARAMS';
 
-export function mazeCreate(seed){
-    return { type: MAZE_CREATE, seed: seed };
-}
+export const initializeMaze = seed => ({ type: INIT_MAZE, seed: seed });
 
-export function mazeAction(maze, tile){
-    let newMaze = _.cloneDeep(maze);
-    newMaze.doActionOnTile(tile);
-    newMaze.updatePath();
-    newMaze.updateScore();
-    try {
-        return {
-            type: MAZE_ACTION,
-            payload: {
-                maze: newMaze
-            }
-        };
-    }
-    catch(ex){
-        console.log("error, you probably blocked the maze: ");
-        console.log(ex);
-        return {
-            type: MAZE_ERROR,
-            payload: {
-                pathError: true
-            }
-        };
-    }
-}
+export const undoAction = () => ({ type: UNDO_ACTION });
 
-export function mazeUndo() {
-    return { type: MAZE_UNDO };
-}
-
-export function mazeReset() {
-    return { type: MAZE_RESET };
-}
+export const resetMaze = () => ({ type: RESET_MAZE });
 
 export const toggleHelp = () => ({ type: TOGGLE_HELP });
 
@@ -93,3 +60,33 @@ export const updateBoardViewParams = (maze, windowParams) => {
     },
   };
 };
+
+function submitScore( maze, history, user, token ){
+  console.log("MAZE: "+JSON.stringify(maze));
+  let solution = {
+    seed: maze.seed,
+    mazeTiles: maze.mazeTiles,
+    user: user,
+    token: token,
+  };
+
+  fetch('zhenlu.info/check', {
+    method: "POST",
+    body: JSON.stringify(solution)
+  })
+      .then( (res) => {
+        history.push('/leaderboard/');
+        if(!res.ok){
+          throw CustomError("Posting back to the server failed!");
+        }
+        return res;
+      })
+      .then( res => res.json())
+      .then( data => {
+        console.log(data);
+      })
+      .catch((ex) => {
+        alert("Sending your score to the server failed, if this persists please contact the admin!");
+        console.log("ERROR: "+ex);
+      });
+}

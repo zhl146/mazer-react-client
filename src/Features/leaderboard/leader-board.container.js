@@ -1,6 +1,6 @@
 import { fetchLeaderBoard } from './leader-board.action';
 import { connect } from 'react-redux';
-import LeaderBoardComponent from './leader-board.component';
+import { LeaderBoardComponent } from './leader-board.component';
 
 const mapStateToProps = (state) => {
   return {
@@ -18,9 +18,7 @@ const mapDispatchToProps  = dispatch => {
   };
 };
 
-const LeaderBoardContainer = connect(
+export const ConnectedLeaderBoard = connect(
     mapStateToProps,
     mapDispatchToProps
 )(LeaderBoardComponent);
-
-export default LeaderBoardContainer;

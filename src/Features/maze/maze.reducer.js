@@ -1,27 +1,87 @@
 import { createMaze } from 'mazer-shared';
-import { getUrlParameter, generateDateSeed } from '../../Utils/RequestUtils';
-import {
-  MAZE_ACTION,
-  MAZE_CREATE,
-  MAZE_ERROR,
-  MAZE_RESET,
-  TOGGLE_HELP,
-  UPDATE_BOARDVIEWPARAMS } from "./maze.action";
+import { cloneDeep } from 'lodash';
 
-function calculateInitialState(seed=null){
-  if(!seed){
-    seed = getUrlParameter("seed");
-    seed = (seed? seed: generateDateSeed());
+import {
+  INIT_MAZE,
+  MAZE_ERROR,
+  RESET_MAZE,
+  TOGGLE_HELP,
+  UPDATE_BOARDVIEWPARAMS
+} from "./maze.action";
+import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
+
+const initialState = {
+  seed: null,
+  maze: null,
+  path: null,
+  pathError: false,
+  rotateMaze: false,
+  tileSize: 30,
+  displayHelp: false,
+};
+
+function MazeReducer(state = initialState, action){
+  switch ( action.type ) {
+    case INIT_MAZE:
+      return Object.assign(
+          {},
+          state,
+          initializeMaze(action.seed)
+      );
+    case CLICK_TILE:
+      let newMaze = cloneDeep(state.maze);
+      newMaze.doActionOnTile(action.tile);
+      return Object.assign(
+          {},
+          state,
+          {
+            maze: newMaze,
+            path: calculatePath(newMaze.path,
+                state.tileSize,
+                state.rotateMaze)
+          }
+      );
+    case MAZE_ERROR:
+      return Object.assign(
+          {},
+          state,
+          action.payload
+      );
+
+    case RESET_MAZE:
+      console.log('resetting maze');
+      return Object.assign(
+          {},
+          state,
+          initializeMaze(state.seed)
+      );
+
+    case TOGGLE_HELP:
+      console.log('help clicked');
+      return Object.assign(
+          {},
+          state,
+          {displayHelp: !state.displayHelp});
+
+    case UPDATE_BOARDVIEWPARAMS:
+      return Object.assign(
+          {},
+          state,
+          action.payload,
+          { path: calculatePath(state.maze.path, action.payload.tileSize, action.payload.rotateMaze) }
+      );
+
+    default:
+      return state;
   }
+}
+
+function initializeMaze(seed){
   let maze = createMaze(seed);
   return {
     seed,
     maze,
-    path: calculatePath(maze.path, 30, false),
-    pathError: false,
-    rotateMaze: false,
-    tileSize: 30,
-    displayHelp: false,
+    path: calculatePath(maze.path, 30, false)
   };
 }
 
@@ -40,57 +100,6 @@ function calculatePath(path, tileSize, rotateMaze) {
     x: point.x * tileSize + tileOffset,
     y: point.y * tileSize + tileOffset,
   }) );
-}
-
-const initialState = calculateInitialState();
-
-function MazeReducer(state = initialState, action){
-  switch ( action.type ) {
-    case MAZE_CREATE:
-      return Object.assign(
-          {},
-          state,
-          calculateInitialState(state.seed)
-      );
-    case MAZE_ACTION:
-      return Object.assign(
-          {},
-          state,
-          action.payload,
-          { path: calculatePath(action.payload.maze.path, state.tileSize, state.rotateMaze) }
-      );
-    case MAZE_ERROR:
-      return Object.assign(
-          {},
-          state,
-          action.payload
-      );
-    case MAZE_RESET:
-      let newMaze = createMaze(action.seed);
-      let initialPath = newMaze.findPath();
-      return Object.assign(
-          {},
-          state,
-          {
-            maze: newMaze,
-            path: initialPath,
-          }
-      );
-
-    case TOGGLE_HELP:
-      return Object.assign({}, state, {displayHelp: !state.displayHelp});
-
-    case UPDATE_BOARDVIEWPARAMS:
-      return Object.assign(
-          {},
-          state,
-          action.payload,
-          { path: calculatePath(state.maze.path, action.payload.tileSize, action.payload.rotateMaze) }
-      );
-
-    default:
-      return state;
-  }
 }
 
 export default MazeReducer;

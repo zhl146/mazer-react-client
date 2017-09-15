@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
-import Routes from './Routes.component';
+import Routes from './routes.component';
 import configureStore from './store-config';
 
 ReactDOM.render(

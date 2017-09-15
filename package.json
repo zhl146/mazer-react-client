@@ -5,7 +5,7 @@
   "dependencies": {
     "firebase": "^4.3.0",
     "lodash": "^4.17.4",
-    "mazer-shared": "0.0.36",
+    "mazer-shared": "0.0.38",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-history": "^0.18.2",

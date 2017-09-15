@@ -1,6 +1,6 @@
 import { setAuthProfile, authError } from './auth.action';
 import { connect } from 'react-redux';
-import { AuthComponent } from './auth.component';
+import { SignInButton } from './signin-button.component';
 
 const mapStateToProps = (state) => {
     return {
@@ -21,7 +21,7 @@ const mapDispatchToProps  = dispatch => {
     };
 };
 
-export const AuthContainer = connect(
+export const ConnectedSignInButton = connect(
     mapStateToProps,
     mapDispatchToProps
-)(AuthComponent);
+)(SignInButton);

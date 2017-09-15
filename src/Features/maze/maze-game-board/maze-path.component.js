@@ -7,16 +7,6 @@ class MazePath extends Component {
   canvasHeight;
   elRef;
 
-  setDimensions() {
-    if (this.props.rotateMaze) {
-      this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows;
-      this.canvasHeight = this.props.tileSize * this.props.maze.params.numColumns;
-    } else {
-      this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns;
-      this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows;
-    }
-  }
-
   componentDidMount() {
     let context = this.elRef.getContext('2d');
     this.drawPath(context);
@@ -26,6 +16,16 @@ class MazePath extends Component {
     let context = this.elRef.getContext('2d');
     context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.drawPath(context);
+  }
+
+  setDimensions() {
+    if (this.props.rotateMaze) {
+      this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows;
+      this.canvasHeight = this.props.tileSize * this.props.maze.params.numColumns;
+    } else {
+      this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns;
+      this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows;
+    }
   }
 
   drawPath(context) {
@@ -47,8 +47,11 @@ class MazePath extends Component {
 
   render() {
     this.setDimensions();
-    return <canvas className="maze-path" ref={(elRef) => this.elRef = elRef}
-                   width={this.canvasWidth} height={this.canvasHeight}/>;
+    return <canvas
+        className="maze-path" ref={(elRef) => this.elRef = elRef}
+        width={this.canvasWidth}
+        height={this.canvasHeight}
+    />;
   }
 
 }

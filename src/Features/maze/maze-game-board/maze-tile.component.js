@@ -1,8 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { object, func, number } from 'prop-types';
 import { TileTypes } from 'mazer-shared';
 
-const TileComponent = ({ tile, onClick, colors, size }) => {
+MazeTile.propTypes = {
+  onClick: func.isRequired,
+  tile: object.isRequired,
+  tileSize: number.isRequired,
+  colors: object.isRequired
+};
+
+export function MazeTile( { tile, onClick, colors, tileSize }) {
 
   let blockerOverlay = null;
   let textOverlay = null;
@@ -41,25 +48,20 @@ const TileComponent = ({ tile, onClick, colors, size }) => {
   }
 
   const tileStyle = Object.assign({}, colorStyle, {
-    height: size + 'px',
-    width: size + 'px',
-    fontSize: size /2 + 'px',
+    height: tileSize + 'px',
+    width: tileSize + 'px',
+    fontSize: tileSize /2 + 'px',
   });
 
+  const handleClick = () => {
+    onClick(tile);
+  };
+
   return (
-      <div className='tile '
-           style={tileStyle}
-           onClick={ () => onClick(tile) } >
+      <div className='tile ' style={tileStyle} onClick={handleClick} >
         { pulseOverlay }
         { blockerOverlay }
         { textOverlay }
       </div>
   );
-};
-
-TileComponent.PropTypes = {
-  onClick: PropTypes.func.isRequired,
-  tile: PropTypes.object.isRequired
-};
-
-export default TileComponent;
+}
