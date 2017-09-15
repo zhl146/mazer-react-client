@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
   maze: state.MazeReducer.maze,
   user: state.AuthReducer.user,
   token: state.AuthReducer.token,
-  helpDisplay: state.MazeReducer.helpDisplay
+  displayHelp: state.MazeReducer.displayHelp
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,7 +3,7 @@ import MyFireBase from '../../Utils/AuthUtil';
 
 import { ButtonTemplate } from '../../Utils/Components/ButtonTempate.component';
 
-class AuthComponent extends Component{
+export class AuthComponent extends Component{
 
   componentWillMount(){
     MyFireBase.auth().getRedirectResult().then( (result) => {
@@ -47,9 +47,3 @@ class AuthComponent extends Component{
     );
   }
 }
-
-export default AuthComponent;
-
-
-
-

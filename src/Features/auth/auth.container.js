@@ -1,6 +1,6 @@
 import { setAuthProfile, authError } from './auth.action';
 import { connect } from 'react-redux';
-import AuthComponent from './auth.component';
+import { AuthComponent } from './auth.component';
 
 const mapStateToProps = (state) => {
     return {
@@ -21,9 +21,7 @@ const mapDispatchToProps  = dispatch => {
     };
 };
 
-const AuthContainer = connect(
+export const AuthContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(AuthComponent);
-
-export default AuthContainer;

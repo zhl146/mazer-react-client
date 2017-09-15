@@ -58,8 +58,43 @@ export class MazeComponent extends Component {
                          tileSize={this.props.tileSize}
                          rotateMaze={this.props.rotateMaze}
                          onMazeClick={this.onTileClick}/>
-          <MazeBottomBarContainer />
+          <MazeBottomBarContainer history={this.props.history}/>
         </div>
     );
   }
 }
+
+// this used to be in the maze-top-bar component, but it should go here and not use local state
+// TODO: make an action to do this and call it every minute or so from this component
+//
+// state = {highScore: '...'};
+// BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
+// urlArgs = "?start=0&length=10";
+//
+// componentDidMount(){
+//   fetch(this.BASE_URL+this.props.maze.seed+this.urlArgs).then(
+//       (res) => {
+//         console.log(res);
+//         if(!res.ok) {
+//           throw Error(res.statusText);
+//         }
+//         res.json().then(
+//             (data) => {
+//               if (data.scores.length === 0) {
+//                 this.setState({highScore: '0'});
+//               } else {
+//                 this.setState({highScore: data.scores[0].name + ":" + data.scores[0].score});
+//               }
+//             }
+//         ).catch( (err) => {
+//           console.log(err);
+//           this.setState({highScore:"Error Loading High Score"});
+//         });
+//       }
+//   ).catch(
+//       (ex) => {
+//         console.log(ex);
+//         this.setState({highScore:"Error Fetching High Score"});
+//       }
+//   );
+// }

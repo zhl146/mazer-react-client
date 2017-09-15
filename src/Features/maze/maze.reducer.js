@@ -21,7 +21,7 @@ function calculateInitialState(seed=null){
     pathError: false,
     rotateMaze: false,
     tileSize: 30,
-    helpDisplay: false,
+    displayHelp: false,
   };
 }
 
@@ -78,7 +78,7 @@ function MazeReducer(state = initialState, action){
       );
 
     case TOGGLE_HELP:
-      return Object.assign({}, state, {helpDisplay: !state.helpDisplay});
+      return Object.assign({}, state, {displayHelp: !state.displayHelp});
 
     case UPDATE_BOARDVIEWPARAMS:
       return Object.assign(

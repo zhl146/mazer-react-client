@@ -12,7 +12,7 @@ export function ButtonTemplate( {onClickInput,
                                   text,
                                   cssAttributes,
                                   disabled}){
-  console.log('disabled: '+disabled);
+  //console.log('disabled: '+disabled);
   if(disabled) {
     return (
         <button
