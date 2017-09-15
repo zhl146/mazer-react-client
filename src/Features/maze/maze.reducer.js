@@ -6,7 +6,7 @@ import {
   RESET_PATHERROR,
   RESET_MAZE,
   TOGGLE_HELP,
-  UPDATE_BOARDVIEWPARAMS,
+  UPDATE_VIEWPARAMS,
   RESET_ACTIONERROR
 } from "./maze.action";
 import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
@@ -22,22 +22,25 @@ const initialState = {
   displayHelp: false,
 };
 
-function MazeReducer(state = initialState, action){
+export default function MazeReducer(state = initialState, action){
   switch ( action.type ) {
-    case INIT_MAZE:
-      return ({
-        ...state,
-        ...initializeMaze(action.seed)
-      });
     case CLICK_TILE:
       let newMaze = cloneDeep(state.maze);
-      newMaze.doActionOnTile(action.tile);
+      let code = newMaze.doActionOnTile(action.tile);
+      let pathError = false;
+      let actionError = false;
+      if (code === newMaze.StatusCodes.BlockedPath) pathError = true;
+      else if (code === newMaze.StatusCodes.NotEnoughActions) actionError = true;
       return ({
         ...state,
         maze: newMaze,
-        path: calculatePath(newMaze.path,
+        path: calculatePath(
+            newMaze.path,
             state.tileSize,
-            state.rotateMaze)
+            state.rotateMaze
+        ),
+        pathError,
+        actionError
       });
     case RESET_PATHERROR:
       return ({
@@ -49,6 +52,18 @@ function MazeReducer(state = initialState, action){
         ...state,
         actionError:false
       });
+    case UPDATE_VIEWPARAMS:
+      let { tileSize, rotateMaze } = calculateViewParams(state.maze, action.viewParams);
+      return ({
+        ...state,
+        tileSize,
+        rotateMaze,
+        path: calculatePath(
+            state.maze.path,
+            tileSize,
+            rotateMaze
+        )
+      });
     case RESET_MAZE:
       return ({
         ...state,
@@ -59,11 +74,10 @@ function MazeReducer(state = initialState, action){
         ...state,
         displayHelp: !state.displayHelp
       });
-    case UPDATE_BOARDVIEWPARAMS:
+    case INIT_MAZE:
       return ({
         ...state,
-        ...action.payload,
-        path: calculatePath(state.maze.path, action.payload.tileSize, action.payload.rotateMaze)
+        ...initializeMaze(action.seed)
       });
     default:
       return state;
@@ -96,4 +110,45 @@ function calculatePath(path, tileSize, rotateMaze) {
   }) );
 }
 
-export default MazeReducer;
+function calculateViewParams(maze, windowParams){
+
+  const headerHeight = 60;
+  const footerHeight = 60;
+
+  let rotateMaze = false;
+
+  let numRows = maze.params.numRows;
+  let numColumns = maze.params.numColumns;
+
+  const availableHeight = windowParams.height - headerHeight - footerHeight;
+  const availableWidth = windowParams.width;
+
+  // check dimensionality of client window
+  const windowOrientation = availableWidth > availableHeight ? 'landscape' : 'portrait';
+
+  // check orientation of generated maze
+  let mazeOrientation = numColumns > numRows ? 'landscape' : 'portrait';
+
+
+  // if the generated maze doesn't match up with the window, rotate the maze
+  if (windowOrientation !== mazeOrientation) {
+    numRows = maze.params.numColumns;
+    numColumns = maze.params.numRows;
+    rotateMaze = true;
+  }
+
+  // calculate the maximum allowable dimensions for each tile
+  const maxTileHeight = availableHeight / numRows;
+  const maxTileWidth = availableWidth / numColumns;
+
+  // choose the limiting dimensions to make the tiles square and also fit the screen
+  let tileSize = maxTileHeight > maxTileWidth ? maxTileWidth : maxTileHeight;
+
+  // we limit the tile dimension to 30px so we default to 30 if the calculated dimension is too large
+  tileSize = tileSize > 30 ? 30 : tileSize;
+
+  return {
+    tileSize,
+    rotateMaze
+  };
+}

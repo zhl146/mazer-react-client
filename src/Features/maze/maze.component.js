@@ -11,7 +11,7 @@ export class MazeComponent extends Component {
 
   static propTypes = {
     initializeMaze: func.isRequired,
-    updateBoardViewParams: func.isRequired,
+    updateViewPort: func.isRequired,
     maze: object
   };
 
@@ -37,8 +37,7 @@ export class MazeComponent extends Component {
   }
 
   onWindowResize = () => {
-    this.props.updateBoardViewParams(this.props.maze,
-        {width: window.innerWidth, height: window.innerHeight});
+    this.props.updateViewPort({width: window.innerWidth, height: window.innerHeight});
   };
 
   resizeThrottler = () => {

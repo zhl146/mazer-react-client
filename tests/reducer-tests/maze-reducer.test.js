@@ -1,5 +1,6 @@
 import test from 'tape';
 
+import { createMaze } from 'mazer-shared';
 import MazeReducer from '../../src/Features/maze/maze.reducer';
 import {
   INIT_MAZE,
@@ -7,6 +8,7 @@ import {
   RESET_PATHERROR,
   TOGGLE_HELP
 } from "../../src/Features/maze/maze.action";
+import { CLICK_TILE } from "../../src/Features/maze/maze-game-board/maze-tile.action";
 
 test('maze reducer should return current state if passed no valid action', assert => {
   const initialState = {};
@@ -102,5 +104,25 @@ test('maze reducer should be able reset path error', assert => {
   };
 
   assert.deepEqual(MazeReducer(initialState,action), expectedState);
+  assert.end();
+});
+
+test('mazer reducer should return a different state if given a click action', assert => {
+  const seed = 'test-seed';
+  const testMaze = createMaze('seed');
+
+  const initAction = {
+    type: INIT_MAZE,
+    seed
+  };
+
+  const initialState = MazeReducer(undefined, initAction);
+
+  const testAction = {
+    type: CLICK_TILE,
+    tile: testMaze.mazeTiles[1][1]
+  };
+
+  assert.notDeepEqual(MazeReducer(initialState, testAction), initialState);
   assert.end();
 });

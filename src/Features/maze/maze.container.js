@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { initializeMaze, updateBoardViewParams } from './maze.action';
+import { initializeMaze, updateView } from './maze.action';
 import { MazeComponent } from './maze.component';
 
 const mapStateToProps = state => {
@@ -14,8 +14,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps  = dispatch => {
   return {
-    updateBoardViewParams: (maze, params) => {
-      dispatch(updateBoardViewParams(maze, params));
+    updateViewPort: params => {
+      dispatch(updateView(params));
     },
     initializeMaze: seed => {
       dispatch(initializeMaze(seed));
