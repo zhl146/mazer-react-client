@@ -1,4 +1,4 @@
-import {AUTH_ERROR, AUTH_SET_PROFILE} from './Auth.action';
+import {AUTH_ERROR, AUTH_SET_PROFILE} from './auth.action';
 
 function calculateInitialState() {
     return {

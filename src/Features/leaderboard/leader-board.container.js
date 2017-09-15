@@ -1,6 +1,6 @@
-import { fetchLeaderBoard } from './LeaderBoard.action';
+import { fetchLeaderBoard } from './leader-board.action';
 import { connect } from 'react-redux';
-import LeaderBoardComponent from './LeaderBoard.component';
+import LeaderBoardComponent from './leader-board.component';
 
 const mapStateToProps = (state) => {
   return {

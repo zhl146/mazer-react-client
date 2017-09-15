@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import LeaderBoardScore from './LeaderBoardScore.component';
+import { LeaderBoardScore } from './leader-board-score.component';
 
 class LeaderBoardComponent extends Component {
     constructor(props){

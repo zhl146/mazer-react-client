@@ -1,20 +1,25 @@
 import React from 'react';
-import { func, object } from 'prop-types';
-import {ResetMazeButton, SubmitScoreButton} from "./MazeButton.component";
+import { bool, func, object } from 'prop-types';
+import { SubmitScoreButton} from "./maze-submit-button.component";
+import { ResetButton } from "./maze-reset-button.component";
 
-MazeFooterComponent.propTypes = {
-  onResetClick: func.isRequired,
+MazeBottomBar.propTypes = {
   maze: object.isRequired,
-  history: object.isRequired
+  onResetClick: func.isRequired,
+  history: object.isRequired,
+  onHelpClick: func.isRequired,
+  user: object,
+  token: object,
+  displayHelp: bool.isRequired
 };
 
-function MazeFooterComponent({maze,
-                               onResetClick,
-                               history,
-                               onHelpClick,
-                               user,
-                               token,
-                               displayHelp}) {
+export function MazeBottomBar({maze,
+                                history,
+                                onResetClick,
+                                onHelpClick,
+                                user,
+                                token,
+                                displayHelp}) {
 
   let renderHelp = () => {
     if (!displayHelp) return null;
@@ -42,9 +47,9 @@ function MazeFooterComponent({maze,
             <button id="help-btn" className="btn-generic" onClick={onHelpClick} >?</button>
           </div>
           <div id="footer-right">
-            <ResetMazeButton seed={maze.params.seed}
-                             onResetClick={onResetClick}
-                             cssAttributes="btn-generic"  />
+            <ResetButton seed={maze.params.seed}
+                         onResetClick={onResetClick}
+                         cssAttributes="btn-generic"  />
             <SubmitScoreButton user={user}
                                token={token}
                                history={history}
@@ -55,6 +60,3 @@ function MazeFooterComponent({maze,
       </div>
   );
 }
-
-export default MazeFooterComponent;
-

@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
-import MazeReducer from "./Features/Maze/Maze.reducer";
-import LeaderBoardReducer from "./Features/Leaderboard/LeaderBoard.reducer";
-import AuthReducer from "./Features/Auth/Auth.reducer";
+import MazeReducer from "./Features/maze/maze.reducer";
+import LeaderBoardReducer from "./Features/leaderboard/leader-board.reducer";
+import AuthReducer from "./Features/auth/auth.reducer";
 
 export const rootReducer = combineReducers({
         MazeReducer,

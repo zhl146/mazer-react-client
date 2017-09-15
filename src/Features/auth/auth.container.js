@@ -1,6 +1,6 @@
-import { setAuthProfile, authError } from './Auth.action';
+import { setAuthProfile, authError } from './auth.action';
 import { connect } from 'react-redux';
-import AuthComponent from './Auth.component';
+import AuthComponent from './auth.component';
 
 const mapStateToProps = (state) => {
     return {

@@ -1,6 +1,7 @@
-import { mazeAction, mazeCreate, toggleHelp, updateBoardViewParams } from './Maze.action';
 import { connect } from 'react-redux';
-import MazeComponent from './Maze.component';
+
+import { mazeAction, mazeCreate, toggleHelp, updateBoardViewParams } from './maze.action';
+import { MazeComponent } from './maze.component';
 
 const mapStateToProps = (state) => {
   return {

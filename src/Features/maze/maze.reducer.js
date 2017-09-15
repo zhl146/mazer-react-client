@@ -6,7 +6,7 @@ import {
   MAZE_ERROR,
   MAZE_RESET,
   TOGGLE_HELP,
-  UPDATE_BOARDVIEWPARAMS } from "./Maze.action";
+  UPDATE_BOARDVIEWPARAMS } from "./maze.action";
 
 function calculateInitialState(seed=null){
   if(!seed){

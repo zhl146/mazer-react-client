@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { func, object, number } from 'prop-types';
 
-import './Maze.css';
-import MazeHeader from './MazeHeader.component';
-import MazeFooter from './MazeFooter.component';
-import MazeGameBoard from "./GameBoard/MazeGameBoard.component";
+import './maze.css';
+import { MazeTopBar } from './maze-ui-bars/maze-top-bar.component';
+import { MazeGameBoard } from "./maze-game-board/maze-game-board.component";
+import { MazeBottomBarContainer } from "./maze-ui-bars/maze-bottom-bar.container";
 
-class MazeComponent extends Component {
+export class MazeComponent extends Component {
 
   static propTypes = {
     clickHandlers: object.isRequired,
     maze: object.isRequired,
-    score: number.isRequired,
-    history: object.isRequired
+    score: number.isRequired
   };
 
-  resizeTimeout;
+  resizeTimeout = null;
 
   onTileClick = tile => {
     this.props.clickHandlers.onMazeClick(this.props.maze,
@@ -50,22 +49,17 @@ class MazeComponent extends Component {
     if(!this.props.maze || !this.props.maze.mazeTiles) return null;
     return (
         <div className='mazeview-container'>
-          <MazeHeader maze={this.props.maze}
+          <MazeTopBar highScore={9000}
+                      usedActions={this.props.maze.actionsUsed}
+                      maxActions={this.props.maze.params.maxActionPoints}
                       scoreValue={this.props.score}/>
           <MazeGameBoard maze={this.props.maze}
                          path={this.props.path}
                          tileSize={this.props.tileSize}
                          rotateMaze={this.props.rotateMaze}
                          onMazeClick={this.onTileClick}/>
-          <MazeFooter  maze={this.props.maze}
-                       displayHelp={this.props.helpDisplay}
-                       onResetClick={this.props.clickHandlers.onResetClick}
-                       onHelpClick={this.props.clickHandlers.onHelpClick}
-                       user={this.props.user}
-                       history={this.props.history} />
+          <MazeBottomBarContainer />
         </div>
     );
   }
 }
-
-export default MazeComponent;

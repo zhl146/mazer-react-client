@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
+import { bool, func, object, number, array } from 'prop-types';
 
-import MazePath from './MazePath.component';
-import Tile from "./MazeTile.component";
+import MazePath from './maze-path.component';
+import Tile from "./maze-tile.component";
 
-class MazeGameBoardComponent extends Component{
+export class MazeGameBoard extends Component{
+
+  static propTypes = {
+    rotateMaze: bool.isRequired,
+    onMazeClick: func.isRequired,
+    maze: object.isRequired,
+    tileSize: number.isRequired,
+    path: array.isRequired
+  };
 
   render() {
     return (
@@ -49,5 +58,3 @@ const makeMazeRow = (row, onMazeClick, colors, tileSize) => {
       )
   );
 };
-
-export default MazeGameBoardComponent;
