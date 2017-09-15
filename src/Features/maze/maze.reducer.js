@@ -32,49 +32,39 @@ function MazeReducer(state = initialState, action){
     case CLICK_TILE:
       let newMaze = cloneDeep(state.maze);
       newMaze.doActionOnTile(action.tile);
-      return Object.assign(
-          {},
-          state,
-          {
-            maze: newMaze,
-            path: calculatePath(newMaze.path,
-                state.tileSize,
-                state.rotateMaze)
-          }
-      );
+      return ({
+        ...state,
+        maze: newMaze,
+        path: calculatePath(newMaze.path,
+            state.tileSize,
+            state.rotateMaze)
+      });
     case RESET_PATHERROR:
       return ({
         ...state,
         pathError:false
       });
-
     case RESET_ACTIONERROR:
       return ({
         ...state,
         actionError:false
       });
-
     case RESET_MAZE:
-      return Object.assign(
-          {},
-          state,
-          initializeMaze(state.seed)
-      );
-
+      return ({
+        ...state,
+        ...initializeMaze(state.seed)
+      });
     case TOGGLE_HELP:
-      return Object.assign(
-          {},
-          state,
-          {displayHelp: !state.displayHelp});
-
+      return ({
+        ...state,
+        displayHelp: !state.displayHelp
+      });
     case UPDATE_BOARDVIEWPARAMS:
-      return Object.assign(
-          {},
-          state,
-          action.payload,
-          { path: calculatePath(state.maze.path, action.payload.tileSize, action.payload.rotateMaze) }
-      );
-
+      return ({
+        ...state,
+        ...action.payload,
+        path: calculatePath(state.maze.path, action.payload.tileSize, action.payload.rotateMaze)
+      });
     default:
       return state;
   }
