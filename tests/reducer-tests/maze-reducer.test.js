@@ -33,26 +33,20 @@ test('maze reducer should generate a new maze on INIT_MAZE action', assert => {
     type: INIT_MAZE,
     seed: 'a seed'
   };
-
   const state = MazeReducer(undefined, action);
 
   assert.ok(state.maze, 'maze should be initialized to not null');
-  assert.ok(state.seed, 'seed should be initialized');
   assert.ok(state.path, 'path should be initialized');
-
   assert.end();
-
 });
 
 test('maze reducer should toggle help', assert => {
   const action = {
     type: TOGGLE_HELP
   };
-
   const initialState = {
     displayHelp: false
   };
-
   const expectedState = {
     displayHelp: true
   };
@@ -65,11 +59,9 @@ test('maze reducer should be able reset path error', assert => {
   const action = {
     type: RESET_PATHERROR
   };
-
   const initialState = {
     pathError: true
   };
-
   const expectedState = {
     pathError: false
   };
@@ -82,11 +74,9 @@ test('maze reducer should be able reset path error', assert => {
   const action = {
     type: RESET_ACTIONERROR
   };
-
   const initialState = {
     actionError: true
   };
-
   const expectedState = {
     actionError: false
   };
@@ -95,15 +85,13 @@ test('maze reducer should be able reset path error', assert => {
   assert.end();
 });
 
-test('mazer reducer should return a different state if given a click action', assert => {
+test('maze reducer should return a different state if given a click action', assert => {
   const seed = 'test-seed';
   const testMaze = createMaze('seed');
-
   const initAction = {
     type: INIT_MAZE,
     seed
   };
-
   const initialState = MazeReducer(undefined, initAction);
 
   const testAction = {

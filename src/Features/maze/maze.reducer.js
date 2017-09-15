@@ -12,7 +12,6 @@ import {
 import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
 
 export const initialState = {
-  seed: null,
   maze: null,
   path: null,
   pathError: false,
@@ -87,7 +86,6 @@ export default function MazeReducer(state = initialState, action){
 function initializeMaze(seed){
   let maze = createMaze(seed);
   return {
-    seed,
     maze,
     path: calculatePath(maze.path, 30, false)
   };
