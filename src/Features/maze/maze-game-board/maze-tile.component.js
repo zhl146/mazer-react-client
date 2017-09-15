@@ -2,6 +2,8 @@ import React from 'react';
 import { object, func, number } from 'prop-types';
 import { TileTypes } from 'mazer-shared';
 
+import './maze-tile.css';
+
 MazeTile.propTypes = {
   onClick: func.isRequired,
   tile: object.isRequired,
@@ -18,8 +20,14 @@ export function MazeTile( { tile, onClick, colors, tileSize }) {
 
   // set proper blocker overlay as content if tile is a blocker
   if (tile.type === TileTypes.Blocker) {
-    if(tile.userPlaced) blockerOverlay = <div className="blocker-polygon-overlay" style={{background: colors.blockerUser}} />;
-    else blockerOverlay = <div className="blocker-polygon-overlay" style={{background: colors.blockerNatural}} />;
+    if(tile.userPlaced) {
+      blockerOverlay = (
+          <div className="game-tile__blocker-overlay" style={{background: colors.blockerUser}}/>
+    );
+    }
+    else blockerOverlay = (
+        <div className="game-tile__blocker-overlay" style={{background: colors.blockerNatural}}/>
+    );
   }
   // set text if tile is start, end, or waypoint ( mutually exclusive )
   if (tile.type === TileTypes.Start) {
@@ -32,8 +40,10 @@ export function MazeTile( { tile, onClick, colors, tileSize }) {
 
   // tile is a score modifier zone
   if(tile.scoreMod > 1){
-    if(tile.scoreZoneCenter) textOverlay = <div className="tile-pulse">{tile.scoreMod + 'x'}</div>;
-    else pulseOverlay = <div className="tile-pulse" />;
+    if(tile.scoreZoneCenter) {
+      textOverlay = <div className="game-tile__pulse">{tile.scoreMod + 'x'}</div>;
+    }
+    else pulseOverlay = <div className="game-tile__pulse" />;
   }
   // tile has default color
   if (tile.userPlaced && tile.type === TileTypes.Empty) {
@@ -58,7 +68,7 @@ export function MazeTile( { tile, onClick, colors, tileSize }) {
   };
 
   return (
-      <div className='tile ' style={tileStyle} onClick={handleClick} >
+      <div className='game-tile' style={tileStyle} onClick={handleClick} >
         { pulseOverlay }
         { blockerOverlay }
         { textOverlay }

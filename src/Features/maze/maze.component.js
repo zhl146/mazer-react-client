@@ -54,7 +54,7 @@ export class MazeComponent extends Component {
   render() {
     if(!this.props.maze || !this.props.maze.mazeTiles) return null;
     return (
-        <div className='mazeview-container'>
+        <div className='maze-component'>
           <MazeTopBar
               highScore={9000}
               usedActions={this.props.maze.actionsUsed}
@@ -67,7 +67,7 @@ export class MazeComponent extends Component {
               path={this.props.path}
               rotateMaze={this.props.rotateMaze}
           />
-          <ConnectedMazeBottomBar/>
+          <ConnectedMazeBottomBar />
         </div>
     );
   }

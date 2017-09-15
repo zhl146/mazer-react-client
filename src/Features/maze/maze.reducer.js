@@ -49,7 +49,6 @@ function MazeReducer(state = initialState, action){
       );
 
     case RESET_MAZE:
-      console.log('resetting maze');
       return Object.assign(
           {},
           state,
@@ -57,7 +56,6 @@ function MazeReducer(state = initialState, action){
       );
 
     case TOGGLE_HELP:
-      console.log('help clicked');
       return Object.assign(
           {},
           state,

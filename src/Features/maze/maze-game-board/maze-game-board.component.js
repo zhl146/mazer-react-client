@@ -4,6 +4,8 @@ import { bool, object, number, array } from 'prop-types';
 import MazePath from './maze-path.component';
 import { ConnectedMazeTile } from "./maze-tile.container";
 
+import './maze-game-board.css';
+
 export class MazeGameBoard extends Component{
 
   static propTypes = {

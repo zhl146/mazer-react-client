@@ -1,6 +1,8 @@
 import React from 'react';
 import { object, number } from 'prop-types';
 
+import './maze-top-bar.css';
+
 export function MazeTopBar({ usedActions, maxActions, scoreValue, highScore}) {
 
   const getActionString = () => {

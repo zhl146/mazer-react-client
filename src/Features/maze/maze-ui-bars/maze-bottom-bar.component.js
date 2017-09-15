@@ -1,6 +1,8 @@
 import React from 'react';
 import { bool, func, object } from 'prop-types';
 
+import './maze-bottom-bar.css';
+
 MazeBottomBar.propTypes = {
   onResetClick: func.isRequired,
   onHelpClick: func.isRequired,
@@ -20,7 +22,7 @@ export function MazeBottomBar({
   let renderHelp = () => {
     if (!displayHelp) return null;
     return (
-        <div id="info-container" >
+        <div class="info-container" >
           <p>Make the longest maze between S and E to beat the high score!</p>
           <p>The path must always link to all way-points in numerical order.</p>
           <p>You have <span id="help-action-points">33</span> action points (AP) to spend.</p>
@@ -36,21 +38,21 @@ export function MazeBottomBar({
 
   let renderSubmit = () => {
     if ( user && token) {
-      return <button className='btn-generic'>Submit</button>;
+      return <button className='maze-bottom-bar__btn'>Submit</button>;
     }
-    return <button className='btn-generic'>Login</button>;
+    return <button className='maze-bottom-bar__btn'>Login</button>;
   };
 
   return (
       <div>
         {renderHelp()}
 
-        <div id="footer-buttons">
-          <div id="footer-left">
-            <button id="help-btn" className="btn-generic" onClick={onHelpClick} >?</button>
+        <div className="maze-bottom-bar">
+          <div>
+            <button id="help-btn" className="maze-bottom-bar__btn" onClick={onHelpClick} >?</button>
           </div>
-          <div id="footer-right">
-            <button onClick={onResetClick} className="btn-generic">Reset</button>
+          <div>
+            <button onClick={onResetClick} className="maze-bottom-bar__btn">Reset</button>
             {renderSubmit()}
           </div>
         </div>

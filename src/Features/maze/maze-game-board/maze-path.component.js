@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './maze-path.css';
+
 class MazePath extends Component {
 
   canvasWidth;
