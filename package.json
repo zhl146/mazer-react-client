@@ -20,8 +20,8 @@
     "start-js": "NODE_ENV=development BABEL_ENV=development node scripts/start.js",
     "start": "run-p watch-css start-js",
     "build": "npm run build-css && NODE_ENV=production BABEL_ENV=production node scripts/build.js",
-    "test": "NODE_ENV=test BABEL_ENV=test tape -r babel-register tests/**/*.js --inspect",
-    "test-faucet": "NODE_ENV=test BABEL_ENV=test tape -r babel-register tests/**/*.js --inspect | faucet"
+    "test": "NODE_ENV=test BABEL_ENV=test tape -r babel-register tests/**/*.test.js --inspect",
+    "test-faucet": "NODE_ENV=test BABEL_ENV=test tape -r babel-register tests/**/*.test.js --inspect | faucet"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",

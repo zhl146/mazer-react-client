@@ -3,10 +3,11 @@ import { cloneDeep } from 'lodash';
 
 import {
   INIT_MAZE,
-  MAZE_ERROR,
+  RESET_PATHERROR,
   RESET_MAZE,
   TOGGLE_HELP,
-  UPDATE_BOARDVIEWPARAMS
+  UPDATE_BOARDVIEWPARAMS,
+  RESET_ACTIONERROR
 } from "./maze.action";
 import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
 
@@ -15,6 +16,7 @@ const initialState = {
   maze: null,
   path: null,
   pathError: false,
+  actionError: false,
   rotateMaze: false,
   tileSize: 30,
   displayHelp: false,
@@ -41,12 +43,17 @@ function MazeReducer(state = initialState, action){
                 state.rotateMaze)
           }
       );
-    case MAZE_ERROR:
-      return Object.assign(
-          {},
-          state,
-          action.payload
-      );
+    case RESET_PATHERROR:
+      return ({
+        ...state,
+        pathError:false
+      });
+
+    case RESET_ACTIONERROR:
+      return ({
+          ...state,
+        actionError:false
+      });
 
     case RESET_MAZE:
       return Object.assign(

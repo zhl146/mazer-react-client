@@ -3,7 +3,8 @@ import CustomError from '../../Utils/CustomError';
 export const INIT_MAZE = 'INIT_MAZE';
 export const UNDO_ACTION = 'UNDO_ACTION';
 export const RESET_MAZE = 'RESET_MAZE';
-export const MAZE_ERROR = 'MAZE_ERROR';
+export const RESET_PATHERROR = 'RESET_PATHERROR';
+export const RESET_ACTIONERROR = 'RESET_ACTIONERROR';
 export const TOGGLE_HELP = 'TOGGLE_HELP';
 export const UPDATE_BOARDVIEWPARAMS = 'UPDATE_BOARDVIEWPARAMS';
 
