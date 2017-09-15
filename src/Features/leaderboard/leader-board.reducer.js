@@ -42,11 +42,6 @@ function LeaderBoardReducer(state = initialState, action){
             error: action.error
           }
       );
-    case INIT_LEADERBOARD:
-      return ({
-        ...state,
-        seed: action.seed
-      });
     default:
       return state;
   }

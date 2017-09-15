@@ -28,23 +28,6 @@ test('leaderboard reducer should not touch the state if an invalid action is pro
   assert.end();
 });
 
-test('leaderboard reducer should initialize with the correct seed', assert => {
-  const seed = 'test-seed';
-
-  const testAction = {
-    type: INIT_LEADERBOARD,
-    seed,
-  };
-
-  const expectedState = {
-    ...initialState,
-    seed
-  };
-
-  assert.deepEqual(LeaderBoardReducer(undefined, testAction), expectedState);
-  assert.end();
-});
-
 test('leaderboard reducer should be able to set pending state', assert => {
   const testAction = {
     type: FETCH_LEADERBOARD

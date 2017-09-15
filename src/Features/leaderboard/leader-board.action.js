@@ -6,11 +6,6 @@ export const INIT_LEADERBOARD = 'INIT_LEADERBOARD';
 const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
 const args = "?start=0&length=10";
 
-export const initializeLeaderBoard = seed => ({
-  type: INIT_LEADERBOARD,
-  seed,
-});
-
 export const fetchLeaderBoard = (dispatch, seed) => (
     {
       type: FETCH_LEADERBOARD,
@@ -24,7 +19,6 @@ export const fetchLeaderBoard = (dispatch, seed) => (
           })
           .then( res => res.json())
           .then( (data) => {
-            console.log(data);
             dispatch(fetchLeaderBoardFulfilled(data.scores, seed));
           })
           .catch( (err) => {
