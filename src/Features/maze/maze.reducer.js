@@ -11,7 +11,7 @@ import {
 } from "./maze.action";
 import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
 
-const initialState = {
+export const initialState = {
   seed: null,
   maze: null,
   path: null,

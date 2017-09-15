@@ -1,7 +1,7 @@
 import test from 'tape';
 
 import { createMaze } from 'mazer-shared';
-import MazeReducer from '../../src/Features/maze/maze.reducer';
+import MazeReducer, { initialState } from '../../src/Features/maze/maze.reducer';
 import {
   INIT_MAZE,
   RESET_ACTIONERROR,
@@ -11,7 +11,6 @@ import {
 import { CLICK_TILE } from "../../src/Features/maze/maze-game-board/maze-tile.action";
 
 test('maze reducer should return current state if passed no valid action', assert => {
-  const initialState = {};
   const action = {
     type: 'DUMMY_TEST'
   };
@@ -21,22 +20,11 @@ test('maze reducer should return current state if passed no valid action', asser
 });
 
 test('maze reducer should generate the correct initial state', assert => {
-  const expectedState = {
-    seed: null,
-    maze: null,
-    path: null,
-    pathError: false,
-    actionError: false,
-    rotateMaze: false,
-    tileSize: 30,
-    displayHelp: false,
-  };
-
   const action = {
     type: 'DUMMY_TEST'
   };
 
-  assert.deepEqual(MazeReducer(undefined, action), expectedState);
+  assert.deepEqual(MazeReducer(undefined, action), initialState);
   assert.end();
 });
 

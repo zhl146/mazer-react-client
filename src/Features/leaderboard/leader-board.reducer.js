@@ -1,24 +1,16 @@
 import {
   FETCH_LEADERBOARD,
   FETCH_LEADERBOARD_FULFILLED,
-  FETCH_LEADERBOARD_ERROR } from "./leader-board.action";
-import {generateDateSeed, getUrlParameter} from "../../Utils/RequestUtils";
+  FETCH_LEADERBOARD_ERROR,
+  INIT_LEADERBOARD
+} from "./leader-board.action";
 
-function calculateInitialState(seed=null) {
-  if(!seed){
-    seed = getUrlParameter("seed");
-    seed = (seed? seed: generateDateSeed());
-  }
-
-  return {
-    seed: seed,
-    scores: [],
-    pending: true,
-    error: null
-  };
-}
-
-const initialState = calculateInitialState();
+export const initialState = {
+  seed: null,
+  scores: [],
+  pending: true,
+  error: null
+};
 
 function LeaderBoardReducer(state = initialState, action){
   switch ( action.type ) {
@@ -50,6 +42,11 @@ function LeaderBoardReducer(state = initialState, action){
             error: action.error
           }
       );
+    case INIT_LEADERBOARD:
+      return ({
+        ...state,
+        seed: action.seed
+      });
     default:
       return state;
   }
