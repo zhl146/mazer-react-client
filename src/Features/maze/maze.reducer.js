@@ -25,11 +25,10 @@ const initialState = {
 function MazeReducer(state = initialState, action){
   switch ( action.type ) {
     case INIT_MAZE:
-      return Object.assign(
-          {},
-          state,
-          initializeMaze(action.seed)
-      );
+      return ({
+        ...state,
+        ...initializeMaze(action.seed)
+      });
     case CLICK_TILE:
       let newMaze = cloneDeep(state.maze);
       newMaze.doActionOnTile(action.tile);
@@ -51,7 +50,7 @@ function MazeReducer(state = initialState, action){
 
     case RESET_ACTIONERROR:
       return ({
-          ...state,
+        ...state,
         actionError:false
       });
 
