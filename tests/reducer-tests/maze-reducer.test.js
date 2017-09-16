@@ -1,14 +1,14 @@
 import test from 'tape';
 
 import { createMaze } from 'mazer-shared';
-import MazeReducer, { initialState } from '../../src/Features/maze/maze.reducer';
+import MazeReducer, { initialState } from '../../src/features/maze/maze.reducer';
 import {
   INIT_MAZE,
   RESET_ACTIONERROR,
   RESET_PATHERROR,
   TOGGLE_HELP, UPDATE_HIGHSCORE
-} from "../../src/Features/maze/maze.action";
-import { CLICK_TILE } from "../../src/Features/maze/maze-game-board/maze-tile.action";
+} from "../../src/features/maze/maze.action";
+import { CLICK_TILE } from "../../src/features/maze/maze-game-board/maze-tile.action";
 
 test('maze reducer should return current state if passed no valid action', assert => {
   const action = {

@@ -1,7 +1,7 @@
 import test from 'tape';
 
-import AuthReducer, { initialState } from "../../src/Features/auth/auth.reducer";
-import { AUTH_ERROR, AUTH_SET_PROFILE } from "../../src/Features/auth/auth.action";
+import AuthReducer, { initialState } from "../../src/features/auth/auth.reducer";
+import { AUTH_ERROR, AUTH_SET_PROFILE } from "../../src/features/auth/auth.action";
 
 test('auth reducer should do nothing to the state if the action is not valid', assert => {
   const dummyAction = {

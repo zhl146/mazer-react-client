@@ -2,12 +2,12 @@ import test from 'tape';
 
 import LeaderBoardReducer, {
   initialState
-} from "../../src/Features/leaderboard/leader-board.reducer";
+} from "../../src/features/leaderboard/leader-board.reducer";
 import {
   FETCH_LEADERBOARD,
   FETCH_LEADERBOARD_ERROR,
   FETCH_LEADERBOARD_FULFILLED
-} from "../../src/Features/leaderboard/leader-board.action";
+} from "../../src/features/leaderboard/leader-board.action";
 
 test('leaderboard reducer should default to the initial state', assert => {
   const dummyAction = {

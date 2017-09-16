@@ -39,8 +39,10 @@ export class LeaderBoardComponent extends Component {
   };
 
   renderScores = () => {
+    console.log(this.props.scores);
     return this.props.scores.map( (score, index) => (
         <div className='leaderboard__score' key={index}>
+          <span className='leaderboard__column'>{index + 1}</span>
           <span className='leaderboard__column'>{score.name}</span>
           <span className='leaderboard__column'>{score.score}</span>
         </div>
@@ -53,8 +55,9 @@ export class LeaderBoardComponent extends Component {
         <div className="leaderboard">
           <h1 className="leaderboard__h1">LeaderBoard for seed "{this.props.seed}" </h1>
           <h2 className="leaderboard__h2">Top 10</h2>
-          <div className="leaderboard__divider"/>
-          {this.renderScores()}
+          <div className="leaderboard__score-container">
+            {this.renderScores()}
+          </div>
           <form className="leaderboard__form" onSubmit={this.handleSubmit}>
             <input
                 className="leaderboard__input"
@@ -63,9 +66,9 @@ export class LeaderBoardComponent extends Component {
                 value={this.state.seed}
                 onChange={this.handleChange}
             />
-            <button className="leaderboard__btn" type="submit">Submit</button>
+            <button className="leaderboard__btn generic__btn" type="submit">Search</button>
           </form>
-          <Link className="leaderboard__btn" to='/maze'>Back to game</Link>
+          <Link className="leaderboard__link generic__btn" to='/maze'>OK</Link>
         </div>
     );
   }
