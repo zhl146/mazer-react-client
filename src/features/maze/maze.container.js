@@ -9,7 +9,9 @@ const mapStateToProps = state => {
     path: state.MazeReducer.path,
     highScore: state.MazeReducer.highScore,
     rotateMaze: state.MazeReducer.rotateMaze,
-    tileSize: state.MazeReducer.tileSize
+    tileSize: state.MazeReducer.tileSize,
+    pathError: state.MazeReducer.pathError,
+    actionError: state.MazeReducer.actionError
   };
 };
 

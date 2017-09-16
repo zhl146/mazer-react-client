@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  animation: pulse 4s infinite ease-in-out;
+  animation: tile--pulse 4s infinite ease-in-out;
 }
 .game-tile__blocker-overlay {
   position: absolute;
@@ -23,7 +23,7 @@
   bottom: 0;
   clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
 }
-@-moz-keyframes pulse {
+@-moz-keyframes tile--pulse {
   0% {
     background-color: rgba(0,100,0,0.05);
   }
@@ -34,7 +34,7 @@
     background-color: rgba(0,100,0,0.05);
   }
 }
-@-webkit-keyframes pulse {
+@-webkit-keyframes tile--pulse {
   0% {
     background-color: rgba(0,100,0,0.05);
   }
@@ -45,7 +45,7 @@
     background-color: rgba(0,100,0,0.05);
   }
 }
-@-o-keyframes pulse {
+@-o-keyframes tile--pulse {
   0% {
     background-color: rgba(0,100,0,0.05);
   }
@@ -56,7 +56,7 @@
     background-color: rgba(0,100,0,0.05);
   }
 }
-@keyframes pulse {
+@keyframes tile--pulse {
   0% {
     background-color: rgba(0,100,0,0.05);
   }

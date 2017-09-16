@@ -39,7 +39,6 @@ export class LeaderBoardComponent extends Component {
   };
 
   renderScores = () => {
-    console.log(this.props.scores);
     return this.props.scores.map( (score, index) => (
         <div className='leaderboard__score' key={index}>
           <span className='leaderboard__column'>{index + 1}</span>

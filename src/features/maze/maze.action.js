@@ -23,7 +23,6 @@ export const updateView = viewParams => ({ type: UPDATE_VIEWPARAMS, viewParams }
 export const updateHighScore = score => ({ type: UPDATE_HIGHSCORE, score});
 
 export const fetchHighScore = (dispatch, seed) => {
-  console.log('fetch high score');
   const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
   const urlArgs = "?start=0&length=10";
   return ({
@@ -34,7 +33,6 @@ export const fetchHighScore = (dispatch, seed) => {
       }
       return res.json();
     }).then( data => {
-      console.log(data);
       if (data.scores.length === 0) {
         dispatch(updateHighScore(0));
       } else {

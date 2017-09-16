@@ -12,7 +12,8 @@ export class MazeGameBoard extends Component{
     rotateMaze: bool.isRequired,
     maze: object.isRequired,
     path: array.isRequired,
-    tileSize: number.isRequired
+    tileSize: number.isRequired,
+    pathError: bool.isRequired
   };
 
   render() {
@@ -23,6 +24,7 @@ export class MazeGameBoard extends Component{
               this.props.rotateMaze,
           )}
           <MazePath
+              pathError={this.props.pathError}
               maze={this.props.maze}
               path={this.props.path}
               rotateMaze={this.props.rotateMaze}

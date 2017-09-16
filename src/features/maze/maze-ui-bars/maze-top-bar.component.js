@@ -1,7 +1,15 @@
 import React from 'react';
-import { object, number } from 'prop-types';
+import { object, number, bool } from 'prop-types';
 
 import './maze-top-bar.css';
+
+MazeTopBar.propTypes = {
+  actionError: bool.isRequired,
+  usedActions: number.isRequired,
+  maxActions: number.isRequired,
+  scoreValue: number.isRequired,
+  highScore: number
+};
 
 export function MazeTopBar({ usedActions, maxActions, scoreValue, highScore}) {
 

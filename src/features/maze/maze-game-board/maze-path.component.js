@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { object, bool, array, number } from 'prop-types';
 
 import './maze-path.css';
 
 class MazePath extends Component {
+
+  static propTypes = {
+    maze: object.isRequired,
+    path: array.isRequired,
+    tileSize: number.isRequired,
+    rotateMaze: bool.isRequired,
+    pathError: bool.isRequired
+  };
 
   canvasWidth;
   canvasHeight;
@@ -50,16 +58,13 @@ class MazePath extends Component {
   render() {
     this.setDimensions();
     return <canvas
-        className="maze-path" ref={(elRef) => this.elRef = elRef}
+        className={this.props.pathError ? "maze-path maze-path--pulse" : "maze-path"}
+        ref={(elRef) => this.elRef = elRef}
         width={this.canvasWidth}
         height={this.canvasHeight}
     />;
   }
 
 }
-
-MazePath.PropTypes = {
-  maze: PropTypes.object.isRequired
-};
 
 export default MazePath;

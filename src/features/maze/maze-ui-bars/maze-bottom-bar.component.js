@@ -39,9 +39,9 @@ export function MazeBottomBar({
 
   let renderSubmit = () => {
     if ( user && token) {
-      return <button className='maze-bottom-bar__btn'>Submit</button>;
+      return <button className='maze-bottom-bar__btn generic__btn'>Submit</button>;
     }
-    return <button className='maze-bottom-bar__btn'>Login</button>;
+    return <button className='maze-bottom-bar__btn generic__btn'>Login</button>;
   };
 
   return (
@@ -54,7 +54,7 @@ export function MazeBottomBar({
             <Link className="maze-bottom-bar__btn generic__btn" to='leaderboard'>Leaderboard</Link>
           </div>
           <div>
-            <button onClick={onResetClick} className="maze-bottom-bar__btn">Reset</button>
+            <button onClick={onResetClick} className="maze-bottom-bar__btn generic__btn">Reset</button>
             {renderSubmit()}
           </div>
         </div>

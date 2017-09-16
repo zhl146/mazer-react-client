@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object, number } from 'prop-types';
+import { func, object, number, bool } from 'prop-types';
 
 import './maze.css';
 import { MazeTopBar } from './maze-ui-bars/maze-top-bar.component';
@@ -13,6 +13,8 @@ export class MazeComponent extends Component {
     fetchHighScore: func.isRequired,
     initializeMaze: func.isRequired,
     updateViewPort: func.isRequired,
+    pathError: bool.isRequired,
+    actionError: bool.isRequired,
     highScore: number,
     maze: object
   };
@@ -70,20 +72,32 @@ export class MazeComponent extends Component {
   };
 
   render() {
-    if(!this.props.maze || !this.props.maze.mazeTiles) return null;
+    let {
+      highScore,
+      maze,
+      tileSize,
+      path,
+      rotateMaze,
+      pathError,
+      actionError
+    } = this.props;
+
+    if(!maze || !maze.mazeTiles) return null;
     return (
         <div className='maze-component'>
           <MazeTopBar
-              highScore={this.props.highScore}
-              usedActions={this.props.maze.actionsUsed}
-              maxActions={this.props.maze.params.maxActionPoints}
-              scoreValue={this.props.maze.score}
+              actionError={actionError}
+              highScore={highScore}
+              usedActions={maze.actionsUsed}
+              maxActions={maze.params.maxActionPoints}
+              scoreValue={maze.score}
           />
           <MazeGameBoard
-              tileSize={this.props.tileSize}
-              maze={this.props.maze}
-              path={this.props.path}
-              rotateMaze={this.props.rotateMaze}
+              pathError={pathError}
+              tileSize={tileSize}
+              maze={maze}
+              path={path}
+              rotateMaze={rotateMaze}
           />
           <ConnectedMazeBottomBar />
         </div>
