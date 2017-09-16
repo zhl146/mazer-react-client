@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build-css": "stylus-chokidar src/",
-    "watch-css": "npm run build-css && stylus-chokidar -w src/",
+    "watch-css": "npm run build-css && stylus-chokidar src/ -w",
     "start-js": "NODE_ENV=development BABEL_ENV=development node scripts/start.js",
     "start": "run-p watch-css start-js",
     "build": "npm run build-css && NODE_ENV=production BABEL_ENV=production node scripts/build.js",

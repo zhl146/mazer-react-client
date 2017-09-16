@@ -2,6 +2,7 @@ import React from 'react';
 import { bool, func, object } from 'prop-types';
 
 import './maze-bottom-bar.css';
+import { Link } from "react-router-dom";
 
 MazeBottomBar.propTypes = {
   onResetClick: func.isRequired,
@@ -50,6 +51,7 @@ export function MazeBottomBar({
         <div className="maze-bottom-bar">
           <div>
             <button id="help-btn" className="maze-bottom-bar__btn" onClick={onHelpClick} >?</button>
+            <Link className="maze-bottom-bar__btn" to='leaderboard'>Leaderboard</Link>
           </div>
           <div>
             <button onClick={onResetClick} className="maze-bottom-bar__btn">Reset</button>

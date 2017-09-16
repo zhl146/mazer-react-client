@@ -6,7 +6,6 @@ import { MazeTopBar } from './maze-ui-bars/maze-top-bar.component';
 import { MazeGameBoard } from "./maze-game-board/maze-game-board.component";
 import { ConnectedMazeBottomBar } from "./maze-ui-bars/maze-bottom-bar.container";
 import { generateDateSeed, getUrlParameter } from "../../Utils/RequestUtils";
-import { Link } from "react-router-dom";
 
 export class MazeComponent extends Component {
 
@@ -87,7 +86,6 @@ export class MazeComponent extends Component {
               rotateMaze={this.props.rotateMaze}
           />
           <ConnectedMazeBottomBar />
-          <Link to='/leaderboard'>Check Leaderboard</Link>
         </div>
     );
   }
