@@ -4,6 +4,8 @@ import { string, func } from 'prop-types';
 
 import { generateDateSeed, getUrlParameter } from "../../Utils/RequestUtils";
 
+import './leader-board.component.css';
+
 export class LeaderBoardComponent extends Component {
 
   static propTypes = {
@@ -38,8 +40,9 @@ export class LeaderBoardComponent extends Component {
 
   renderScores = () => {
     return this.props.scores.map( (score, index) => (
-        <div className='score' key={index}>
-          {score.name +" : "+ score.score}
+        <div className='leaderboard__score' key={index}>
+          <span className='leaderboard__column'>{score.name}</span>
+          <span className='leaderboard__column'>{score.score}</span>
         </div>
     ));
   };
@@ -47,18 +50,22 @@ export class LeaderBoardComponent extends Component {
   render(){
     if (!this.props.seed) return null;
     return (
-        <div>
-          <h1>LeaderBoard: {this.props.seed} </h1>
-          <h2>Scores: </h2>
+        <div className="leaderboard">
+          <h1 className="leaderboard__h1">LeaderBoard for seed "{this.props.seed}" </h1>
+          <h2 className="leaderboard__h2">Top 10</h2>
+          <div className="leaderboard__divider"/>
           {this.renderScores()}
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Seed:
-              <input type="text" value={this.state.seed} onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
+          <form className="leaderboard__form" onSubmit={this.handleSubmit}>
+            <input
+                className="leaderboard__input"
+                type="text"
+                placeholder="Check other seeds"
+                value={this.state.seed}
+                onChange={this.handleChange}
+            />
+            <button className="leaderboard__btn" type="submit">Submit</button>
           </form>
-          <Link to='/maze'>Back to game</Link>
+          <Link className="leaderboard__btn" to='/maze'>Back to game</Link>
         </div>
     );
   }

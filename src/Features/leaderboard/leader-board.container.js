@@ -1,4 +1,4 @@
-import { fetchLeaderBoard, initializeLeaderBoard } from './leader-board.action';
+import { fetchLeaderBoard } from './leader-board.action';
 import { connect } from 'react-redux';
 import { LeaderBoardComponent } from './leader-board.component';
 
@@ -9,6 +9,7 @@ const mapStateToProps = state => {
   return {
     seed,
     scores: state.LeaderBoardReducer.scores,
+    playerRank: null,
     pending: state.LeaderBoardReducer.pending
   };
 };

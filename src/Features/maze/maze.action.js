@@ -29,18 +29,18 @@ export const fetchHighScore = (dispatch, seed) => {
   return ({
     type: FETCH_HIGHSCORE,
     payload: fetch(BASE_URL+seed+urlArgs).then( res => {
-          if (!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
-        }).then( data => {
-          console.log(data);
-          if (data.scores.length === 0) {
-            dispatch(updateHighScore(0));
-          } else {
-            dispatch(updateHighScore(data.scores[0].score));
-          }
-        }).catch( err => {
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res.json();
+    }).then( data => {
+      console.log(data);
+      if (data.scores.length === 0) {
+        dispatch(updateHighScore(0));
+      } else {
+        dispatch(updateHighScore(data.scores[0].score));
+      }
+    }).catch( err => {
       console.log(err);
     })
   });
@@ -55,10 +55,11 @@ export const submitScore = ( maze, history, user, token ) => {
     token: token,
   };
 
-  fetch('zhenlu.info/check', {
-    method: "POST",
-    body: JSON.stringify(solution)
-  })
+  fetch('zhenlu.info/check',
+      {
+        method: "POST",
+        body: JSON.stringify(solution)
+      })
       .then( (res) => {
         history.push('/leaderboard/');
         if(!res.ok){

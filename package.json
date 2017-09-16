@@ -15,10 +15,10 @@
     "redux": "^3.7.2"
   },
   "scripts": {
-    "build-css": "stylus-chokidar src/",
-    "watch-css": "npm run build-css && stylus-chokidar src/ -w",
+    "build-css": "stylus src",
+    "watch-css": "npm run build-css && stylus -w src",
     "start-js": "NODE_ENV=development BABEL_ENV=development node scripts/start.js",
-    "start": "run-p watch-css start-js",
+    "start": "npm run start-js",
     "build": "npm run build-css && NODE_ENV=production BABEL_ENV=production node scripts/build.js",
     "test": "NODE_ENV=test BABEL_ENV=test tape -r babel-register tests/**/*.test.js --inspect",
     "test-faucet": "NODE_ENV=test BABEL_ENV=test tape -r babel-register tests/**/*.test.js --inspect | faucet"
@@ -59,7 +59,7 @@
     "redux-devtools": "^3.4.0",
     "source-map": "^0.5.7",
     "style-loader": "0.18.2",
-    "stylus-chokidar": "0.0.3",
+    "stylus": "^0.54.5",
     "sw-precache-webpack-plugin": "0.11.4",
     "tape": "^4.8.0",
     "url-loader": "0.5.9",

@@ -14,33 +14,24 @@ export const initialState = {
 function LeaderBoardReducer(state = initialState, action){
   switch ( action.type ) {
     case FETCH_LEADERBOARD:
-      return Object.assign(
-          {},
-          state,
-          {
-            leaderBoardPending: true
-          }
-      );
+      return ({
+        ...state,
+        leaderBoardPending: true
+      });
     case FETCH_LEADERBOARD_FULFILLED:
-      return Object.assign(
-          {},
-          state,
-          {
-            scores: action.scores,
-            leaderBoardPending: false,
-            seed: action.seed
-          }
-      );
+      return ({
+        ...state,
+        scores: action.scores,
+        leaderBoardPending: false,
+        seed: action.seed
+      });
     case FETCH_LEADERBOARD_ERROR:
-      return Object.assign(
-          {},
-          state,
-          {
-            scores: [],
-            leaderBoardPending: false,
-            error: action.error
-          }
-      );
+      return ({
+        ...state,
+        scores: [],
+        leaderBoardPending: false,
+        error: action.error
+      });
     default:
       return state;
   }
