@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps  = dispatch => {
   return {
     fetchLeaderBoard: seed => {
-      dispatch(fetchLeaderBoard(dispatch, seed));
+      dispatch(fetchLeaderBoard(seed));
     }
   };
 };

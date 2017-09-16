@@ -8,7 +8,6 @@ export const RESET_ACTIONERROR = 'RESET_ACTIONERROR';
 export const TOGGLE_HELP = 'TOGGLE_HELP';
 export const UPDATE_VIEWPARAMS = 'UPDATE_VIEWPARAMS';
 export const UPDATE_HIGHSCORE = 'UPDATE_HIGHSCORE';
-export const FETCH_HIGHSCORE = 'FETCH_HIGHSCORE';
 
 export const initializeMaze = seed => ({ type: INIT_MAZE, seed: seed });
 
@@ -22,26 +21,28 @@ export const updateView = viewParams => ({ type: UPDATE_VIEWPARAMS, viewParams }
 
 export const updateHighScore = score => ({ type: UPDATE_HIGHSCORE, score});
 
-export const fetchHighScore = (dispatch, seed) => {
+export const fetchHighScore = seed => dispatch => {
   const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
-  const urlArgs = "?start=0&length=10";
-  return ({
-    type: FETCH_HIGHSCORE,
-    payload: fetch(BASE_URL+seed+urlArgs).then( res => {
-      if (!res.ok) {
-        throw Error(res.statusText);
-      }
-      return res.json();
-    }).then( data => {
-      if (data.scores.length === 0) {
-        dispatch(updateHighScore(0));
-      } else {
-        dispatch(updateHighScore(data.scores[0].score));
-      }
-    }).catch( err => {
-      console.log(err);
-    })
-  });
+  const urlArgs = "?start=0&length=1";
+  console.log(seed);
+  fetch(BASE_URL+seed+urlArgs)
+      .then( res => {
+        if (!res.ok) {
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
+      .then( data => {
+        console.log(data);
+        if (data.scores.length === 0) {
+          dispatch(updateHighScore(0));
+        } else {
+          dispatch(updateHighScore(data.scores[0].score));
+        }
+      })
+      .catch( err => {
+        console.log(err);
+      });
 };
 
 export const submitScore = ( maze, history, user, token ) => {

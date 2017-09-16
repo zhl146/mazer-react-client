@@ -15,10 +15,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps  = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchHighScore: seed => {
-      dispatch(fetchHighScore(dispatch, seed));
+      dispatch(fetchHighScore(seed));
     },
     updateViewPort: params => {
       dispatch(updateView(params));

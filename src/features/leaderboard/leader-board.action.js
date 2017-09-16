@@ -6,25 +6,21 @@ export const INIT_LEADERBOARD = 'INIT_LEADERBOARD';
 const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
 const args = "?start=0&length=10";
 
-export const fetchLeaderBoard = (dispatch, seed) => (
-    {
-      type: FETCH_LEADERBOARD,
-      //ENDPOINT LOOKS LIKE : BASE_URL + :seed + ?start=:startIndex&length=:howManyScores
-      payload: fetch(BASE_URL+seed+args)
-          .then( (res) => {
-            if (! res.ok) {
-              throw Error(res.statusText);
-            }
-            return res;
-          })
-          .then( res => res.json())
-          .then( (data) => {
-            dispatch(fetchLeaderBoardFulfilled(data.scores, seed));
-          })
-          .catch( (err) => {
-            dispatch(fetchLeaderBoardFailed(err));
-          })
-    }
+export const fetchLeaderBoard = seed => (dispatch, getState) => (
+    //ENDPOINT LOOKS LIKE : BASE_URL + :seed + ?start=:startIndex&length=:howManyScores
+    fetch(BASE_URL+seed+args)
+        .then( (res) => {
+          if (! res.ok) {
+            throw Error(res.statusText);
+          }
+          return res.json();
+        })
+        .then( (data) => {
+          dispatch(fetchLeaderBoardFulfilled(data.scores, seed));
+        })
+        .catch( (err) => {
+          dispatch(fetchLeaderBoardFailed(err));
+        })
 );
 
 export const fetchLeaderBoardFulfilled = (payload, seed) => ({
