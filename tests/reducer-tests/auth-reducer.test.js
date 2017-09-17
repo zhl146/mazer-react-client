@@ -1,7 +1,7 @@
 import test from 'tape';
 
 import authReducer, { initialState } from "../../src/store/reducers/auth.reducer";
-import { createUpdateAction } from "../../src/Utils/action-creator";
+import { createUpdateAction } from "../../src/utils/action-creator";
 import { AUTH_ERROR, SET_PROFILE } from "../../src/store/action-constants";
 
 test('auth reducer should do nothing to the state if the action is not valid', assert => {

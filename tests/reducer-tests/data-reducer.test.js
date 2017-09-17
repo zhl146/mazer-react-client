@@ -6,7 +6,7 @@ import {
   createStartAction,
   createSuccessAction,
   createUpdateAction
-} from "../../src/Utils/action-creator";
+} from "../../src/utils/action-creator";
 import { FETCH_HIGHSCORE, FETCH_LEADERBOARD } from "../../src/store/action-constants";
 
 test('reducer should default to the initial state', assert => {

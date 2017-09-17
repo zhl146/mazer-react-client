@@ -1,4 +1,4 @@
-import { ACTION_ERROR, ACTION_START, ACTION_SUCCESS } from "../../Utils/action-creator";
+import { ACTION_ERROR, ACTION_START, ACTION_SUCCESS } from "../../utils/action-creator";
 import { FETCH_HIGHSCORE, FETCH_LEADERBOARD } from "../action-constants";
 
 export const initialState = {

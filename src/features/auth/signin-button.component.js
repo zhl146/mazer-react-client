@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MyFireBase from '../../Utils/AuthUtil';
+import MyFireBase from '../../utils/AuthUtil';
 
-import { ButtonTemplate } from '../../Utils/Components/ButtonTempate.component';
+import { ButtonTemplate } from '../../utils/Components/ButtonTempate.component';
 
 export class SignInButton extends Component{
 

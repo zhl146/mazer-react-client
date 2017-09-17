@@ -1,8 +1,8 @@
-import CustomError from '../../Utils/CustomError';
+import CustomError from '../../utils/customError';
 import {
   createErrorAction, createStartAction, createStaticAction, createSuccessAction,
   createUpdateAction
-} from "../../Utils/action-creator";
+} from "../../utils/action-creator";
 import {
   FETCH_HIGHSCORE,
   INIT_MAZE,

@@ -1,4 +1,4 @@
-import { createUpdateAction } from "../../../Utils/action-creator";
+import { createUpdateAction } from "../../../utils/action-creator";
 import { UPDATE_MAZE } from "../../../store/action-constants";
 
 export const doAction = tile => createUpdateAction(UPDATE_MAZE, tile);
