@@ -1,20 +1,22 @@
 import { fetchLeaderBoard } from './leader-board.action';
 import { connect } from 'react-redux';
 import { LeaderBoardComponent } from './leader-board.component';
+import { initializeMaze } from "../maze/maze.action";
 
-const mapStateToProps = state => {
-  let seed = null;
-  if ( state.appState.maze ) seed = state.appState.maze.seed;
+const mapStateToProps = ({ state, data }) => {
   return {
-    seed,
-    topTen: state.domain.topTen,
+    seed: state.maze ? state.maze.seed : null,
+    topTen: data.topTen,
     playerRank: null,
-    pending: state.domain.leaderBoardPending
+    pending: data.leaderBoardPending
   };
 };
 
 const mapDispatchToProps  = dispatch => {
   return {
+    initializeMaze: seed => {
+      dispatch(initializeMaze(seed));
+    },
     fetchLeaderBoard: seed => {
       dispatch(fetchLeaderBoard(seed));
     }

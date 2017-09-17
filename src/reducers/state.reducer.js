@@ -10,16 +10,12 @@ import {
 } from "../features/maze/maze.action";
 
 import { UPDATE_MAZE } from "../features/maze/maze-game-board/maze-tile.action";
-import { AUTH_ERROR, AUTH_SET_PROFILE } from "../features/auth/auth.action";
 
 export const initialState = {
   maze: null,
   path: null,
   rotateMaze: false,
   tileSize: 30,
-  token: null,
-  user: null,
-  authError: null,
   pathError: false,
   actionError: false,
 };
@@ -55,17 +51,6 @@ export default function appStateReducer(state = initialState, action){
             rotateMaze
         )
       });
-    case AUTH_SET_PROFILE:
-      return ({
-        ...state,
-        user: action.user,
-        token: action.token
-      });
-    case AUTH_ERROR:
-      return ({
-        ...state,
-        error: action.error
-      });
     case INIT_MAZE: return initializeMaze(action.payload, state);
     default:
       return state;
@@ -99,7 +84,6 @@ function calculatePath(path, tileSize, rotateMaze) {
 }
 
 function calculateViewParams(maze, windowParams){
-
   const headerHeight = 60;
   const footerHeight = 60;
 

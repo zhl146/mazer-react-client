@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { MazeBottomBar } from "./maze-bottom-bar.component";
 import { resetMaze, toggleHelp } from "../maze.action";
 
-const mapStateToProps = state => ({
-  maze: state.appState.maze,
-  user: state.appState.user,
-  token: state.appState.token,
-  displayHelp: state.view.displayHelp
+const mapStateToProps = ({ state, view }) => ({
+  maze: state.maze,
+  user: state.user,
+  token: state.token,
+  displayHelp: view.displayHelp
 });
 
 const mapDispatchToProps = dispatch => ({

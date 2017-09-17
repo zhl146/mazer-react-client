@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { fetchHighScore, initializeMaze, updateView } from './maze.action';
 import { MazeComponent } from './maze.component';
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ state, data }) => {
   return {
-    maze: state.appState.maze,
-    path: state.appState.path,
-    highScore: state.domain.highScore,
-    rotateMaze: state.appState.rotateMaze,
-    tileSize: state.appState.tileSize,
-    pathError: state.appState.pathError,
-    actionError: state.appState.actionError
+    maze: state.maze,
+    path: state.path,
+    highScore: data.highScore,
+    rotateMaze: state.rotateMaze,
+    tileSize: state.tileSize,
+    pathError: state.pathError,
+    actionError: state.actionError
   };
 };
 

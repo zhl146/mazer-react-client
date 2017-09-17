@@ -1,4 +1,4 @@
-import { UPDATE_HIGHSCORE } from "../features/maze/maze.action";
+import { FETCH_HIGHSCORE } from "../features/maze/maze.action";
 import { FETCH_LEADERBOARD } from "../features/leaderboard/leader-board.action";
 import { ACTION_ERROR, ACTION_START, ACTION_SUCCESS } from "../Utils/action-creator";
 
@@ -12,7 +12,7 @@ export const initialState = {
 
 export default function domainReducer(state = initialState, action) {
   switch(action.type) {
-    case UPDATE_HIGHSCORE: return updateState({ highScore: action.payload }, state);
+    case FETCH_HIGHSCORE: return updateState({ highScore: action.payload }, state);
     case FETCH_LEADERBOARD: return fetchReducer(state, action);
     default: return state;
   }

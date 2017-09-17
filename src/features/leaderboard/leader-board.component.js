@@ -15,7 +15,8 @@ export class LeaderBoardComponent extends Component {
   };
 
   static defaultProps = {
-    seed: null
+    seed: null,
+    topTen: []
   };
 
   state = { seed: '' };
@@ -25,6 +26,7 @@ export class LeaderBoardComponent extends Component {
       let seed = getUrlParameter("seed");
       seed = ( seed || generateDateSeed());
       this.props.fetchLeaderBoard(seed);
+      this.props.initializeMaze(seed);
     } else {
       this.props.fetchLeaderBoard(this.props.seed);
     }
@@ -50,7 +52,7 @@ export class LeaderBoardComponent extends Component {
   };
 
   render(){
-    if (!this.props.seed) return null;
+    if (!this.props.topTen) return null;
     return (
         <div className="leaderboard">
           <h1 className="leaderboard__h1">LeaderBoard for seed "{this.props.seed}" </h1>

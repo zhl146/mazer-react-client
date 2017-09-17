@@ -31,30 +31,27 @@ export class MazeComponent extends Component {
       let seed = getUrlParameter("seed");
       seed = ( seed || generateDateSeed());
       this.props.initializeMaze(seed);
+      this.startFetchingHighScore(seed);
     } else {
-      this.startFetchingHighScore();
+      this.startFetchingHighScore(this.props.maze.seed);
       this.onWindowResize();
     }
     window.addEventListener("resize", this.resizeThrottler, false);
   };
-
-  componentDidUpdate() {
-    this.startFetchingHighScore();
-  }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeThrottler);
     clearInterval(this.highScoreFetchInterval);
   }
 
-  startFetchingHighScore = () => {
+  startFetchingHighScore = (seed) => {
     if (this.highScoreFetchInterval) clearInterval(this.highScoreFetchInterval);
-    this.fetchHighScore();
-    this.highScoreFetchInterval = setInterval(this.fetchHighScore, 30000);
+    this.fetchHighScore(seed);
+    this.highScoreFetchInterval = setInterval(() => this.fetchHighScore(seed), 30000);
   };
 
-  fetchHighScore = () => {
-    this.props.fetchHighScore(this.props.maze.seed);
+  fetchHighScore = (seed) => {
+    this.props.fetchHighScore(seed);
   };
 
   onWindowResize = () => {

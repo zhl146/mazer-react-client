@@ -1,4 +1,8 @@
 import CustomError from '../../Utils/CustomError';
+import {
+  createErrorAction, createStartAction, createStaticAction, createSuccessAction,
+  createUpdateAction
+} from "../../Utils/action-creator";
 
 export const INIT_MAZE = 'INIT_MAZE';
 export const UNDO_ACTION = 'UNDO_ACTION';
@@ -7,24 +11,22 @@ export const RESET_PATHERROR = 'RESET_PATHERROR';
 export const RESET_ACTIONERROR = 'RESET_ACTIONERROR';
 export const TOGGLE_HELP = 'TOGGLE_HELP';
 export const UPDATE_VIEWPARAMS = 'UPDATE_VIEWPARAMS';
-export const UPDATE_HIGHSCORE = 'UPDATE_HIGHSCORE';
+export const FETCH_HIGHSCORE = 'FETCH_HIGHSCORE';
 
-export const initializeMaze = seed => ({ type: INIT_MAZE, payload: seed });
+export const initializeMaze = seed => createUpdateAction(INIT_MAZE, seed);
 
-export const undoAction = () => ({ type: UNDO_ACTION });
+export const undoAction = () => createStaticAction(UNDO_ACTION);
 
-export const resetMaze = () => ({ type: RESET_MAZE });
+export const resetMaze = () => createStaticAction(RESET_MAZE);
 
-export const toggleHelp = () => ({ type: TOGGLE_HELP });
+export const toggleHelp = () => createStaticAction(TOGGLE_HELP);
 
-export const updateView = payload => ({ type: UPDATE_VIEWPARAMS, payload });
-
-export const updateHighScore = score => ({ type: UPDATE_HIGHSCORE, payload: score});
+export const updateView = viewParams => createUpdateAction(UPDATE_VIEWPARAMS, viewParams);
 
 export const fetchHighScore = seed => dispatch => {
+  dispatch(createStartAction(FETCH_HIGHSCORE));
   const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
   const urlArgs = "?start=0&length=1";
-  console.log(seed);
   fetch(BASE_URL+seed+urlArgs)
       .then( res => {
         if (!res.ok) {
@@ -33,20 +35,18 @@ export const fetchHighScore = seed => dispatch => {
         return res.json();
       })
       .then( data => {
-        console.log(data);
         if (data.scores.length === 0) {
-          dispatch(updateHighScore(0));
+          dispatch(createSuccessAction(FETCH_HIGHSCORE, 0));
         } else {
-          dispatch(updateHighScore(data.scores[0].score));
+          dispatch(createSuccessAction(FETCH_HIGHSCORE, data.scores[0].score));
         }
       })
-      .catch( err => {
-        console.log(err);
+      .catch( error => {
+        dispatch(createErrorAction(FETCH_HIGHSCORE, error));
       });
 };
 
 export const submitScore = ( maze, history, user, token ) => {
-  console.log("MAZE: "+JSON.stringify(maze));
   let solution = {
     seed: maze.seed,
     mazeTiles: maze.mazeTiles,

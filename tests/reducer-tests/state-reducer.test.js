@@ -6,7 +6,7 @@ import {
   INIT_MAZE,
   RESET_ACTIONERROR,
   RESET_PATHERROR,
-  TOGGLE_HELP, UPDATE_HIGHSCORE
+  TOGGLE_HELP, FETCH_HIGHSCORE
 } from "../../src/features/maze/maze.action";
 import { UPDATE_MAZE } from "../../src/features/maze/maze-game-board/maze-tile.action";
 
@@ -105,7 +105,7 @@ test('maze reducer should return a different state if given a click action', ass
 
 test('maze reducer should be able to set the high score', assert => {
   const testAction = {
-    type: UPDATE_HIGHSCORE,
+    type: FETCH_HIGHSCORE,
     score: 9000
   };
   const expectedState = {

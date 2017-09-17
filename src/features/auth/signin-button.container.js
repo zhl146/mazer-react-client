@@ -2,11 +2,11 @@ import { setAuthProfile, authError } from './auth.action';
 import { connect } from 'react-redux';
 import { SignInButton } from './signin-button.component';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ state }) => {
     return {
-        token: state.appState.token,
-        user: state.appState.user,
-        error: state.appState.authError
+        token: state.token,
+        user: state.user,
+        error: state.authError
     };
 };
 
