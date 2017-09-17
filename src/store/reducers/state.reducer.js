@@ -1,15 +1,13 @@
 import { createMaze } from 'mazer-shared';
 import { cloneDeep } from 'lodash';
-
 import {
   INIT_MAZE,
-  RESET_PATHERROR,
-  RESET_MAZE,
-  UPDATE_VIEWPARAMS,
   RESET_ACTIONERROR,
-} from "../features/maze/maze.action";
-
-import { UPDATE_MAZE } from "../features/maze/maze-game-board/maze-tile.action";
+  RESET_MAZE,
+  RESET_PATHERROR,
+  UPDATE_MAZE,
+  UPDATE_VIEWPARAMS
+} from "../action-constants";
 
 export const initialState = {
   maze: null,

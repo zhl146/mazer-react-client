@@ -3,14 +3,11 @@ import {
   createStartAction,
   createSuccessAction
 } from "../../Utils/action-creator";
-
-export const FETCH_LEADERBOARD = 'FETCH_LEADERBOARD';
-export const INIT_LEADERBOARD = 'INIT_LEADERBOARD';
-
-const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
-const args = "?start=0&length=10";
+import { FETCH_LEADERBOARD } from "../../store/action-constants";
 
 export const fetchLeaderBoard = seed => dispatch => {
+  const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
+  const args = "?start=0&length=10";
   //ENDPOINT LOOKS LIKE : BASE_URL + :seed + ?start=:startIndex&length=:howManyScores
   dispatch(createStartAction(FETCH_LEADERBOARD));
   fetch(BASE_URL + seed + args)
@@ -26,7 +23,7 @@ export const fetchLeaderBoard = seed => dispatch => {
             data.scores
         ));
       })
-      .catch( error => {
+      .catch(error => {
         dispatch(createErrorAction(FETCH_LEADERBOARD, error));
       });
 };

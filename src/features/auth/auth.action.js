@@ -1,7 +1,5 @@
 import { createErrorAction, createUpdateAction } from "../../Utils/action-creator";
-
-export const SET_PROFILE = 'SET_PROFILE';
-export const AUTH_ERROR = 'AUTH_ERROR';
+import { AUTH_ERROR, SET_PROFILE } from "../../store/action-constants";
 
 export const authError = error => createErrorAction(AUTH_ERROR, error);
 

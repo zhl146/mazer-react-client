@@ -3,15 +3,14 @@ import {
   createErrorAction, createStartAction, createStaticAction, createSuccessAction,
   createUpdateAction
 } from "../../Utils/action-creator";
-
-export const INIT_MAZE = 'INIT_MAZE';
-export const UNDO_ACTION = 'UNDO_ACTION';
-export const RESET_MAZE = 'RESET_MAZE';
-export const RESET_PATHERROR = 'RESET_PATHERROR';
-export const RESET_ACTIONERROR = 'RESET_ACTIONERROR';
-export const TOGGLE_HELP = 'TOGGLE_HELP';
-export const UPDATE_VIEWPARAMS = 'UPDATE_VIEWPARAMS';
-export const FETCH_HIGHSCORE = 'FETCH_HIGHSCORE';
+import {
+  FETCH_HIGHSCORE,
+  INIT_MAZE,
+  RESET_MAZE,
+  TOGGLE_HELP,
+  UNDO_ACTION,
+  UPDATE_VIEWPARAMS
+} from "../../store/action-constants";
 
 export const initializeMaze = seed => createUpdateAction(INIT_MAZE, seed);
 

@@ -1,12 +1,13 @@
 import test from 'tape';
 
-import dataReducer, { initialState } from "../../src/reducers/data.reducer";
-import { FETCH_LEADERBOARD } from "../../src/features/leaderboard/leader-board.action";
+import dataReducer, { initialState } from "../../src/store/reducers/data.reducer";
 import {
-  createErrorAction, createStartAction, createSuccessAction,
+  createErrorAction,
+  createStartAction,
+  createSuccessAction,
   createUpdateAction
 } from "../../src/Utils/action-creator";
-import { FETCH_HIGHSCORE } from "../../src/features/maze/maze.action";
+import { FETCH_HIGHSCORE, FETCH_LEADERBOARD } from "../../src/store/action-constants";
 
 test('reducer should default to the initial state', assert => {
   const testAction = {

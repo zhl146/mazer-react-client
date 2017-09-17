@@ -1,6 +1,5 @@
 import { createUpdateAction } from "../../../Utils/action-creator";
-
-export const UPDATE_MAZE = 'UPDATE_MAZE';
+import { UPDATE_MAZE } from "../../../store/action-constants";
 
 export const doAction = tile => createUpdateAction(UPDATE_MAZE, tile);
 

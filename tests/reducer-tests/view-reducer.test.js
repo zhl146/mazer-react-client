@@ -1,8 +1,8 @@
 import test from 'tape';
 
-import viewReducer, {initialState} from '../../src/reducers/view.reducer';
+import viewReducer, {initialState} from '../../src/store/reducers/view.reducer';
 import { createStaticAction } from "../../src/Utils/action-creator";
-import { TOGGLE_HELP } from "../../src/features/maze/maze.action";
+import { TOGGLE_HELP } from "../../src/store/action-constants";
 
 test('view reducer should do nothing to the state if the action is not valid', assert => {
   const dummyAction = {

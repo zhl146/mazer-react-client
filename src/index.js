@@ -8,7 +8,7 @@ import registerServiceWorker from './registerServiceWorker';
 import './Utils/styles/generic.css';
 import './Utils/styles/normalize.css';
 import Routes from './routes.component';
-import configureStore from './store-config';
+import configureStore from './store/store-config';
 
 ReactDOM.render(
     <Provider store={configureStore()}>

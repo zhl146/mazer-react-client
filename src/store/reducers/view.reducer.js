@@ -1,4 +1,4 @@
-import { TOGGLE_HELP } from "../features/maze/maze.action";
+import { TOGGLE_HELP } from "../action-constants";
 
 export const initialState = {
   displayHelp: false

@@ -1,6 +1,5 @@
-import { FETCH_HIGHSCORE } from "../features/maze/maze.action";
-import { FETCH_LEADERBOARD } from "../features/leaderboard/leader-board.action";
-import { ACTION_ERROR, ACTION_START, ACTION_SUCCESS } from "../Utils/action-creator";
+import { ACTION_ERROR, ACTION_START, ACTION_SUCCESS } from "../../Utils/action-creator";
+import { FETCH_HIGHSCORE, FETCH_LEADERBOARD } from "../action-constants";
 
 export const initialState = {
   highScore: null,

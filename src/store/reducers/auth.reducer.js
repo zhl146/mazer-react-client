@@ -1,4 +1,4 @@
-import { AUTH_ERROR, SET_PROFILE } from "../features/auth/auth.action";
+import { AUTH_ERROR, SET_PROFILE } from "../action-constants";
 
 export const initialState = {
   token: null,

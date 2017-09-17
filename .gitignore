@@ -22,4 +22,4 @@ yarn-error.log*
 
 .idea
 
-src/config.json
+src/firebase.config.json
