@@ -1,64 +1,41 @@
 import test from 'tape';
 
 import { createMaze } from 'mazer-shared';
-import MazeReducer, { initialState } from '../../src/reducers/maze.reducer';
-import {
-  INIT_MAZE,
-  RESET_ACTIONERROR,
-  RESET_PATHERROR,
-  TOGGLE_HELP, FETCH_HIGHSCORE
-} from "../../src/features/maze/maze.action";
+import stateReducer, { initialState } from '../../src/reducers/state.reducer';
+import { INIT_MAZE, RESET_ACTIONERROR, RESET_PATHERROR, UPDATE_VIEWPARAMS } from "../../src/features/maze/maze.action";
+import { createStaticAction, createUpdateAction } from "../../src/Utils/action-creator";
 import { UPDATE_MAZE } from "../../src/features/maze/maze-game-board/maze-tile.action";
 
-test('maze reducer should return current state if passed no valid action', assert => {
-  const action = {
+test('state reducer should return current state if passed no valid action', assert => {
+  const testAction = {
     type: 'DUMMY_TEST'
   };
 
-  assert.equal(MazeReducer(initialState, action), initialState);
+  assert.equal(stateReducer(initialState, testAction), initialState);
   assert.end();
 });
 
-test('maze reducer should generate the correct initial state', assert => {
-  const action = {
+test('state reducer should generate the correct initial state', assert => {
+  const testAction = {
     type: 'DUMMY_TEST'
   };
 
-  assert.deepEqual(MazeReducer(undefined, action), initialState);
+  assert.deepEqual(stateReducer(undefined, testAction), initialState);
   assert.end();
 });
 
-test('maze reducer should generate a new maze on INIT_MAZE action', assert => {
-  const action = {
-    type: INIT_MAZE,
-    seed: 'a seed'
-  };
-  const state = MazeReducer(undefined, action);
+test('state reducer should generate a new maze on INIT_MAZE action', assert => {
+  const seed = 'test seed';
+  const testAction = createUpdateAction(INIT_MAZE, seed);
+  const state = stateReducer(undefined, testAction);
 
-  assert.ok(state.maze, 'maze should be initialized to not null');
+  assert.ok(state.maze, 'maze should be initialized');
   assert.ok(state.path, 'path should be initialized');
   assert.end();
 });
 
-test('maze reducer should toggle help', assert => {
-  const action = {
-    type: TOGGLE_HELP
-  };
-  const initialState = {
-    displayHelp: false
-  };
-  const expectedState = {
-    displayHelp: true
-  };
-
-  assert.deepEqual(MazeReducer(initialState, action), expectedState);
-  assert.end();
-});
-
-test('maze reducer should be able reset path error', assert => {
-  const action = {
-    type: RESET_PATHERROR
-  };
+test('state reducer should be able reset path error', assert => {
+  const testAction = createStaticAction(RESET_PATHERROR);
   const initialState = {
     pathError: true
   };
@@ -66,14 +43,12 @@ test('maze reducer should be able reset path error', assert => {
     pathError: false
   };
 
-  assert.deepEqual(MazeReducer(initialState,action), expectedState);
+  assert.deepEqual(stateReducer(initialState, testAction), expectedState);
   assert.end();
 });
 
-test('maze reducer should be able reset path error', assert => {
-  const action = {
-    type: RESET_ACTIONERROR
-  };
+test('state reducer should be able reset path error', assert => {
+  const action = createStaticAction(RESET_ACTIONERROR);
   const initialState = {
     actionError: true
   };
@@ -81,38 +56,47 @@ test('maze reducer should be able reset path error', assert => {
     actionError: false
   };
 
-  assert.deepEqual(MazeReducer(initialState,action), expectedState);
+  assert.deepEqual(stateReducer(initialState, action), expectedState);
   assert.end();
 });
 
-test('maze reducer should return a different state if given a click action', assert => {
-  const seed = 'test-seed';
-  const testMaze = createMaze('seed');
-  const initAction = {
-    type: INIT_MAZE,
-    seed
-  };
-  const initialState = MazeReducer(undefined, initAction);
+test('state reducer should return a different state if given a click action', assert => {
+  const seed = 'test seed';
+  const testMaze = createMaze(seed);
+  const initAction = createUpdateAction(INIT_MAZE, seed);
+  const initialState = stateReducer(undefined, initAction);
 
-  const testAction = {
-    type: UPDATE_MAZE,
-    tile: testMaze.mazeTiles[1][1]
-  };
+  const testAction = createUpdateAction(UPDATE_MAZE, testMaze.mazeTiles[1][1]);
 
-  assert.notDeepEqual(MazeReducer(initialState, testAction), initialState);
+  assert.notDeepEqual(stateReducer(initialState, testAction), initialState);
   assert.end();
 });
 
-test('maze reducer should be able to set the high score', assert => {
-  const testAction = {
-    type: FETCH_HIGHSCORE,
-    score: 9000
-  };
-  const expectedState = {
+test('state reducer should be able to update view parameters', assert => {
+  const seed = 'test seed';
+  const testMaze = createMaze(seed);
+  const LANDSCAPE = 'LANDSCAPE';
+  const PORTRAIT = 'PORTRAIT';
+  const mazeOrientation = testMaze.params.numColumns > testMaze.params.numRows ? LANDSCAPE : PORTRAIT;
+
+  const viewHeight = 1080;
+  const viewWidth = 1920;
+  const viewOrientation = LANDSCAPE;
+
+  const testAction = createUpdateAction(
+      UPDATE_VIEWPARAMS,
+      {height: viewHeight, width: viewWidth}
+  );
+
+  const state = {
     ...initialState,
-    highScore: 9000
+    maze: testMaze
   };
 
-  assert.deepEqual(MazeReducer(initialState, testAction), expectedState);
+  assert.deepEqual(stateReducer(state, testAction).tileSize, 30,
+      'the screen is large enough that the tiles should be the maximum 30px');
+  assert.deepEqual(stateReducer(state, testAction).rotateMaze,
+      mazeOrientation !== viewOrientation,
+      'rotateMaze should be true only if the maze orientation and screen orientation are different');
   assert.end();
 });

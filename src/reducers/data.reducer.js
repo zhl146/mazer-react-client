@@ -35,11 +35,13 @@ function fetchReducer(state, action) {
     case ACTION_SUCCESS:
       return ({
         ...state,
-        topTen: action.payload
+        topTen: action.payload,
+        leaderBoardPending: false
       });
     case ACTION_ERROR:
       return ({
         ...state,
+        leaderBoardPending: false,
         leaderBoardError: action.payload
       });
     default:
