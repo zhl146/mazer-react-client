@@ -5,32 +5,30 @@ import {
   INIT_MAZE,
   RESET_PATHERROR,
   RESET_MAZE,
-  TOGGLE_HELP,
   UPDATE_VIEWPARAMS,
-  RESET_ACTIONERROR, UPDATE_HIGHSCORE
-} from "./maze.action";
-import { CLICK_TILE } from "./maze-game-board/maze-tile.action";
+  RESET_ACTIONERROR,
+} from "../features/maze/maze.action";
+
+import { UPDATE_MAZE } from "../features/maze/maze-game-board/maze-tile.action";
+import { AUTH_ERROR, AUTH_SET_PROFILE } from "../features/auth/auth.action";
 
 export const initialState = {
   maze: null,
   path: null,
-  pathError: false,
-  actionError: false,
   rotateMaze: false,
   tileSize: 30,
-  displayHelp: false,
-  highScore: null
+  token: null,
+  user: null,
+  authError: null,
+  pathError: false,
+  actionError: false,
 };
 
-export default function MazeReducer(state = initialState, action){
+export default function appStateReducer(state = initialState, action){
   switch ( action.type ) {
-    case CLICK_TILE:
+    case UPDATE_MAZE:
       let newMaze = cloneDeep(state.maze);
-      let code = newMaze.doActionOnTile(action.tile);
-      let pathError = false;
-      let actionError = false;
-      if (code === newMaze.StatusCodes.BlockedPath) pathError = true;
-      else if (code === newMaze.StatusCodes.NotEnoughActions) actionError = true;
+      let code = newMaze.doActionOnTile(action.payload);
       return ({
         ...state,
         maze: newMaze,
@@ -39,26 +37,14 @@ export default function MazeReducer(state = initialState, action){
             state.tileSize,
             state.rotateMaze
         ),
-        pathError,
-        actionError
+        pathError: code === newMaze.StatusCodes.BlockedPath,
+        actionError: code === newMaze.StatusCodes.NotEnoughActions
       });
-    case UPDATE_HIGHSCORE:
-      return ({
-        ...state,
-        highScore: action.score
-      });
-    case RESET_PATHERROR:
-      return ({
-        ...state,
-        pathError:false
-      });
-    case RESET_ACTIONERROR:
-      return ({
-        ...state,
-        actionError:false
-      });
+    case RESET_PATHERROR: return ({ ...state, pathError:false });
+    case RESET_ACTIONERROR: return ({ ...state, actionError:false });
+    case RESET_MAZE: return initializeMaze(state.seed, state);
     case UPDATE_VIEWPARAMS:
-      let { tileSize, rotateMaze } = calculateViewParams(state.maze, action.viewParams);
+      let { tileSize, rotateMaze } = calculateViewParams(state.maze, action.payload);
       return ({
         ...state,
         tileSize,
@@ -69,29 +55,27 @@ export default function MazeReducer(state = initialState, action){
             rotateMaze
         )
       });
-    case RESET_MAZE:
+    case AUTH_SET_PROFILE:
       return ({
         ...state,
-        ...initializeMaze(state.seed)
+        user: action.user,
+        token: action.token
       });
-    case TOGGLE_HELP:
+    case AUTH_ERROR:
       return ({
         ...state,
-        displayHelp: !state.displayHelp
+        error: action.error
       });
-    case INIT_MAZE:
-      return ({
-        ...state,
-        ...initializeMaze(action.seed)
-      });
+    case INIT_MAZE: return initializeMaze(action.payload, state);
     default:
       return state;
   }
 }
 
-function initializeMaze(seed){
+function initializeMaze(seed, state){
   let maze = createMaze(seed);
   return {
+    ...state,
     maze,
     path: calculatePath(maze.path, 30, false)
   };

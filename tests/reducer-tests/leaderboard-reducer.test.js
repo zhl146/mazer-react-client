@@ -2,7 +2,7 @@ import test from 'tape';
 
 import LeaderBoardReducer, {
   initialState
-} from "../../src/features/leaderboard/leader-board.reducer";
+} from "../../src/reducers/leader-board.reducer";
 import {
   FETCH_LEADERBOARD,
   FETCH_LEADERBOARD_ERROR,

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
-import { string, func } from 'prop-types';
+import { string, func, array } from 'prop-types';
 
 import { generateDateSeed, getUrlParameter } from "../../Utils/RequestUtils";
 
@@ -10,6 +10,7 @@ export class LeaderBoardComponent extends Component {
 
   static propTypes = {
     fetchLeaderBoard: func.isRequired,
+    topTen: array,
     seed: string
   };
 
@@ -38,8 +39,8 @@ export class LeaderBoardComponent extends Component {
     this.props.fetchLeaderBoard(this.state.seed);
   };
 
-  renderScores = () => {
-    return this.props.scores.map( (score, index) => (
+  renderTopTen = () => {
+    return this.props.topTen.map( (score, index) => (
         <div className='leaderboard__score' key={index}>
           <span className='leaderboard__column'>{index + 1}</span>
           <span className='leaderboard__column'>{score.name}</span>
@@ -55,7 +56,7 @@ export class LeaderBoardComponent extends Component {
           <h1 className="leaderboard__h1">LeaderBoard for seed "{this.props.seed}" </h1>
           <h2 className="leaderboard__h2">Top 10</h2>
           <div className="leaderboard__score-container">
-            {this.renderScores()}
+            {this.renderTopTen()}
           </div>
           <form className="leaderboard__form" onSubmit={this.handleSubmit}>
             <input

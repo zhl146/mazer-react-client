@@ -9,7 +9,7 @@ export const TOGGLE_HELP = 'TOGGLE_HELP';
 export const UPDATE_VIEWPARAMS = 'UPDATE_VIEWPARAMS';
 export const UPDATE_HIGHSCORE = 'UPDATE_HIGHSCORE';
 
-export const initializeMaze = seed => ({ type: INIT_MAZE, seed: seed });
+export const initializeMaze = seed => ({ type: INIT_MAZE, payload: seed });
 
 export const undoAction = () => ({ type: UNDO_ACTION });
 
@@ -17,9 +17,9 @@ export const resetMaze = () => ({ type: RESET_MAZE });
 
 export const toggleHelp = () => ({ type: TOGGLE_HELP });
 
-export const updateView = viewParams => ({ type: UPDATE_VIEWPARAMS, viewParams });
+export const updateView = payload => ({ type: UPDATE_VIEWPARAMS, payload });
 
-export const updateHighScore = score => ({ type: UPDATE_HIGHSCORE, score});
+export const updateHighScore = score => ({ type: UPDATE_HIGHSCORE, payload: score});
 
 export const fetchHighScore = seed => dispatch => {
   const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';

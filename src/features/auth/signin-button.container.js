@@ -4,9 +4,9 @@ import { SignInButton } from './signin-button.component';
 
 const mapStateToProps = (state) => {
     return {
-        token: state.AuthReducer.token,
-        user: state.AuthReducer.user,
-        error: state.AuthReducer.error
+        token: state.appState.token,
+        user: state.appState.user,
+        error: state.appState.authError
     };
 };
 

@@ -4,13 +4,12 @@ import { LeaderBoardComponent } from './leader-board.component';
 
 const mapStateToProps = state => {
   let seed = null;
-  if ( state.LeaderBoardReducer.seed ) seed = state.LeaderBoardReducer.seed;
-  else if ( state.MazeReducer.maze ) seed = state.MazeReducer.maze.seed;
+  if ( state.appState.maze ) seed = state.appState.maze.seed;
   return {
     seed,
-    scores: state.LeaderBoardReducer.scores,
+    topTen: state.domain.topTen,
     playerRank: null,
-    pending: state.LeaderBoardReducer.pending
+    pending: state.domain.leaderBoardPending
   };
 };
 

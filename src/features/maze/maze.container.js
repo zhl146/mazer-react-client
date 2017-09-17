@@ -5,13 +5,13 @@ import { MazeComponent } from './maze.component';
 
 const mapStateToProps = state => {
   return {
-    maze: state.MazeReducer.maze,
-    path: state.MazeReducer.path,
-    highScore: state.MazeReducer.highScore,
-    rotateMaze: state.MazeReducer.rotateMaze,
-    tileSize: state.MazeReducer.tileSize,
-    pathError: state.MazeReducer.pathError,
-    actionError: state.MazeReducer.actionError
+    maze: state.appState.maze,
+    path: state.appState.path,
+    highScore: state.domain.highScore,
+    rotateMaze: state.appState.rotateMaze,
+    tileSize: state.appState.tileSize,
+    pathError: state.appState.pathError,
+    actionError: state.appState.actionError
   };
 };
 

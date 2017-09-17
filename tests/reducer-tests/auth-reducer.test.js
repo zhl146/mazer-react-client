@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import AuthReducer, { initialState } from "../../src/features/auth/auth.reducer";
+import AuthReducer, { initialState } from "../../src/reducers/auth.reducer";
 import { AUTH_ERROR, AUTH_SET_PROFILE } from "../../src/features/auth/auth.action";
 
 test('auth reducer should do nothing to the state if the action is not valid', assert => {
