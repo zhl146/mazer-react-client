@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MyFireBase from '../../utils/AuthUtil';
+import MyFireBase from '../../utils/auth.utils';
 
 import { ButtonTemplate } from '../../utils/Components/ButtonTempate.component';
 

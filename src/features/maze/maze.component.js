@@ -5,7 +5,7 @@ import './maze.css';
 import { MazeTopBar } from './maze-ui-bars/maze-top-bar.component';
 import { MazeGameBoard } from "./maze-game-board/maze-game-board.component";
 import { ConnectedMazeBottomBar } from "./maze-ui-bars/maze-bottom-bar.container";
-import { generateDateSeed, getUrlParameter } from "../../utils/requestUtils";
+import { generateDateSeed, getUrlParameter } from "../../utils/request.utils";
 
 export class MazeComponent extends Component {
 

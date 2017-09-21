@@ -9,41 +9,21 @@ export const initialState = {
   leaderBoardError: false
 };
 
-export default function domainReducer(state = initialState, action) {
-  switch(action.type) {
-    case FETCH_HIGHSCORE: return updateState({ highScore: action.payload }, state);
-    case FETCH_LEADERBOARD: return fetchReducer(state, action);
+const fetchHighScore = (state, { payload }) => ({...state, highScore: payload});
+
+const fetchLeaderboard = (state, { meta, payload }) => {
+  switch(meta) {
+    case ACTION_START: return ({ ...state, leaderBoardPending: true });
+    case ACTION_SUCCESS: return ({ ...state, topTen: payload, leaderBoardPending: false });
+    case ACTION_ERROR: return ({ ...state, leaderBoardPending: false, leaderBoardError: payload });
     default: return state;
   }
-}
+};
 
-function updateState(update, state) {
-  return ({
-    ...state,
-    ...update
-  });
-}
-
-function fetchReducer(state, action) {
-  switch(action.meta) {
-    case ACTION_START:
-      return ({
-        ...state,
-        leaderBoardPending: true
-      });
-    case ACTION_SUCCESS:
-      return ({
-        ...state,
-        topTen: action.payload,
-        leaderBoardPending: false
-      });
-    case ACTION_ERROR:
-      return ({
-        ...state,
-        leaderBoardPending: false,
-        leaderBoardError: action.payload
-      });
-    default:
-      return state;
+export default function domainReducer(state = initialState, action) {
+  switch(action.type) {
+    case FETCH_HIGHSCORE: return fetchHighScore(state, action);
+    case FETCH_LEADERBOARD: return fetchLeaderboard(state, action);
+    default: return state;
   }
 }

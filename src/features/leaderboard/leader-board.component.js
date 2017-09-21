@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import { string, func, array } from 'prop-types';
 
-import { generateDateSeed, getUrlParameter } from "../../utils/requestUtils";
+import { generateDateSeed, getUrlParameter } from "../../utils/request.utils";
 
 import './leader-board.component.css';
 

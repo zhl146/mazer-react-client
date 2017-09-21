@@ -16,42 +16,65 @@ export const initialState = {
   tileSize: 30,
   pathError: false,
   actionError: false,
+  pathErrorTime: null,
+  actionErrorTime: null
 };
+
+const updateMaze = (state, { payload }) => {
+  let newMaze = cloneDeep(state.maze);
+  let code = newMaze.doActionOnTile(payload);
+  return ({
+    ...state,
+    maze: newMaze,
+    path: calculatePath(
+        newMaze.path,
+        state.tileSize,
+        state.rotateMaze
+    ),
+    ...updateError(code, newMaze.StatusCodes)
+  });
+};
+
+const updateError = (code, StatusCodes) => {
+  const pathError = code === StatusCodes.BlockedPath;
+  const actionError = code === StatusCodes.NotEnoughActions;
+  const pathErrorTime = pathError ? Date.now() : null;
+  const actionErrorTime = actionError ? Date.now() : null;
+  return {
+    pathError,
+    actionError
+  };
+};
+
+const resetPathError = state => ({ ...state, pathError:false });
+const resetActionError = state => ({ ...state, actionError:false });
+const resetMaze = (state) => initializeMaze(state.seed, state);
+
+const updateViewParams = (state, { payload }) => {
+  let {tileSize, rotateMaze} = calculateViewParams(state.maze, payload);
+  return ({
+    ...state,
+    tileSize,
+    rotateMaze,
+    path: calculatePath(
+        state.maze.path,
+        tileSize,
+        rotateMaze
+    )
+  });
+};
+
+const initMaze = (state, { payload }) => initializeMaze(payload, state);
 
 export default function appStateReducer(state = initialState, action){
   switch ( action.type ) {
-    case UPDATE_MAZE:
-      let newMaze = cloneDeep(state.maze);
-      let code = newMaze.doActionOnTile(action.payload);
-      return ({
-        ...state,
-        maze: newMaze,
-        path: calculatePath(
-            newMaze.path,
-            state.tileSize,
-            state.rotateMaze
-        ),
-        pathError: code === newMaze.StatusCodes.BlockedPath,
-        actionError: code === newMaze.StatusCodes.NotEnoughActions
-      });
-    case RESET_PATHERROR: return ({ ...state, pathError:false });
-    case RESET_ACTIONERROR: return ({ ...state, actionError:false });
-    case RESET_MAZE: return initializeMaze(state.seed, state);
-    case UPDATE_VIEWPARAMS:
-      let { tileSize, rotateMaze } = calculateViewParams(state.maze, action.payload);
-      return ({
-        ...state,
-        tileSize,
-        rotateMaze,
-        path: calculatePath(
-            state.maze.path,
-            tileSize,
-            rotateMaze
-        )
-      });
-    case INIT_MAZE: return initializeMaze(action.payload, state);
-    default:
-      return state;
+    case UPDATE_MAZE: return updateMaze(state, action);
+    case RESET_PATHERROR: return resetPathError(state);
+    case RESET_ACTIONERROR: return resetActionError(state);
+    case RESET_MAZE: return resetMaze(state);
+    case UPDATE_VIEWPARAMS: return updateViewParams(state, action);
+    case INIT_MAZE: return initMaze(state, action);
+    default: return state;
   }
 }
 

@@ -1,8 +1,13 @@
-import CustomError from '../../utils/customError';
+import axios from 'axios';
+
 import {
-  createErrorAction, createStartAction, createStaticAction, createSuccessAction,
+  createErrorAction,
+  createStartAction,
+  createStaticAction,
+  createSuccessAction,
   createUpdateAction
 } from "../../utils/action-creator";
+
 import {
   FETCH_HIGHSCORE,
   INIT_MAZE,
@@ -12,65 +17,40 @@ import {
   UPDATE_VIEWPARAMS
 } from "../../store/action-constants";
 
-export const initializeMaze = seed => createUpdateAction(INIT_MAZE, seed);
+import { generateScoreUrl, solutionUrl } from "../../server/url-generator";
+
 
 export const undoAction = () => createStaticAction(UNDO_ACTION);
-
 export const resetMaze = () => createStaticAction(RESET_MAZE);
-
 export const toggleHelp = () => createStaticAction(TOGGLE_HELP);
-
+export const initializeMaze = seed => createUpdateAction(INIT_MAZE, seed);
 export const updateView = viewParams => createUpdateAction(UPDATE_VIEWPARAMS, viewParams);
 
-export const fetchHighScore = seed => dispatch => {
+export const fetchHighScore = seed => async dispatch => {
   dispatch(createStartAction(FETCH_HIGHSCORE));
-  const BASE_URL = 'https://zhenlu.info/maze/leaderboard/';
-  const urlArgs = "?start=0&length=1";
-  fetch(BASE_URL+seed+urlArgs)
-      .then( res => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        return res.json();
-      })
-      .then( data => {
-        if (data.scores.length === 0) {
-          dispatch(createSuccessAction(FETCH_HIGHSCORE, 0));
-        } else {
-          dispatch(createSuccessAction(FETCH_HIGHSCORE, data.scores[0].score));
-        }
-      })
-      .catch( error => {
-        dispatch(createErrorAction(FETCH_HIGHSCORE, error));
-      });
+  try{
+    let { data: {scores} } = await(axios.get(generateScoreUrl(seed, 1)));
+    if (scores.length === 0) {
+      dispatch(createSuccessAction(FETCH_HIGHSCORE, 0));
+    } else {
+      dispatch(createSuccessAction(FETCH_HIGHSCORE, scores[0].score));
+    }
+  } catch(e) {
+    dispatch(createErrorAction(FETCH_HIGHSCORE, e));
+  }
 };
 
-export const submitScore = ( maze, history, user, token ) => {
-  let solution = {
+export const submitScore = ( maze, history, user, token ) => async dispatch => {
+  let payload = {
     seed: maze.seed,
-    mazeTiles: maze.mazeTiles,
+    solution: maze.getUserChanges(),
     user: user,
     token: token,
   };
-
-  fetch('zhenlu.info/check',
-      {
-        method: "POST",
-        body: JSON.stringify(solution)
-      })
-      .then( (res) => {
-        history.push('/leaderboard/');
-        if(!res.ok){
-          throw CustomError("Posting back to the server failed!");
-        }
-        return res;
-      })
-      .then( res => res.json())
-      .then( data => {
-        console.log(data);
-      })
-      .catch((ex) => {
-        alert("Sending your score to the server failed, if this persists please contact the admin!");
-        console.log("ERROR: "+ex);
-      });
+  try {
+    let response = await( axios.post(solutionUrl, JSON.stringify(payload)) );
+    console.log(response);
+  } catch(e) {
+    console.log(e);
+  }
 };
