@@ -13,6 +13,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
+
 export const ConnectedMazeTile = connect(
     mapStateToProps,
     mapDispatchToProps

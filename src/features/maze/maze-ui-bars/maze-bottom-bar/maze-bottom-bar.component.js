@@ -4,6 +4,7 @@ import { bool, func, object } from 'prop-types';
 import './maze-bottom-bar.css';
 import { Link } from "react-router-dom";
 
+
 MazeBottomBar.propTypes = {
   onResetClick: func.isRequired,
   onHelpClick: func.isRequired,
@@ -12,15 +13,8 @@ MazeBottomBar.propTypes = {
   displayHelp: bool.isRequired
 };
 
-export function MazeBottomBar({
-                                onResetClick,
-                                onHelpClick,
-                                user,
-                                token,
-                                displayHelp
-                              }) {
-
-  let renderHelp = () => {
+export function MazeBottomBar( { user, token, onSubmitScoreClick, onLoginClick, onResetClick, onHelpClick, displayHelp, history }) {
+    let renderHelp = () => {
     if (!displayHelp) return null;
     return (
         <div className="info-container" >
@@ -35,16 +29,18 @@ export function MazeBottomBar({
           <p id="removal-cost">Cost to remove a blocker: 2 AP</p>
         </div>
     );
-  };
+    };
 
-  let renderSubmit = () => {
-    if ( user && token) {
-      return <button className='maze-bottom-bar__btn generic__btn'>Submit</button>;
-    }
-    return <button className='maze-bottom-bar__btn generic__btn'>Login</button>;
-  };
+    let renderSubmit = () => {
+        if ( user && token) {
+            return (
+                <button className='maze-bottom-bar__btn generic__btn' onClick={onSubmitScoreClick({history})}>Submit</button>
+            );
+        }
+        return <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
+    };
 
-  return (
+    return (
       <div>
         {renderHelp()}
 
@@ -59,5 +55,9 @@ export function MazeBottomBar({
           </div>
         </div>
       </div>
-  );
+    );
 }
+
+
+
+

@@ -13,6 +13,7 @@ export class MazeComponent extends Component {
     fetchHighScore: func.isRequired,
     initializeMaze: func.isRequired,
     updateViewPort: func.isRequired,
+    history: object.isRequired,
     pathError: bool.isRequired,
     actionError: bool.isRequired,
     highScore: number,
@@ -42,7 +43,7 @@ export class MazeComponent extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeThrottler);
     clearInterval(this.highScoreFetchInterval);
-  }
+  };
 
   startFetchingHighScore = (seed) => {
     if (this.highScoreFetchInterval) clearInterval(this.highScoreFetchInterval);
@@ -76,7 +77,8 @@ export class MazeComponent extends Component {
       path,
       rotateMaze,
       pathError,
-      actionError
+      actionError,
+      history
     } = this.props;
 
     if(!maze || !maze.mazeTiles) return null;
