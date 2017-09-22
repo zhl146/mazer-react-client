@@ -15,11 +15,10 @@ export const submitScore = (history) => async (dispatch, getState) => {
   let payload = {
     seed: db.state.maze.seed,
     solution: db.state.maze.getUserChanges(),
-    user: db.state.user,
-    token: db.state.token,
+    user: db.auth.user.email
   };
   try {
-    let response = await( axios.post(solutionUrl, JSON.stringify(payload)) );
+    let response = await( axios.post(solutionUrl, payload) );
     console.log(response);
     history.push('/leaderboard?seed='+db.state.maze.seed);
   } catch(e) {
