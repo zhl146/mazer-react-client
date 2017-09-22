@@ -23,7 +23,7 @@ export function MazeBottomBar({
   let renderHelp = () => {
     if (!displayHelp) return null;
     return (
-        <div class="info-container" >
+        <div className="info-container" >
           <p>Make the longest maze between S and E to beat the high score!</p>
           <p>The path must always link to all way-points in numerical order.</p>
           <p>You have <span id="help-action-points">33</span> action points (AP) to spend.</p>

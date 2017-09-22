@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { func, object, number, bool } from 'prop-types';
 
 import './maze.css';
-import { MazeTopBar } from './maze-ui-bars/maze-top-bar.component';
+import { MazeTopBar } from './maze-ui-bars/maze-top-bar/maze-top-bar.component';
 import { MazeGameBoard } from "./maze-game-board/maze-game-board.component";
-import { ConnectedMazeBottomBar } from "./maze-ui-bars/maze-bottom-bar.container";
+import { ConnectedMazeBottomBar } from "./maze-ui-bars/maze-bottom-bar/maze-bottom-bar.container";
 import { generateDateSeed, getUrlParameter } from "../../utils/request.utils";
 
 export class MazeComponent extends Component {

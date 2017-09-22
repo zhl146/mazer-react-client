@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { MazeBottomBar } from "./maze-bottom-bar.component";
-import { resetMaze, toggleHelp } from "../maze.action";
+import { resetMaze, toggleHelp } from "./maze-bottom-bar.action";
 
 const mapStateToProps = ({ state, view }) => ({
   maze: state.maze,
