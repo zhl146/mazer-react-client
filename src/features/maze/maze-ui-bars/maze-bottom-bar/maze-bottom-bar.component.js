@@ -49,7 +49,7 @@ export function MazeBottomBar( { user, token, onSubmitScoreClick, onLoginClick, 
         <div className="maze-bottom-bar">
           <div>
             <button id="help-btn" className="maze-bottom-bar__btn generic__btn" onClick={onHelpClick} >?</button>
-            <Link className="maze-bottom-bar__btn generic__btn" to='leaderboard'>Leaderboard</Link>
+            <Link className="maze-bottom-bar__btn generic__btn" to='/leaderboard'>Leaderboard</Link>
           </div>
           <div>
             <button onClick={onResetClick} className="maze-bottom-bar__btn generic__btn">Reset</button>
