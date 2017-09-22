@@ -3,14 +3,15 @@ import { MazeBottomBar } from "./maze-bottom-bar.component";
 import { resetMaze, toggleHelp, submitScore, firebaseLogin } from "./maze-bottom-bar.action";
 import { withRouter } from 'react-router-dom';
 
-const mapStateToProps = ({ state, view }) => ({
+const mapStateToProps = ({ auth, state, view }) => ({
   maze: state.maze,
-  user: state.user,
-  token: state.token,
+  user: auth.user,
+  token: auth.token,
   displayHelp: view.displayHelp
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch,props)  => ({
+
   onResetClick: () => {
     dispatch(resetMaze());
   },
@@ -18,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(toggleHelp());
   },
   onSubmitScoreClick: (history) => {
-    dispatch(submitScore(maze, history, user, token));
+    dispatch(submitScore(history));
   },
   onLoginClick: () => {
     dispatch(firebaseLogin());

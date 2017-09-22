@@ -32,12 +32,14 @@ export function MazeBottomBar( { user, token, onSubmitScoreClick, onLoginClick, 
     };
 
     let renderSubmit = () => {
-        if ( user && token) {
+        if (user && token) {
             return (
-                <button className='maze-bottom-bar__btn generic__btn' onClick={onSubmitScoreClick({history})}>Submit</button>
+                <button className='maze-bottom-bar__btn generic__btn' onClick={ () => { onSubmitScoreClick(history); }}>Submit</button>
             );
         }
-        return <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
+        else {
+            return <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
+        }
     };
 
     return (
