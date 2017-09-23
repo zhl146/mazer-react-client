@@ -4,7 +4,7 @@ import { createMaze } from 'mazer-shared';
 import stateReducer, { initialState } from '../../src/store/reducers/state.reducer';
 import { createStaticAction, createUpdateAction } from "../../src/utils/action-creator";
 import {
-  INIT_MAZE, RESET_ACTIONERROR, RESET_PATHERROR, UPDATE_MAZE,
+  INIT_MAZE, RESET_ACTIONERROR, RESET_MAZE, RESET_PATHERROR, UPDATE_MAZE,
   UPDATE_VIEWPARAMS
 } from "../../src/store/action-constants";
 
@@ -69,6 +69,17 @@ test('state reducer should return a different state if given a click action', as
   const initialState = stateReducer(undefined, initAction);
 
   const testAction = createUpdateAction(UPDATE_MAZE, testMaze.mazeTiles[1][1]);
+
+  assert.notDeepEqual(stateReducer(initialState, testAction), initialState);
+  assert.end();
+});
+
+test('state reducer should be able to reset the maze', assert => {
+  const seed = 'test seed';
+  const initAction = createUpdateAction(INIT_MAZE, seed);
+  const initialState = stateReducer(undefined, initAction);
+
+  const testAction = createStaticAction(RESET_MAZE);
 
   assert.notDeepEqual(stateReducer(initialState, testAction), initialState);
   assert.end();
