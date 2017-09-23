@@ -1,20 +1,31 @@
 import React from 'react';
 import { bool, func, object } from 'prop-types';
 
-import './maze-bottom-bar.css';
+import './menu-bar.css';
 import { Link } from "react-router-dom";
 
 
-MazeBottomBar.propTypes = {
+MenuBar.propTypes = {
   onResetClick: func.isRequired,
   onHelpClick: func.isRequired,
   user: object,
   token: object,
-  displayHelp: bool.isRequired
+  displayHelp: bool.isRequired,
+  history: object.isRequired
 };
 
-export function MazeBottomBar( { user, token, onSubmitScoreClick, onLoginClick, onResetClick, onHelpClick, displayHelp, history }) {
-    let renderHelp = () => {
+export function MenuBar( {
+                                 user,
+                                 token,
+                                 onSubmitScoreClick,
+                                 onLoginClick,
+                                 onResetClick,
+                                 onHelpClick,
+                                 displayHelp,
+                                 history
+                               }) {
+
+  let renderHelp = () => {
     if (!displayHelp) return null;
     return (
         <div className="info-container" >
@@ -29,20 +40,20 @@ export function MazeBottomBar( { user, token, onSubmitScoreClick, onLoginClick, 
           <p id="removal-cost">Cost to remove a blocker: 2 AP</p>
         </div>
     );
-    };
+  };
 
-    let renderSubmit = () => {
-        if (user && token) {
-            return (
-                <button className='maze-bottom-bar__btn generic__btn' onClick={ () => { onSubmitScoreClick(history); }}>Submit</button>
-            );
-        }
-        else {
-            return <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
-        }
-    };
+  let renderSubmit = () => {
+    if (user && token) {
+      return (
+          <button className='maze-bottom-bar__btn generic__btn' onClick={ () => { onSubmitScoreClick(history); }}>Submit</button>
+      );
+    }
+    else {
+      return <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
+    }
+  };
 
-    return (
+  return (
       <div>
         {renderHelp()}
 
@@ -57,7 +68,7 @@ export function MazeBottomBar( { user, token, onSubmitScoreClick, onLoginClick, 
           </div>
         </div>
       </div>
-    );
+  );
 }
 
 

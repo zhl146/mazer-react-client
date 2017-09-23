@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { object, bool, array, number } from 'prop-types';
 
-import './maze-path.css';
+import './path.css';
 
-class MazePath extends Component {
+class Path extends Component {
 
   static propTypes = {
     maze: object.isRequired,
@@ -67,4 +67,4 @@ class MazePath extends Component {
 
 }
 
-export default MazePath;
+export default Path;

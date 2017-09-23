@@ -2,21 +2,17 @@ import React, { Component } from 'react';
 import { func, object, number, bool } from 'prop-types';
 
 import './maze.css';
-import { MazeTopBar } from './maze-ui-bars/maze-top-bar/maze-top-bar.component';
-import { MazeGameBoard } from "./maze-game-board/maze-game-board.component";
-import { ConnectedMazeBottomBar } from "./maze-ui-bars/maze-bottom-bar/maze-bottom-bar.container";
+import { GameBoard } from "./game-board/game-board.component";
+import { ConnectedMenuBar } from "./menu-bar/menu-bar.container";
 import { generateDateSeed, getUrlParameter } from "../../utils/request.utils";
+import { ConnectedScoreBar } from "./score-bar/score-bar.container";
 
 export class MazeComponent extends Component {
 
   static propTypes = {
-    fetchHighScore: func.isRequired,
     initializeMaze: func.isRequired,
     updateViewPort: func.isRequired,
-    history: object.isRequired,
     pathError: bool.isRequired,
-    actionError: bool.isRequired,
-    highScore: number,
     maze: object
   };
 
@@ -32,27 +28,13 @@ export class MazeComponent extends Component {
       let seed = getUrlParameter("seed");
       seed = ( seed || generateDateSeed());
       this.props.initializeMaze(seed);
-      this.startFetchingHighScore(seed);
-    } else {
-      this.startFetchingHighScore(this.props.maze.seed);
-      this.onWindowResize();
     }
+    this.onWindowResize();
     window.addEventListener("resize", this.resizeThrottler, false);
   };
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeThrottler);
-    clearInterval(this.highScoreFetchInterval);
-  };
-
-  startFetchingHighScore = (seed) => {
-    if (this.highScoreFetchInterval) clearInterval(this.highScoreFetchInterval);
-    this.fetchHighScore(seed);
-    this.highScoreFetchInterval = setInterval(() => this.fetchHighScore(seed), 30000);
-  };
-
-  fetchHighScore = (seed) => {
-    this.props.fetchHighScore(seed);
   };
 
   onWindowResize = () => {
@@ -71,34 +53,25 @@ export class MazeComponent extends Component {
 
   render() {
     let {
-      highScore,
       maze,
       tileSize,
       path,
       rotateMaze,
       pathError,
-      actionError,
-      history
     } = this.props;
 
     if(!maze || !maze.mazeTiles) return null;
     return (
         <div className='maze-component'>
-          <MazeTopBar
-              actionError={actionError}
-              highScore={highScore}
-              usedActions={maze.actionsUsed}
-              maxActions={maze.params.maxActionPoints}
-              scoreValue={maze.score}
-          />
-          <MazeGameBoard
+          <ConnectedScoreBar />
+          <GameBoard
               pathError={pathError}
               tileSize={tileSize}
               maze={maze}
               path={path}
               rotateMaze={rotateMaze}
           />
-          <ConnectedMazeBottomBar />
+          <ConnectedMenuBar />
         </div>
     );
   }

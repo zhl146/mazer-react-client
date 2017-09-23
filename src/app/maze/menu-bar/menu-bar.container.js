@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { MazeBottomBar } from "./maze-bottom-bar.component";
-import { resetMaze, toggleHelp, submitScore, firebaseLogin } from "./maze-bottom-bar.action";
+import { MenuBar } from "./menu-bar.component";
+import { resetMaze, toggleHelp, submitScore, firebaseLogin } from "./menu-bar.action";
 import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = ({ auth, state, view }) => ({
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch,props)  => ({
   }
 });
 
-export const ConnectedMazeBottomBar = connect(
+export const ConnectedMenuBar = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(MazeBottomBar));
+)(withRouter(MenuBar));

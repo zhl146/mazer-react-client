@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { bool, object, number, array } from 'prop-types';
 
-import MazePath from './maze-path.component';
-import { ConnectedMazeTile } from "./maze-tile.container";
+import MazePath from './path.component';
+import { ConnectedMazeTile } from "./maze-tile/maze-tile.container";
 
-import './maze-game-board.css';
+import './game-board.css';
 
-export class MazeGameBoard extends Component{
+export class GameBoard extends Component{
 
   static propTypes = {
     rotateMaze: bool.isRequired,
