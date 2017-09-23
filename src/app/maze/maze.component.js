@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { func, object, number, bool } from 'prop-types';
+import { func, object, bool } from 'prop-types';
 
 import './maze.css';
 import { GameBoard } from "./game-board/game-board.component";
 import { ConnectedMenuBar } from "./menu-bar/menu-bar.container";
 import { generateDateSeed, getUrlParameter } from "../../utils/request.utils";
 import { ConnectedScoreBar } from "./score-bar/score-bar.container";
+import { debounce } from "../../utils/functional.utils";
 
 export class MazeComponent extends Component {
 
@@ -20,8 +21,7 @@ export class MazeComponent extends Component {
     maze: null
   };
 
-  highScoreFetchInterval = null;
-  resizeTimeout = null;
+  updateViewPort = debounce(this.props.updateViewPort, 200);
 
   componentDidMount() {
     if (!this.props.maze ) {
@@ -30,25 +30,15 @@ export class MazeComponent extends Component {
       this.props.initializeMaze(seed);
     }
     this.onWindowResize();
-    window.addEventListener("resize", this.resizeThrottler, false);
+    window.addEventListener("resize", this.onWindowResize, false);
   };
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeThrottler);
+    window.removeEventListener('resize', this.onWindowResize);
   };
 
   onWindowResize = () => {
-    this.props.updateViewPort({width: window.innerWidth, height: window.innerHeight});
-  };
-
-  resizeThrottler = () => {
-    // ignore resize events as long as an actualResizeHandler execution is in the queue
-    if ( !this.resizeTimeout ) {
-      this.resizeTimeout = setTimeout(() => {
-        this.resizeTimeout = null;
-        this.onWindowResize();
-      }, 250);
-    }
+    this.updateViewPort({width: window.innerWidth, height: window.innerHeight});
   };
 
   render() {
