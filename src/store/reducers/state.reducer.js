@@ -83,7 +83,7 @@ function initializeMaze(seed, state){
   return {
     ...state,
     maze,
-    path: calculatePath(maze.path, 30, false)
+    path: calculatePath(maze.path, 30, state.rotateMaze)
   };
 }
 
