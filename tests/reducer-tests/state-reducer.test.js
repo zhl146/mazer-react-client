@@ -1,7 +1,7 @@
 import test from 'tape';
 
 import { createMaze } from 'mazer-shared';
-import stateReducer, { initialState } from '../../src/store/reducers/state.reducer';
+import stateReducer, { initialState } from '../../src/store/reducers/maze-state.reducer';
 import { createStaticAction, createUpdateAction } from "../../src/utils/action-creator";
 import {
   INIT_MAZE, RESET_ACTIONERROR, RESET_MAZE, RESET_PATHERROR, UPDATE_MAZE,

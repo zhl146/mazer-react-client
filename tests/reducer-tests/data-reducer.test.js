@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import dataReducer, { initialState } from "../../src/store/reducers/data.reducer";
+import dataReducer, { initialState } from "../../src/store/reducers/leaderboard.reducer";
 import {
   createErrorAction,
   createStartAction,

@@ -3,8 +3,8 @@ import { MenuBar } from "./menu-bar.component";
 import { resetMaze, toggleHelp, submitScore, firebaseLogin } from "./menu-bar.action";
 import { withRouter } from 'react-router-dom';
 
-const mapStateToProps = ({ auth, state, view }) => ({
-  maze: state.maze,
+const mapStateToProps = ({ auth, mazeState, view }) => ({
+  maze: mazeState.maze,
   user: auth.user,
   token: auth.token,
   displayHelp: view.displayHelp

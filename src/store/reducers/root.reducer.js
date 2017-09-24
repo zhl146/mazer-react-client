@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 
-import data from './data.reducer';
-import state from './state.reducer';
+import leaderboard from './leaderboard.reducer';
+import mazeState from './maze-state.reducer';
 import view from './view.reducer';
 import auth from './auth.reducer';
 
 export const rootReducer = combineReducers({
   auth,
-  data,
-  state,
+  leaderboard,
+  mazeState,
   view,
 });

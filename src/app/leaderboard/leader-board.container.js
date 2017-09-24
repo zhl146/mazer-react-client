@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { LeaderBoardComponent } from './leader-board.component';
 import { initializeMaze } from "../maze/maze.action";
 
-const mapStateToProps = ({ state, data }) => {
+const mapStateToProps = ({ mazeState, leaderboard }) => {
   return {
-    seed: state.maze ? state.maze.seed : null,
-    topTen: data.topTen,
+    seed: mazeState.maze ? mazeState.maze.seed : null,
+    topTen: leaderboard.topTen,
     playerRank: null,
-    pending: data.leaderBoardPending
+    pending: leaderboard.leaderBoardPending
   };
 };
 

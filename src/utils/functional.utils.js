@@ -9,7 +9,6 @@ export const debounce = (func, delay) => {
       func(...args);
       timeout = setTimeout( () => {
         timeout = null;
-        func(...args);
       }, delay);
     }
   };

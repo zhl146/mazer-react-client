@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import { ScoreBar } from "./score-bar.component";
 import { fetchHighScore } from "../maze.action";
 
-const mapStateToProps = ({ state, data }) => ({
-  actionError: state.actionError,
-  usedActions: state.maze.actionsUsed,
-  highScore: data.highScore,
-  maxActions: state.maze.params.maxActionPoints,
-  scoreValue: state.maze.score,
-  seed: state.maze.seed
+const mapStateToProps = ({ mazeState, leaderboard }) => ({
+  actionError: mazeState.actionError,
+  usedActions: mazeState.maze.actionsUsed,
+  highScore: leaderboard.highScore,
+  maxActions: mazeState.maze.params.maxActionPoints,
+  scoreValue: mazeState.maze.score,
+  seed: mazeState.maze.seed
 });
 
 const mapDispatchToProps = dispatch => ({
