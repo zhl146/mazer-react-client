@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
+
 import { MenuBar } from "./menu-bar.component";
-import { resetMaze, toggleHelp, submitScore, firebaseLogin } from "./menu-bar.action";
-import { withRouter } from 'react-router-dom';
+import { resetMaze, toggleHelp, toggleSubmit, firebaseLogin } from "./menu-bar.action";
 
 const mapStateToProps = ({ auth, mazeState, view }) => ({
   maze: mazeState.maze,
@@ -15,11 +15,11 @@ const mapDispatchToProps = (dispatch,props)  => ({
   onResetClick: () => {
     dispatch(resetMaze());
   },
-  onHelpClick: () => {
+  toggleHelp: () => {
     dispatch(toggleHelp());
   },
-  onSubmitScoreClick: (history) => {
-    dispatch(submitScore(history));
+  toggleSubmit: () => {
+    dispatch(toggleSubmit());
   },
   onLoginClick: () => {
     dispatch(firebaseLogin());
@@ -29,4 +29,4 @@ const mapDispatchToProps = (dispatch,props)  => ({
 export const ConnectedMenuBar = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(MenuBar));
+)(MenuBar);

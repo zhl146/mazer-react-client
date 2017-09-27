@@ -3,29 +3,28 @@ import { bool, func, object } from 'prop-types';
 
 import './menu-bar.css';
 import { Link } from "react-router-dom";
+import { ConnectedNameSubmit } from "../name-submit/name-submit.container";
 
 
 MenuBar.propTypes = {
   onResetClick: func.isRequired,
-  onHelpClick: func.isRequired,
+  toggleHelp: func.isRequired,
   user: object,
   token: object,
-  displayHelp: bool.isRequired,
-  history: object.isRequired
+  displayHelp: bool.isRequired
 };
 
 export function MenuBar( {
-                                 user,
-                                 token,
-                                 onSubmitScoreClick,
-                                 onLoginClick,
-                                 onResetClick,
-                                 onHelpClick,
-                                 displayHelp,
-                                 history
-                               }) {
+                           user,
+                           token,
+                           toggleSubmit,
+                           onLoginClick,
+                           onResetClick,
+                           onHelpClick,
+                           displayHelp
+                         }) {
 
-  let renderHelp = () => {
+  const renderHelp = () => {
     if (!displayHelp) return null;
     return (
         <div className="info-container" >
@@ -42,10 +41,10 @@ export function MenuBar( {
     );
   };
 
-  let renderSubmit = () => {
+  const renderSubmit = () => {
     if (user && token) {
       return (
-          <button className='maze-bottom-bar__btn generic__btn' onClick={ () => { onSubmitScoreClick(history); }}>Submit</button>
+          <button className='maze-bottom-bar__btn generic__btn' onClick={toggleSubmit}>Submit</button>
       );
     }
     else {
@@ -56,7 +55,7 @@ export function MenuBar( {
   return (
       <div>
         {renderHelp()}
-
+        <ConnectedNameSubmit/>
         <div className="maze-bottom-bar">
           <div>
             <button id="help-btn" className="maze-bottom-bar__btn generic__btn" onClick={onHelpClick} >?</button>
