@@ -5,8 +5,9 @@ import { Provider } from "react-redux";
 
 import registerServiceWorker from './registerServiceWorker';
 
-import './utils/styles/generic.css';
 import './utils/styles/normalize.css';
+import './utils/styles/generic.css';
+
 import Routes from './routes.component';
 import configureStore from './store/store-config';
 

@@ -16,3 +16,12 @@ export const firebaseLogin = () => async dispatch => {
     dispatch(authError(ex));
   }
 };
+
+export const firebaseLogout = () => async dispatch => {
+  try {
+    await( MyFireBase.auth().signOut() );
+    dispatch(setAuthProfile(null, null));
+  }catch(ex){
+    dispatch(authError(ex));
+  }
+};

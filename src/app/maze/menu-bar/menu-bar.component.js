@@ -9,9 +9,11 @@ import { ConnectedNameSubmit } from "../name-submit/name-submit.container";
 MenuBar.propTypes = {
   onResetClick: func.isRequired,
   toggleHelp: func.isRequired,
+  toggleSubmit: func.isRequired,
   user: object,
   token: object,
-  displayHelp: bool.isRequired
+  displayHelp: bool.isRequired,
+  onLogoutClick: func.isRequired
 };
 
 export function MenuBar( {
@@ -20,7 +22,8 @@ export function MenuBar( {
                            toggleSubmit,
                            onLoginClick,
                            onResetClick,
-                           onHelpClick,
+                           onLogoutClick,
+                           toggleHelp,
                            displayHelp
                          }) {
 
@@ -41,16 +44,15 @@ export function MenuBar( {
     );
   };
 
-  const renderSubmit = () => {
-    if (user && token) {
-      return (
-          <button className='maze-bottom-bar__btn generic__btn' onClick={toggleSubmit}>Submit</button>
-      );
-    }
-    else {
-      return <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
-    }
-  };
+  const renderLogin = () =>
+      user && token
+          ? <button className='maze-bottom-bar__btn generic__btn' onClick={onLogoutClick}>Logout</button>
+          : <button className='maze-bottom-bar__btn generic__btn' onClick={onLoginClick}>Login</button>;
+
+  const renderSubmit = () =>
+      user && token
+          ? <button className='maze-bottom-bar__btn generic__btn' onClick={toggleSubmit}>Submit</button>
+          : null;
 
   return (
       <div>
@@ -58,12 +60,13 @@ export function MenuBar( {
         <ConnectedNameSubmit/>
         <div className="maze-bottom-bar">
           <div>
-            <button id="help-btn" className="maze-bottom-bar__btn generic__btn" onClick={onHelpClick} >?</button>
+            <button id="help-btn" className="maze-bottom-bar__btn generic__btn" onClick={toggleHelp} >?</button>
             <Link className="maze-bottom-bar__btn generic__btn" to='/leaderboard'>Leaderboard</Link>
           </div>
           <div>
             <button onClick={onResetClick} className="maze-bottom-bar__btn generic__btn">Reset</button>
-            {renderSubmit()}
+            { renderSubmit() }
+            { renderLogin() }
           </div>
         </div>
       </div>

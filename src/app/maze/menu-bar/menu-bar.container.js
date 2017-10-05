@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { MenuBar } from "./menu-bar.component";
-import { resetMaze, toggleHelp, toggleSubmit, firebaseLogin } from "./menu-bar.action";
+import { resetMaze, toggleHelp, toggleSubmit, firebaseLogin, firebaseLogout } from "./menu-bar.action";
 
 const mapStateToProps = ({ auth, mazeState, view }) => ({
   maze: mazeState.maze,
@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch,props)  => ({
   },
   toggleSubmit: () => {
     dispatch(toggleSubmit());
+  },
+  onLogoutClick: () => {
+    dispatch(firebaseLogout());
   },
   onLoginClick: () => {
     dispatch(firebaseLogin());

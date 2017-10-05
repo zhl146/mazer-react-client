@@ -6,6 +6,7 @@
   cursor: not-allowed;
 }
 .info-container {
+  padding: 20px;
   position: absolute;
   background: #8fbc8f;
   transition: all 200ms ease-in-out;
