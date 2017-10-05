@@ -15,7 +15,10 @@ export class NameSubmit extends Component {
   state = { input: '' };
 
   handleChange = (e) => this.setState({input: e.target.value});
-  handleSubmit = () => this.props.onSubmit(this.state.input, this.props.history);
+  handleSubmit = () => {
+    this.props.toggleDisplay();
+    this.props.onSubmit(this.state.input, this.props.history);
+  };
 
   render() {
     const { toggleDisplay, display } = this.props;
@@ -23,11 +26,13 @@ export class NameSubmit extends Component {
         ? null
         : (
             <div className="name-submit">
-              <input className="name-submit__input"
-                     placeholder="WHAT IS YOUR NAME"
-                     value={this.state.input} onChange={this.handleChange} />
-              <button className="generic__btn" onClick={toggleDisplay} >Cancel</button>
-              <button className="generic__btn" onClick={this.handleSubmit} >Submit</button>
+              <div className="name-submit__box">
+                <input className="name-submit__input"
+                       placeholder="DISPLAY NAME"
+                       value={this.state.input} onChange={this.handleChange} />
+                <button className="generic__btn" onClick={toggleDisplay} >Cancel</button>
+                <button className="generic__btn" onClick={this.handleSubmit} >Submit</button>
+              </div>
             </div>
         );
   }
