@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { isEqual } from 'lodash';
 import { object, bool, array, number } from 'prop-types';
 
 import './path.css';
@@ -18,17 +19,21 @@ class Path extends Component {
   elRef;
 
   componentDidMount() {
-    let context = this.elRef.getContext('2d');
-    this.drawPath(context);
+    const context = this.elRef.getContext('2d');
+    this.configureContext(context);
+    window.requestAnimationFrame(this.animatePath(context, 0));
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props.path, nextProps.path);
   }
 
   componentDidUpdate() {
-    let context = this.elRef.getContext('2d');
-    context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    this.drawPath(context);
+    const context = this.elRef.getContext('2d');
+    window.requestAnimationFrame(this.animatePath(context, 0));
   }
 
-  setDimensions() {
+  setDimensions = () => {
     if (this.props.rotateMaze) {
       this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows;
       this.canvasHeight = this.props.tileSize * this.props.maze.params.numColumns;
@@ -36,13 +41,18 @@ class Path extends Component {
       this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns;
       this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows;
     }
-  }
+  };
 
-  drawPath(context) {
-    context.setLineDash([5, 3]);
+  configureContext = context => {
+    context.setLineDash([10, 5]);
     context.lineJoin = 'miter';
     context.lineWidth = 3;
     context.strokeStyle = 'rgba(20,150,150,0.5)';
+  };
+
+  drawPath = (context, offset) => {
+    context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    context.lineDashOffset = -offset;
     let startingX = this.props.path[0].x;
     let startingY = this.props.path[0].y;
     context.beginPath();
@@ -53,7 +63,17 @@ class Path extends Component {
       context.lineTo(xCoord, yCoord);
     } );
     context.stroke();
-  }
+  };
+
+  animatePath = (context, offset, lastTime) => timestamp => {
+    const elapsedTime = lastTime ? timestamp - lastTime : 0;
+    const projectedOffset = elapsedTime/35;
+    const nextOffset = offset + projectedOffset > 150
+        ? offset + projectedOffset - 150
+        : offset + projectedOffset;
+    this.drawPath(context, nextOffset);
+    window.requestAnimationFrame(this.animatePath(context, nextOffset, timestamp));
+  };
 
   render() {
     this.setDimensions();
