@@ -1,77 +1,78 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { isEqual } from 'lodash';
 import { object, func, number } from 'prop-types';
 import { TileTypes } from 'mazer-shared';
 
 import './maze-tile.css';
 
-MazeTile.propTypes = {
-  onClick: func.isRequired,
-  tile: object.isRequired,
-  tileSize: number.isRequired,
-  colors: object.isRequired
-};
+export class MazeTile extends Component {
 
-export function MazeTile( { tile, onClick, colors, tileSize }) {
-
-  let blockerOverlay = null;
-  let textOverlay = null;
-  let pulseOverlay = null;
-  let colorStyle = {};
-
-  // set proper blocker overlay as content if tile is a blocker
-  if (tile.type === TileTypes.Blocker) {
-    if(tile.userPlaced) {
-      blockerOverlay = (
-          <div className="game-tile__blocker-overlay" style={{background: colors.blockerUser}}/>
-    );
-    }
-    else blockerOverlay = (
-        <div className="game-tile__blocker-overlay" style={{background: colors.blockerNatural}}/>
-    );
-  }
-  // set text if tile is start, end, or waypoint ( mutually exclusive )
-  if (tile.type === TileTypes.Start) {
-    textOverlay = 'S';
-  } else if(tile.type === TileTypes.End) {
-    textOverlay = 'E';
-  } else if (tile.type === TileTypes.WayPoint) {
-    textOverlay = tile.waypointIndex;
-  }
-
-  // tile is a score modifier zone
-  if(tile.scoreMod > 1){
-    if(tile.scoreZoneCenter) {
-      textOverlay = <div className="game-tile__pulse">{tile.scoreMod + 'x'}</div>;
-    }
-    else pulseOverlay = <div className="game-tile__pulse" />;
-  }
-  // tile has default color
-  if (tile.userPlaced && tile.type === TileTypes.Empty) {
-    colorStyle = {
-      background: colors.groundUser
-    };
-  }
-  else {
-    colorStyle = {
-      background: colors.groundNatural
-    };
-  }
-
-  const tileStyle = Object.assign({}, colorStyle, {
-    height: tileSize + 'px',
-    width: tileSize + 'px',
-    fontSize: tileSize /2 + 'px',
-  });
-
-  const handleClick = () => {
-    onClick(tile);
+  static propTypes = {
+    onClick: func.isRequired,
+    tile: object.isRequired,
+    tileSize: number.isRequired,
+    colors: object.isRequired
   };
 
-  return (
-      <div className='game-tile' style={tileStyle} onClick={handleClick} >
-        { pulseOverlay }
-        { blockerOverlay }
-        { textOverlay }
-      </div>
-  );
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props.tile, nextProps.tile)
+        || !isEqual(this.props.tileSize, nextProps.tileSize);
+  }
+
+  handleClick = () => {
+    this.props.onClick(this.props.tile);
+  };
+
+  getBlockerOverlay = () => {
+    const { tile, colors } = this.props;
+    // set proper blocker overlay as content if tile is a blocker
+    if (tile.type === TileTypes.Blocker) {
+      if (tile.userPlaced) return  (
+            <div className="game-tile__blocker-overlay"
+                 style={{background: colors.blockerUser}}/>
+        );
+      else return (
+          <div className="game-tile__blocker-overlay"
+               style={{background: colors.blockerNatural}}/>
+      );
+    }
+  };
+
+  getTextOverlay = () => {
+    const { tile } = this.props;
+    if (tile.type === TileTypes.Start) return 'S';
+    if (tile.type === TileTypes.End) return 'E';
+    if (tile.type === TileTypes.WayPoint) return tile.waypointIndex;
+    if(tile.scoreMod > 1){
+      if(tile.scoreZoneCenter) {
+        return <div className="game-tile__pulse">{tile.scoreMod + 'x'}</div>;
+      }
+      else return <div className="game-tile__pulse" />;
+    }
+    return null;
+  };
+
+  getTileStyle = () => {
+    const background = this.props.tile.userPlaced && this.props.tile.type === TileTypes.Empty
+        ? this.props.colors.groundUser
+        : this.props.colors.groundNatural;
+
+    return ({
+      background,
+      height: this.props.tileSize + 'px',
+      width: this.props.tileSize + 'px',
+      fontSize: this.props.tileSize / 2 + 'px'
+    });
+  };
+
+  render() {
+    return (
+        <div className='game-tile' style={this.getTileStyle()} onClick={this.handleClick} >
+          { this.getBlockerOverlay() }
+          { this.getTextOverlay() }
+        </div>
+    );
+  }
+
+
 }
