@@ -31,7 +31,7 @@ class Path extends Component {
 
   componentDidUpdate() {
     const context = this.elRef.getContext('2d');
-    console.log(this.elRef);
+    this.configureContext(context);
     window.requestAnimationFrame(this.animatePath(context, 0));
   }
 
