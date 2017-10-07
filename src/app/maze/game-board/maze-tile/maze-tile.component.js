@@ -68,8 +68,8 @@ export class MazeTile extends Component {
   render() {
     return (
         <div className='game-tile' style={this.getTileStyle()} onClick={this.handleClick} >
-          { this.getBlockerOverlay() }
           { this.getTextOverlay() }
+          { this.getBlockerOverlay() }
         </div>
     );
   }
