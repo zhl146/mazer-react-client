@@ -6,11 +6,11 @@ import './score-bar.css';
 export class ScoreBar extends Component{
 
   static propTypes = {
-    actionError: bool.isRequired,
     usedActions: number.isRequired,
     maxActions: number.isRequired,
     scoreValue: number.isRequired,
     fetchHighScore: func.isRequired,
+    actionErrorTime: number,
     highScore: number
   };
 

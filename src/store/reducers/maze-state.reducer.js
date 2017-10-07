@@ -1,5 +1,6 @@
-import { createMaze } from 'mazer-shared';
 import { cloneDeep } from 'lodash';
+
+import { createMaze } from 'mazer-shared';
 import {
   INIT_MAZE,
   RESET_ACTIONERROR,
@@ -14,8 +15,6 @@ export const initialState = {
   path: null,
   rotateMaze: false,
   tileSize: 30,
-  pathError: false,
-  actionError: false,
   pathErrorTime: null,
   actionErrorTime: null
 };
@@ -36,14 +35,9 @@ const updateMaze = (state, { payload }) => {
 };
 
 const updateError = (code, StatusCodes) => {
-  const pathError = code === StatusCodes.BlockedPath;
-  const actionError = code === StatusCodes.NotEnoughActions;
-  const pathErrorTime = pathError ? Date.now() : null;
-  const actionErrorTime = actionError ? Date.now() : null;
-  return {
-    pathError,
-    actionError
-  };
+  if (code === StatusCodes.BlockedPath) return ({ pathErrorTime: Date.now() });
+  if (code === StatusCodes.BlockedPath) return ({ actionErrorTime: Date.now() });
+  return ({});
 };
 
 const resetPathError = state => ({ ...state, pathError:false });

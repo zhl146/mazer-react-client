@@ -13,7 +13,7 @@ export class GameBoard extends Component{
     maze: object.isRequired,
     path: array.isRequired,
     tileSize: number.isRequired,
-    pathError: bool.isRequired
+    pathErrorTime: number
   };
 
   render() {
@@ -24,7 +24,7 @@ export class GameBoard extends Component{
               this.props.rotateMaze,
           )}
           <MazePath
-              pathError={this.props.pathError}
+              pathErrorTime={this.props.pathErrorTime}
               maze={this.props.maze}
               path={this.props.path}
               rotateMaze={this.props.rotateMaze}

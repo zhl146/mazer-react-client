@@ -11,7 +11,8 @@ const mapStateToProps = ({ mazeState, leaderboard }) => {
     rotateMaze: mazeState.rotateMaze,
     tileSize: mazeState.tileSize,
     pathError: mazeState.pathError,
-    actionError: mazeState.actionError
+    actionErrorTime: mazeState.actionErrorTime,
+    pathErrorTime: mazeState.pathErrorTime
   };
 };
 

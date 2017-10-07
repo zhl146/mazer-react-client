@@ -11,7 +11,7 @@ class Path extends Component {
     path: array.isRequired,
     tileSize: number.isRequired,
     rotateMaze: bool.isRequired,
-    pathError: bool.isRequired
+    pathErrorTime: number
   };
 
   canvasWidth;
@@ -25,11 +25,13 @@ class Path extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props.path, nextProps.path);
+    return !isEqual(this.props.path, nextProps.path)
+        || this.props.pathErrorTime !== nextProps.pathErrorTime;
   }
 
   componentDidUpdate() {
     const context = this.elRef.getContext('2d');
+    console.log(this.elRef);
     window.requestAnimationFrame(this.animatePath(context, 0));
   }
 
@@ -46,11 +48,11 @@ class Path extends Component {
   configureContext = context => {
     context.setLineDash([10, 5]);
     context.lineJoin = 'miter';
-    context.lineWidth = 3;
-    context.strokeStyle = 'rgba(20,150,150,0.5)';
   };
 
-  drawPath = (context, offset) => {
+  drawPath = (context, offset, { strokeStyle, lineWidth }) => {
+    context.strokeStyle = strokeStyle;
+    context.lineWidth = lineWidth;
     context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     context.lineDashOffset = -offset;
     let startingX = this.props.path[0].x;
@@ -66,19 +68,28 @@ class Path extends Component {
   };
 
   animatePath = (context, offset, lastTime) => timestamp => {
+    const flash = Date.now() - this.props.pathErrorTime < 500;
     const elapsedTime = lastTime ? timestamp - lastTime : 0;
-    const projectedOffset = elapsedTime/35;
+    const projectedOffset = elapsedTime/55;
     const nextOffset = offset + projectedOffset > 150
         ? offset + projectedOffset - 150
         : offset + projectedOffset;
-    this.drawPath(context, nextOffset);
+    const strokeStyle = flash
+        ? 'rgba(250,0,0,0.5)'
+        : 'rgba(20,150,150,0.5)';
+    const lineWidth = flash ? 4 : 3;
+    const style = {
+      strokeStyle,
+      lineWidth,
+    };
+    this.drawPath(context, nextOffset, style);
     window.requestAnimationFrame(this.animatePath(context, nextOffset, timestamp));
   };
 
   render() {
     this.setDimensions();
     return <canvas
-        className={this.props.pathError ? "maze-path maze-path--pulse" : "maze-path"}
+        className='maze-path'
         ref={(elRef) => this.elRef = elRef}
         width={this.canvasWidth}
         height={this.canvasHeight}

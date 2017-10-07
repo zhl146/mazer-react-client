@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object, bool } from 'prop-types';
+import { func, object, bool, number } from 'prop-types';
 
 import './maze.css';
 import { GameBoard } from "./game-board/game-board.component";
@@ -13,7 +13,7 @@ export class MazeComponent extends Component {
   static propTypes = {
     initializeMaze: func.isRequired,
     updateViewPort: func.isRequired,
-    pathError: bool.isRequired,
+    pathErrorTime: number,
     maze: object
   };
 
@@ -47,7 +47,7 @@ export class MazeComponent extends Component {
       tileSize,
       path,
       rotateMaze,
-      pathError,
+      pathErrorTime,
     } = this.props;
 
     if(!maze || !maze.mazeTiles) return null;
@@ -55,7 +55,7 @@ export class MazeComponent extends Component {
         <div className='maze-component'>
           <ConnectedScoreBar />
           <GameBoard
-              pathError={pathError}
+              pathErrorTime={pathErrorTime}
               tileSize={tileSize}
               maze={maze}
               path={path}
