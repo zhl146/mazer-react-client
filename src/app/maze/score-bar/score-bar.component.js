@@ -24,6 +24,12 @@ export class ScoreBar extends Component{
     this.startFetchingHighScore();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.highScore !== nextProps.highScore
+        || this.props.usedActions !== nextProps.usedActions
+        || this.props.scoreValue !== nextProps.scoreValue;
+  }
+
   componentWillUnmount() {
     clearInterval(this.state.fetchInterval);
   }

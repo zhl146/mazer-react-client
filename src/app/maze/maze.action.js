@@ -15,7 +15,7 @@ import {
   UPDATE_VIEWPARAMS
 } from "../../store/action-constants";
 
-import { generateScoreUrl, solutionUrl } from "../../server/url-generator";
+import { generateScoreUrl } from "../../server/url-generator";
 
 
 export const undoAction = () => createStaticAction(UNDO_ACTION);

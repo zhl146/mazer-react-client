@@ -9,7 +9,16 @@ export const initialState = {
   leaderBoardError: false
 };
 
-const fetchHighScore = (state, { payload }) => ({...state, highScore: payload});
+const fetchHighScore = (state, { meta, payload }) => {
+  switch (meta) {
+    case ACTION_SUCCESS:
+      return ({...state, highScore: payload});
+    case ACTION_ERROR:
+      return ({...state, leaderBoardError: payload});
+    default:
+      return state;
+  }
+};
 
 const fetchLeaderboard = (state, { meta, payload }) => {
   switch(meta) {
