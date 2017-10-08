@@ -1,4 +1,4 @@
-const local = true;
+const local = false;
 const baseUrl = local ? "http://localhost:4000/" : "https://zhenlu.info/maze/";
 
 export const generateScoreUrl = ( seed, numScores, startRank=0) => {

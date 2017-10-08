@@ -99,8 +99,8 @@ function calculatePath(path, tileSize, rotateMaze) {
 }
 
 function calculateViewParams(maze, windowParams){
-  const headerHeight = 60;
-  const footerHeight = 60;
+  const headerHeight = 100;
+  const footerHeight = 75;
 
   let rotateMaze = false;
 

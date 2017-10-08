@@ -77,7 +77,7 @@ class Path extends Component {
     const strokeStyle = flash
         ? 'rgba(250,0,0,0.5)'
         : 'rgba(20,150,150,0.5)';
-    const lineWidth = flash ? 4 : 3;
+    const lineWidth = flash ? 3 + (Date.now() - this.props.pathErrorTime) / 500 : 3;
     const style = {
       strokeStyle,
       lineWidth,
