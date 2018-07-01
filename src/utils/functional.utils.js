@@ -1,15 +1,15 @@
 const hasBeenLongEnough = timeout => {
-  return !timeout;
-};
+  return !timeout
+}
 
 export const debounce = (func, delay) => {
-  let timeout = null;
+  let timeout = null
   return (...args) => {
     if (hasBeenLongEnough(timeout)) {
-      func(...args);
-      timeout = setTimeout( () => {
-        timeout = null;
-      }, delay);
+      func(...args)
+      timeout = setTimeout(() => {
+        timeout = null
+      }, delay)
     }
-  };
-};
+  }
+}

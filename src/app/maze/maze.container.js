@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import { fetchHighScore, initializeMaze, updateView } from './maze.action';
-import { MazeComponent } from './maze.component';
+import { fetchHighScore, initializeMaze, updateView } from './maze.action'
+import { MazeComponent } from './maze.component'
 
 const mapStateToProps = ({ mazeState, leaderboard }) => {
   return {
@@ -12,25 +12,24 @@ const mapStateToProps = ({ mazeState, leaderboard }) => {
     tileSize: mazeState.tileSize,
     pathError: mazeState.pathError,
     actionErrorTime: mazeState.actionErrorTime,
-    pathErrorTime: mazeState.pathErrorTime
-  };
-};
+    pathErrorTime: mazeState.pathErrorTime,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchHighScore: seed => {
-      dispatch(fetchHighScore(seed));
+      dispatch(fetchHighScore(seed))
     },
     updateViewPort: params => {
-      dispatch(updateView(params));
+      dispatch(updateView(params))
     },
     initializeMaze: seed => {
-      dispatch(initializeMaze(seed));
-    }
-  };
-};
+      dispatch(initializeMaze(seed))
+    },
+  }
+}
 
-export const ConnectedMaze = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MazeComponent);
+export const ConnectedMaze = connect(mapStateToProps, mapDispatchToProps)(
+  MazeComponent
+)

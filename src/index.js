@@ -1,21 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter} from "react-router-dom";
-import { Provider } from "react-redux";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker'
 
-import './utils/styles/normalize.css';
-import './utils/styles/generic.css';
+import './utils/styles/normalize.css'
+import './utils/styles/generic.css'
 
-import Routes from './routes.component';
-import configureStore from './store/store-config';
+import Routes from './routes.component'
+import configureStore from './store/store-config'
 
 ReactDOM.render(
-    <Provider store={configureStore()}>
-        <BrowserRouter>
-            <Routes />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById('root'));
-registerServiceWorker();
+  <Provider store={configureStore()}>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+)
+registerServiceWorker()
