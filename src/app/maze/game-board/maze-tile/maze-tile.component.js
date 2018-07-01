@@ -28,20 +28,17 @@ export class MazeTile extends Component {
     const { tile, colors } = this.props
     // set proper blocker overlay as content if tile is a blocker
     if (tile.type === TileTypes.Blocker) {
-      if (tile.userPlaced)
-        return (
-          <div
-            className="game-tile__blocker-overlay"
-            style={{ background: colors.blockerUser }}
-          />
-        )
-      else
-        return (
-          <div
-            className="game-tile__blocker-overlay"
-            style={{ background: colors.blockerNatural }}
-          />
-        )
+      return tile.userPlaced ? (
+        <div
+          className="game-tile__blocker-overlay"
+          style={{ background: colors.blockerUser }}
+        />
+      ) : (
+        <div
+          className="game-tile__blocker-overlay"
+          style={{ background: colors.blockerNatural }}
+        />
+      )
     }
   }
 
@@ -51,9 +48,11 @@ export class MazeTile extends Component {
     if (tile.type === TileTypes.End) return 'E'
     if (tile.type === TileTypes.WayPoint) return tile.waypointIndex
     if (tile.scoreMod > 1) {
-      if (tile.scoreZoneCenter) {
-        return <div className="game-tile__pulse">{tile.scoreMod + 'x'}</div>
-      } else return <div className="game-tile__pulse" />
+      return tile.scoreZoneCenter ? (
+        <div className="game-tile__pulse">{tile.scoreMod + 'x'}</div>
+      ) : (
+        <div className="game-tile__pulse" />
+      )
     }
     return null
   }
