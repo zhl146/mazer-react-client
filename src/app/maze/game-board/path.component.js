@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { isEqual } from 'lodash'
+import { quadIn, quadOut } from 'eases'
 import { object, bool, array, number } from 'prop-types'
 import { Color, ColorToString, InterpolateColor } from 'utils/color'
-import { EasingFunctions } from 'utils/easing'
 
 import './path.css'
 
@@ -114,8 +114,8 @@ class Path extends Component {
 		const easeIn = timeWithinFlash < flashDuration / 2
 
 		const time = easeIn
-									? EasingFunctions.easeInQuad(timeWithinFlash / (flashDuration / 2))
-									: EasingFunctions.easeOutQuad((timeWithinFlash - (flashDuration / 2)) / (flashDuration / 2))
+									? quadIn(timeWithinFlash / (flashDuration / 2))
+									: quadOut((timeWithinFlash - (flashDuration / 2)) / (flashDuration / 2))
 		const startColor = easeIn ? NormalPathColor : ErrorPathColor
 		const endColor = easeIn ? ErrorPathColor : NormalPathColor
 		const startWidth = easeIn ? NormalLineWidth : ErrorLineWidth
