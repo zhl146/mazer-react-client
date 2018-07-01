@@ -23,3 +23,4 @@ yarn-error.log*
 .idea
 
 **/firebase.config.json
+*.swp
