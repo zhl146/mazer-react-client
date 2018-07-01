@@ -20,7 +20,7 @@ export class MazeComponent extends Component {
     maze: null,
   }
 
-  updateViewPort = debounce(this.props.updateViewPort, 200)
+  updateViewPort = debounce(this.props.updateViewPort, 500)
 
   componentDidMount() {
     if (!this.props.maze) {
