@@ -32,7 +32,6 @@ class Path extends Component {
   componentDidUpdate() {
     const context = this.elRef.getContext('2d');
     this.configureContext(context);
-    window.requestAnimationFrame(this.animatePath(context, 0));
   }
 
   setDimensions = () => {
