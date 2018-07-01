@@ -1,0 +1,23 @@
+.name-submit {
+  background: #008000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(170,170,170,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.name-submit__box {
+  background: #6e6e6e;
+  padding: 40px;
+  margin: 20% auto;
+}
+.name-submit__input {
+  margin: 10px;
+  padding: 10px;
+  background: #d3d3d3;
+  border: none;
+}
