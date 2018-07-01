@@ -22,7 +22,4 @@ yarn-error.log*
 
 .idea
 
-# artifacts
-*.css
-
 **/firebase.config.json

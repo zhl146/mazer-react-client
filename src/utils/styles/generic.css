@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=VT323");
+body {
+  font-family: 'VT323', monospace;
+}
+input {
+  font-family: 'VT323', monospace;
+}
+.generic__btn {
+  text-transform: uppercase;
+  font-family: 'VT323', monospace;
+  margin: 0 5px;
+  border: none;
+  background: #808080;
+  color: #fffafa;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5em;
+  cursor: pointer;
+}
