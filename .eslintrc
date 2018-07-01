@@ -1,0 +1,8 @@
+{
+  "env" : {
+    "browser": true,
+    "commonjs": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+}
