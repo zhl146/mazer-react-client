@@ -6,6 +6,7 @@
     "axios": "^0.16.2",
     "eases": "^1.0.8",
     "firebase": "^4.5.0",
+    "hammerjs": "^2.0.8",
     "lodash": "^4.17.4",
     "mazer-shared": "0.0.39",
     "ramda": "^0.25.0",
