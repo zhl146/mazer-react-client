@@ -1,3 +1,5 @@
+import { Interpolate } from "./interpolate"
+
 export const Color = (r, g, b, a) => ({ r, g, b, a: a || 255 })
 
 export const ColorToString = ({r,g,b,a}) => `rgba(${r}, ${b}, ${g}, ${a})`
