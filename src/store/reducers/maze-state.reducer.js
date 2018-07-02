@@ -111,7 +111,7 @@ function calculateViewParams(maze, windowParams) {
   let numColumns = maze.params.numColumns
 
   const availableHeight = windowParams.height - headerHeight - footerHeight
-  const availableWidth = windowParams.width - 50
+  const availableWidth = windowParams.width
 
   // check dimensionality of client window
   const windowOrientation =
