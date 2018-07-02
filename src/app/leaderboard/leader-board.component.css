@@ -25,6 +25,11 @@
   width: 30%;
   text-align: center;
 }
+.leaderboard__column__placeholder {
+  width: 30%;
+  text-align: center;
+  background-color: gray;
+}
 .leaderboard__score-container {
   margin: auto;
   width: 80%;
