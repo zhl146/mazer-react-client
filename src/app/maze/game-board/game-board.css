@@ -7,3 +7,6 @@
   flex-direction: column;
   margin: auto;
 }
+.game-viewport {
+  overflow: hidden;
+}

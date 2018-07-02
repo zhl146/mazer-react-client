@@ -83,9 +83,9 @@ export function MenuBar({
           >
             ?
           </button>
-          <Link className="menu-bar__btn generic__btn" to="/leaderboard">
-            Leaderboard
-          </Link>
+          <button className="menu-bar__btn generic__btn">
+            <Link to="/leaderboard">Leaderboard</Link>
+          </button>
           <span className="menu-bar__costs">
             <div>Place: 1 AP</div>
             <div>Remove: {maze.params.naturalBlockerRemovalCost} AP</div>
