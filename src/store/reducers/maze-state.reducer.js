@@ -38,7 +38,8 @@ const updateError = (code, StatusCodes) => {
 
 const resetPathError = state => ({ ...state, pathError: false })
 const resetActionError = state => ({ ...state, actionError: false })
-const resetMaze = state => initializeMaze(state.maze.seed, state)
+const resetMaze = (state, { payload }) =>
+  initializeMaze({ seed: state.maze.seed, ...payload }, state)
 
 const updateViewParams = (state, { payload }) => {
   let { tileSize, rotateMaze } = calculateViewParams(state.maze, payload)
@@ -61,7 +62,7 @@ export default function appStateReducer(state = initialState, action) {
     case RESET_ACTIONERROR:
       return resetActionError(state)
     case RESET_MAZE:
-      return resetMaze(state)
+      return resetMaze(state, action)
     case UPDATE_VIEWPARAMS:
       return updateViewParams(state, action)
     case INIT_MAZE:
@@ -71,12 +72,15 @@ export default function appStateReducer(state = initialState, action) {
   }
 }
 
-function initializeMaze(seed, state) {
-  let maze = createMaze(seed)
+function initializeMaze({ seed, width, height }, state) {
+  const maze = createMaze(seed)
+  const { tileSize, rotateMaze } = calculateViewParams(maze, { height, width })
   return {
     ...state,
     maze,
-    path: calculatePath(maze.path, 30, state.rotateMaze),
+    tileSize,
+    rotateMaze,
+    path: calculatePath(maze.path, tileSize, rotateMaze),
   }
 }
 
@@ -107,7 +111,7 @@ function calculateViewParams(maze, windowParams) {
   let numColumns = maze.params.numColumns
 
   const availableHeight = windowParams.height - headerHeight - footerHeight
-  const availableWidth = windowParams.width
+  const availableWidth = windowParams.width - 50
 
   // check dimensionality of client window
   const windowOrientation =

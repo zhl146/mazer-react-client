@@ -6,7 +6,7 @@ import { GameBoard } from './game-board/game-board.component'
 import { ConnectedMenuBar } from './menu-bar/menu-bar.container'
 import { generateDateSeed, getUrlParameter } from '../../utils/request.utils'
 import { ConnectedScoreBar } from './score-bar/score-bar.container'
-import { debounce } from '../../utils/functional.utils'
+import { debounce } from 'lodash'
 
 export class MazeComponent extends Component {
   static propTypes = {
@@ -20,27 +20,24 @@ export class MazeComponent extends Component {
     maze: null,
   }
 
-  updateViewPort = debounce(this.props.updateViewPort, 500)
+  updateViewPort = debounce(this.props.updateViewPort, 100, { trailing: true })
 
   componentDidMount() {
     if (!this.props.maze) {
       let seed = getUrlParameter('seed')
       seed = seed || generateDateSeed()
-      this.props.initializeMaze(seed)
+      this.props.initializeMaze({
+        seed,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
     }
-    this.onWindowResize()
-    window.addEventListener('resize', this.onWindowResize, false)
+    this.updateViewPort()
+    window.addEventListener('resize', this.updateViewPort)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize)
-  }
-
-  onWindowResize = () => {
-    this.updateViewPort({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    })
+    window.removeEventListener('resize', this.updateViewPort)
   }
 
   render() {

@@ -18,7 +18,9 @@ const mapStateToProps = ({ auth, mazeState, view }) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   onResetClick: () => {
-    dispatch(resetMaze())
+    dispatch(
+      resetMaze({ width: window.innerWidth, height: window.innerHeight })
+    )
   },
   toggleHelp: () => {
     dispatch(toggleHelp())
@@ -34,6 +36,7 @@ const mapDispatchToProps = (dispatch, props) => ({
   },
 })
 
-export const ConnectedMenuBar = connect(mapStateToProps, mapDispatchToProps)(
-  MenuBar
-)
+export const ConnectedMenuBar = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuBar)

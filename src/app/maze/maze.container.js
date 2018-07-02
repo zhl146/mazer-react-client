@@ -21,8 +21,13 @@ const mapDispatchToProps = dispatch => {
     fetchHighScore: seed => {
       dispatch(fetchHighScore(seed))
     },
-    updateViewPort: params => {
-      dispatch(updateView(params))
+    updateViewPort: () => {
+      dispatch(
+        updateView({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        })
+      )
     },
     initializeMaze: seed => {
       dispatch(initializeMaze(seed))
@@ -30,6 +35,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const ConnectedMaze = connect(mapStateToProps, mapDispatchToProps)(
-  MazeComponent
-)
+export const ConnectedMaze = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MazeComponent)

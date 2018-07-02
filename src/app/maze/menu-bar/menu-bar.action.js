@@ -15,7 +15,7 @@ import MyFireBase, { googleAuthProvider } from '../../../utils/auth.utils'
 export const authError = error => createErrorAction(AUTH_ERROR, error)
 export const setAuthProfile = (token, user) =>
   createUpdateAction(SET_PROFILE, { token, user })
-export const resetMaze = () => createStaticAction(RESET_MAZE)
+export const resetMaze = payload => createUpdateAction(RESET_MAZE, payload)
 export const toggleHelp = () => createStaticAction(TOGGLE_HELP)
 export const toggleSubmit = () => createStaticAction(TOGGLE_SUBMIT)
 
