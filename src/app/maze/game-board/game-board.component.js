@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bool, object, number, array } from 'prop-types'
 import Hammer from 'hammerjs'
 
-import MazePath from './path.component'
+import MazePath from './path.container'
 import { ConnectedMazeTile } from './maze-tile/maze-tile.container'
 
 import './game-board.css'
@@ -65,8 +65,6 @@ export class GameBoard extends Component {
 
   render() {
     const { translatex, translatey, scale } = this.state
-      console.log("a")
-
     return (
       <div className="game-viewport">
         <div
