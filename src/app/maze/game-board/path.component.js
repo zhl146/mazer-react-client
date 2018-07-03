@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { isEqual } from 'lodash'
 import { quadIn, quadOut } from 'eases'
-import { object, bool, array, number } from 'prop-types'
+import { object, bool, array, number, func } from 'prop-types'
 import { Color, ColorToString, InterpolateColor } from 'utils/color'
+import anime from 'animejs'
 
 import './path.css'
-
-// Measured in pixels per second
-const PathSpeed = 10
 
 // Measured in milliseconds
 const ErrorFlashTime = 500
@@ -29,29 +27,30 @@ class Path extends Component {
     path: array.isRequired,
     tileSize: number.isRequired,
     rotateMaze: bool.isRequired,
-    pathErrorTime: number,
+    resetPathError: func.isRequired,
+    pathError: bool,
   }
 
   canvasWidth
   canvasHeight
-  elRef
+  polylineRef = React.createRef()
 
   componentDidMount() {
-    const context = this.elRef.getContext('2d')
-    this.configureContext(context)
-    window.requestAnimationFrame(this.animatePath(context, 0))
+    this.initializePathAnimation()
+  }
+
+  componentDidUpdate() {
+    if (this.props.pathError)
+    {
+      this.doErrorFlash()
+    }
   }
 
   shouldComponentUpdate(nextProps) {
     return (
       !isEqual(this.props.path, nextProps.path) ||
-      this.props.pathErrorTime !== nextProps.pathErrorTime
+      this.props.pathError !== nextProps.pathError
     )
-  }
-
-  componentDidUpdate() {
-    const context = this.elRef.getContext('2d')
-    this.configureContext(context)
   }
 
   setDimensions = () => {
@@ -65,76 +64,48 @@ class Path extends Component {
     }
   }
 
-  configureContext = context => {
-    context.setLineDash([10, 5])
-    context.lineJoin = 'miter'
-  }
-
-  drawPath = (context, offset, { strokeStyle, lineWidth }) => {
-    context.strokeStyle = strokeStyle
-    context.lineWidth = lineWidth
-    context.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
-    context.lineDashOffset = -offset
-    let startingX = this.props.path[0].x
-    let startingY = this.props.path[0].y
-    context.beginPath()
-    context.moveTo(startingX, startingY)
-    this.props.path.forEach(point => {
-      let xCoord = point.x
-      let yCoord = point.y
-      context.lineTo(xCoord, yCoord)
+  initializePathAnimation = () => {
+    anime({
+      targets: this.polylineRef.current,
+      easing: 'linear',
+      strokeDashoffset: [0, -15],
+      duration: 1500,
+      loop: true,
     })
-    context.stroke()
   }
 
-  animatePath = (context, offset, lastTime) => timestamp => {
-    const elapsedTime = lastTime ? timestamp - lastTime : 0
-    const nextOffset = offset + PathSpeed * elapsedTime / 1000
-
-		const timeSinceLastFlash = Date.now() - this.props.pathErrorTime
-    const style = this.getPathStyle(timeSinceLastFlash);
-
-    this.drawPath(context, nextOffset, style)
-    window.requestAnimationFrame(
-      this.animatePath(context, nextOffset, timestamp)
-    )
+  doErrorFlash = () => {
+    anime({
+      targets: this.polylineRef.current,
+      easing: 'linear',
+      stroke: ColorToString(ErrorPathColor),
+      strokeWidth: ErrorLineWidth,
+      duration: 100,
+      direction: 'alternate',
+      loop: 4,
+      complete: this.props.resetPathError,
+    })
   }
-
-	getPathStyle = (timeSinceLastFlash) => {
-		if (timeSinceLastFlash >= ErrorFlashTime)
-		{
-			return {
-				strokeStyle: ColorToString(NormalPathColor),
-				lineWidth: NormalLineWidth
-			}
-		}
-
-		const flashDuration = ErrorFlashTime / ErrorBounces
-		const timeWithinFlash = timeSinceLastFlash - Math.floor(timeSinceLastFlash / flashDuration) * flashDuration;
-		const easeIn = timeWithinFlash < flashDuration / 2
-
-		const time = easeIn
-									? quadIn(timeWithinFlash / (flashDuration / 2))
-									: quadOut((timeWithinFlash - (flashDuration / 2)) / (flashDuration / 2))
-		const startColor = easeIn ? NormalPathColor : ErrorPathColor
-		const endColor = easeIn ? ErrorPathColor : NormalPathColor
-		const startWidth = easeIn ? NormalLineWidth : ErrorLineWidth
-		const endWidth = easeIn ? ErrorLineWidth : NormalLineWidth
-		return {
-			strokeStyle: ColorToString(InterpolateColor(startColor, endColor, time)),
-			lineWidth: startWidth * time + endWidth * (1-time)
-		}
-	}
 
   render() {
     this.setDimensions()
+    let polylinePoints = this.props.path.map((point) => `${point.x},${point.y}`).join(' ')
+
     return (
-      <canvas
+      <svg
         className="maze-path"
-        ref={elRef => (this.elRef = elRef)}
         width={this.canvasWidth}
         height={this.canvasHeight}
-      />
+      >
+        <polyline
+          ref={this.polylineRef}
+          points={polylinePoints}
+          fill="none"
+          stroke={ColorToString(NormalPathColor)}
+          strokeWidth={NormalLineWidth}
+          strokeDasharray="10 5"
+        />
+      </svg>
     )
   }
 }

@@ -8,6 +8,7 @@ import {
   RESET_PATHERROR,
   UPDATE_MAZE,
   UPDATE_VIEWPARAMS,
+  RESET_PATH_ERROR,
 } from '../action-constants'
 
 export const initialState = {
@@ -15,7 +16,7 @@ export const initialState = {
   path: null,
   rotateMaze: false,
   tileSize: 30,
-  pathErrorTime: null,
+  pathError: null,
   actionErrorTime: null,
 }
 
@@ -31,7 +32,7 @@ const updateMaze = (state, { payload }) => {
 }
 
 const updateError = (code, StatusCodes) => {
-  if (code === StatusCodes.BlockedPath) return { pathErrorTime: Date.now() }
+  if (code === StatusCodes.BlockedPath) return { pathError: true }
   if (code === StatusCodes.BlockedPath) return { actionErrorTime: Date.now() }
   return {}
 }
@@ -67,6 +68,8 @@ export default function appStateReducer(state = initialState, action) {
       return updateViewParams(state, action)
     case INIT_MAZE:
       return initMaze(state, action)
+    case RESET_PATH_ERROR:
+      return resetPathError(state)
     default:
       return state
   }
