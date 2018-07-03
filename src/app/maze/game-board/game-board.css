@@ -1,5 +1,6 @@
 .container-row {
   display: flex;
+  margin: auto;
 }
 .game-board {
   position: relative;
