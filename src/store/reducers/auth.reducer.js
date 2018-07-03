@@ -1,14 +1,24 @@
 import { AUTH_ERROR, SET_PROFILE } from '../action-constants'
 
+const getCachedToken = () => {
+  try {
+    const stringToken = window.localStorage.getItem("mazerCachedToken")
+      return stringToken && JSON.parse(stringToken)
+  }
+  catch(error) {
+    console.log(error)
+    window.localStorage.removeItem("mazerCachedToken")
+    return null
+  }
+}
+
 export const initialState = {
-  token: null,
-  user: null,
+  token: getCachedToken(),
   authError: null,
 }
 
-const setProfile = (state, { payload: { user, token } }) => ({
+const setProfile = (state, { payload: { token } }) => ({
   ...state,
-  user,
   token,
 })
 const authError = (state, { payload }) => ({ ...state, authError: payload })

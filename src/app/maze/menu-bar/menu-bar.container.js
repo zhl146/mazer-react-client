@@ -11,7 +11,6 @@ import {
 
 const mapStateToProps = ({ auth, mazeState, view }) => ({
   maze: mazeState.maze,
-  user: auth.user,
   token: auth.token,
   displayHelp: view.displayHelp,
 })

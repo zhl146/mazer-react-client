@@ -22,7 +22,8 @@ export const toggleSubmit = () => createStaticAction(TOGGLE_SUBMIT)
 export const firebaseLogin = () => async dispatch => {
   try {
     const response = await MyFireBase.auth().signInWithPopup(googleAuthProvider)
-    dispatch(setAuthProfile(response.credential, response.user))
+    window.localStorage.setItem("mazerCachedToken", JSON.stringify(response.credential))
+    dispatch(setAuthProfile(response.credential))
   } catch (ex) {
     dispatch(authError(ex))
   }
@@ -31,7 +32,8 @@ export const firebaseLogin = () => async dispatch => {
 export const firebaseLogout = () => async dispatch => {
   try {
     await MyFireBase.auth().signOut()
-    dispatch(setAuthProfile(null, null))
+    window.localStorage.removeItem("mazerCachedToken")
+    dispatch(setAuthProfile(null))
   } catch (ex) {
     dispatch(authError(ex))
   }

@@ -9,7 +9,6 @@ MenuBar.propTypes = {
   onResetClick: func.isRequired,
   toggleHelp: func.isRequired,
   toggleSubmit: func.isRequired,
-  user: object,
   token: object,
   displayHelp: bool.isRequired,
   onLogoutClick: func.isRequired,
@@ -17,7 +16,6 @@ MenuBar.propTypes = {
 
 export function MenuBar({
   maze,
-  user,
   token,
   toggleSubmit,
   onLoginClick,
@@ -55,7 +53,7 @@ export function MenuBar({
   const handleResetClick = (seed) => () => onResetClick(seed)
 
   const renderLogin = () =>
-    user && token ? (
+    token ? (
       <button className="menu-bar__btn generic__btn" onClick={onLogoutClick}>
         Logout
       </button>
@@ -66,7 +64,7 @@ export function MenuBar({
     )
 
   const renderSubmit = () =>
-    user && token ? (
+    token ? (
       <button className="menu-bar__btn generic__btn" onClick={toggleSubmit}>
         Submit
       </button>
