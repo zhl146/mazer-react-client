@@ -24,22 +24,25 @@ export class MazeTile extends Component {
     this.props.onClick(this.props.tile)
   }
 
+  getPulseOverlay = () => {
+    return this.props.tile.scoreMod > 1 && <div className="game-tile__pulse" />
+  }
+
   getBlockerOverlay = () => {
     const { tile, colors } = this.props
     // set proper blocker overlay as content if tile is a blocker
-    if (tile.type === TileTypes.Blocker) {
-      return tile.userPlaced ? (
+    return (
+      tile.type === TileTypes.Blocker && (
         <div
           className="game-tile__blocker-overlay"
-          style={{ background: colors.blockerUser }}
-        />
-      ) : (
-        <div
-          className="game-tile__blocker-overlay"
-          style={{ background: colors.blockerNatural }}
+          style={{
+            background: tile.userPlaced
+              ? colors.blockerUser
+              : colors.blockerNatural,
+          }}
         />
       )
-    }
+    )
   }
 
   getTextOverlay = () => {
@@ -47,39 +50,34 @@ export class MazeTile extends Component {
     if (tile.type === TileTypes.Start) return 'S'
     if (tile.type === TileTypes.End) return 'E'
     if (tile.type === TileTypes.WayPoint) return tile.waypointIndex
-    if (tile.scoreMod > 1) {
-      return tile.scoreZoneCenter ? (
-        <div className="game-tile__pulse">{tile.scoreMod + 'x'}</div>
-      ) : (
-        <div className="game-tile__pulse" />
-      )
-    }
-    return null
+    if (tile.scoreZoneCenter) return `${tile.scoreMod}x`
   }
 
   getTileStyle = () => {
+    const { tile, colors, tileSize } = this.props
     const background =
-      this.props.tile.userPlaced && this.props.tile.type === TileTypes.Empty
-        ? this.props.colors.groundUser
-        : this.props.colors.groundNatural
+      tile.userPlaced && tile.type === TileTypes.Empty
+        ? colors.groundUser
+        : colors.groundNatural
 
     return {
       background,
-      height: this.props.tileSize + 'px',
-      width: this.props.tileSize + 'px',
-      fontSize: this.props.tileSize / 2 + 'px',
+      height: tileSize + 'px',
+      width: tileSize + 'px',
+      fontSize: tileSize / 2 + 'px',
     }
   }
 
   render() {
     return (
       <div
+        onClick={this.handleClick}
         className="game-tile"
         style={this.getTileStyle()}
-        onClick={this.handleClick}
       >
-        {this.getTextOverlay()}
+        {this.getPulseOverlay()}
         {this.getBlockerOverlay()}
+        {this.getTextOverlay()}
       </div>
     )
   }
