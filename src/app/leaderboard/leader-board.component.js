@@ -70,7 +70,7 @@ export class LeaderBoardComponent extends Component {
     return (
       <div className="leaderboard">
         <h1 className="leaderboard__h1">
-          LeaderBoard for seed "{this.state.seed}"{' '}
+          LeaderBoard for seed "{this.props.seed}"{' '}
         </h1>
         <h2 className="leaderboard__h2">Top 10</h2>
         <div className="leaderboard__score-container">
