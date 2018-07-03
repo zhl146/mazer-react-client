@@ -3,12 +3,16 @@ import {
   ACTION_START,
   ACTION_SUCCESS,
 } from 'utils/action-creator'
-import { FETCH_HIGHSCORE, FETCH_LEADERBOARD } from '../action-constants'
+import {
+  FETCH_HIGHSCORE,
+  FETCH_LEADERBOARD,
+  FETCH_CLOSEST_SCORES,
+} from '../action-constants'
 
 export const initialState = {
   highScore: null,
-  topTen: null,
-  closestFive: null,
+  topScores: null,
+  closestScores: null,
   leaderBoardPending: false,
   leaderBoardError: false,
 }
@@ -31,7 +35,24 @@ const fetchLeaderboard = (state, { meta, payload }) => {
     case ACTION_SUCCESS:
       return {
         ...state,
-        scores: payload,
+        topScores: payload,
+        leaderBoardPending: false,
+      }
+    case ACTION_ERROR:
+      return { ...state, leaderBoardPending: false, leaderBoardError: payload }
+    default:
+      return state
+  }
+}
+
+const fetchClosestScores = (state, { meta, payload }) => {
+  switch (meta) {
+    case ACTION_START:
+      return { ...state, leaderBoardPending: true }
+    case ACTION_SUCCESS:
+      return {
+        ...state,
+        closestScores: payload,
         leaderBoardPending: false,
       }
     case ACTION_ERROR:
@@ -47,6 +68,8 @@ export default function domainReducer(state = initialState, action) {
       return fetchHighScore(state, action)
     case FETCH_LEADERBOARD:
       return fetchLeaderboard(state, action)
+    case FETCH_CLOSEST_SCORES:
+      return fetchClosestScores(state, action)
     default:
       return state
   }

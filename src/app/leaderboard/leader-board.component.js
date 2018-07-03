@@ -9,7 +9,8 @@ import './leader-board.component.css'
 export class LeaderBoardComponent extends Component {
   static propTypes = {
     fetchLeaderBoard: func.isRequired,
-    scores: array,
+    topScores: array,
+    closestScores: array,
     seed: string,
     token: string,
   }
@@ -54,8 +55,8 @@ export class LeaderBoardComponent extends Component {
 
   handleSolutionClick = () => {}
 
-  renderScores = () => {
-    return this.props.scores.map((score, index) => (
+  renderTopScores = () => {
+    return this.props.topScores.map((score, index) => (
       <div className="leaderboard__score" key={index}>
         <span className="leaderboard__column">{index + 1}</span>
         <span className="leaderboard__column">{score.name}</span>
@@ -66,7 +67,7 @@ export class LeaderBoardComponent extends Component {
   }
 
   render() {
-    if (!this.props.scores) return null
+    if (!this.props.topScores) return null
     return (
       <div className="leaderboard">
         <h1 className="leaderboard__h1">
@@ -74,7 +75,7 @@ export class LeaderBoardComponent extends Component {
         </h1>
         <h2 className="leaderboard__h2">Top 10</h2>
         <div className="leaderboard__score-container">
-          {this.renderScores()}
+          {this.renderTopScores()}
         </div>
         <form className="leaderboard__form" onSubmit={this.handleSubmit}>
           <input

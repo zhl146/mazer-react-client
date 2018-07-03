@@ -6,10 +6,10 @@ import { LeaderBoardComponent } from './leader-board.component'
 import { initializeMaze } from '../maze/maze.action'
 
 const mapStateToProps = ({ mazeState, leaderboard, auth }) => {
-  console.log(auth)
   return {
     seed: R.pathOr(null, ['maze', 'seed'], mazeState),
-    scores: leaderboard.scores,
+    topScores: leaderboard.topScores,
+    closestScores: leaderboard.closestScores,
     pending: leaderboard.leaderBoardPending,
     token: R.path(['token', 'idToken'], auth),
   }
