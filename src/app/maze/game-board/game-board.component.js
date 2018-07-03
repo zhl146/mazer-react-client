@@ -20,12 +20,12 @@ export class GameBoard extends Component {
     scale: 1,
     translatex: 0,
     translatey: 0,
-    adjustScale: 1,
-    adjustDeltaX: 0,
-    adjustDeltaY: 0,
   }
 
   ref = React.createRef()
+  scale = 1
+  translatex = 0
+  translatey = 0
 
   componentDidMount() {
     var mc = new Hammer.Manager(this.ref.current)
@@ -45,23 +45,17 @@ export class GameBoard extends Component {
     // Handles pinch and pan events/transforming at the same time;
     mc.on('pinch pan', ev => {
       // Adjusting the current pinch/pan event properties using the previous ones set when they finished touching
-      const scale = this.state.adjustScale * ev.scale
-      const translatex = this.state.adjustDeltaX + ev.deltaX / scale
-      const translatey = this.state.adjustDeltaY + ev.deltaY / scale
-
-      this.setState({
-        scale,
-        translatex,
-        translatey,
-      })
+      const scale = this.scale * ev.scale
+      const translatex = this.translatex + ev.deltaX
+      const translatey = this.translatey + ev.deltaY
+      this.ref.current.style.transform = `translate(${translatex}px,${translatey}px) scale(${scale})`
     })
 
-    mc.on('panend pinchend', () => {
-      this.setState({
-        adjustScale: this.state.scale,
-        adjustDeltaX: this.state.translatex,
-        adjustDeltaY: this.state.translatey,
-      })
+    mc.on('panend pinchend', ev => {
+      this.scale = this.scale * ev.scale
+      this.translatex = this.translatex + ev.deltaX
+      this.translatey = this.translatey + ev.deltaY
+      this.ref.current.style.transform = `translate(${this.translatex}px,${this.translatey}px) scale(${this.scale})`
     })
   }
 
@@ -71,14 +65,13 @@ export class GameBoard extends Component {
 
   render() {
     const { translatex, translatey, scale } = this.state
+      console.log("a")
+
     return (
       <div className="game-viewport">
         <div
           className="game-board"
           ref={this.ref}
-          style={{
-            transform: `translate(${translatex}px,${translatey}px) scale(${scale})`,
-          }}
         >
           {makeMazeTileGrid(this.props.maze.mazeTiles, this.props.rotateMaze)}
           <MazePath
@@ -87,7 +80,7 @@ export class GameBoard extends Component {
             path={this.props.path}
             rotateMaze={this.props.rotateMaze}
             tileSize={this.props.tileSize}
-          />
+            />
         </div>
       </div>
     )

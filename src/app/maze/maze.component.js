@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { func, object, bool, number } from 'prop-types'
 
 import './maze.css'
-import { GameBoard } from './game-board/game-board.component'
+import GameBoard from './game-board/game-board.container'
 import { ConnectedMenuBar } from './menu-bar/menu-bar.container'
 import { generateDateSeed, getUrlParameter } from '../../utils/request.utils'
 import { ConnectedScoreBar } from './score-bar/score-bar.container'
