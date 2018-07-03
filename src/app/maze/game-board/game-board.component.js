@@ -16,15 +16,10 @@ export class GameBoard extends Component {
     pathErrorTime: number,
   }
 
-  state = {
-    scale: 1,
-    translatex: 0,
-    translatey: 0,
-  }
-
   viewportRef = React.createRef()
   gameBoardRef = React.createRef()
   transform = { translatex: 0, translatey: 0, scale: 1 }
+  velocity = { x: 0, y: 0 }
 
   componentDidMount() {
     var mc = new Hammer.Manager(this.gameBoardRef.current)
@@ -43,12 +38,12 @@ export class GameBoard extends Component {
 
     // Handles pinch and pan events/transforming at the same time;
     mc.on('pinch pan', ev => {
-      // Adjusting the current pinch/pan event properties using the previous ones set when they finished touching
       const scale = this.transform.scale * ev.scale
       const translatex = this.transform.translatex + ev.deltaX
       const translatey = this.transform.translatey + ev.deltaY
       const transform = this.constrainedTransform({ translatex: translatex, translatey: translatey, scale: scale })
-        
+
+      this.velocity = { x: 0, y: 0 }
       this.gameBoardRef.current.style.transform = this.transformToString(transform)
     })
 
@@ -58,11 +53,28 @@ export class GameBoard extends Component {
       this.transform.translatey = this.transform.translatey + ev.deltaY
       this.transform = this.constrainedTransform(this.transform)
 
+      this.velocity = { x: ev.velocityX, y: ev.velocityY }
+      console.log(this.velocity)
+      window.requestAnimationFrame(this.applyVelocity())
+
       this.gameBoardRef.current.style.transform = this.transformToString(this.transform)
     })
   }
 
-  panViewPort = () => {}
+  applyVelocity = lastTime => timestamp => {
+    const elapsed = lastTime ? timestamp - lastTime : 0
+
+    this.transform.translatex += this.velocity.x * elapsed
+    this.transform.translatey += this.velocity.y * elapsed
+    this.transform = this.constrainedTransform(this.transform)
+    this.gameBoardRef.current.style.transform = this.transformToString(this.transform)
+
+    this.velocity.x *= 0.9
+    this.velocity.y *= 0.9
+    if (this.velocity.x > 0.01 || this.velocity.y > 0.01) {
+      window.requestAnimationFrame(this.applyVelocity(timestamp))
+    }
+  }
 
   constrainedTransform = ({ translatex, translatey, scale }) => {
     const viewportRect = this.viewportRef.current.getBoundingClientRect()
@@ -112,7 +124,6 @@ export class GameBoard extends Component {
   }
 
   render() {
-    const { translatex, translatey, scale } = this.state
     return (
       <div
         className="game-viewport"
