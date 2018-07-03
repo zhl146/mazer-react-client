@@ -22,13 +22,12 @@ export class GameBoard extends Component {
     translatey: 0,
   }
 
-  ref = React.createRef()
-  scale = 1
-  translatex = 0
-  translatey = 0
+  viewportRef = React.createRef()
+  gameBoardRef = React.createRef()
+  transform = { translatex: 0, translatey: 0, scale: 1 }
 
   componentDidMount() {
-    var mc = new Hammer.Manager(this.ref.current)
+    var mc = new Hammer.Manager(this.gameBoardRef.current)
 
     var pinch = new Hammer.Pinch()
     var pan = new Hammer.Pan()
@@ -45,32 +44,84 @@ export class GameBoard extends Component {
     // Handles pinch and pan events/transforming at the same time;
     mc.on('pinch pan', ev => {
       // Adjusting the current pinch/pan event properties using the previous ones set when they finished touching
-      const scale = this.scale * ev.scale
-      const translatex = this.translatex + ev.deltaX
-      const translatey = this.translatey + ev.deltaY
-      this.ref.current.style.transform = `translate(${translatex}px,${translatey}px) scale(${scale})`
+      const scale = this.transform.scale * ev.scale
+      const translatex = this.transform.translatex + ev.deltaX
+      const translatey = this.transform.translatey + ev.deltaY
+      const transform = this.constrainedTransform({ translatex: translatex, translatey: translatey, scale: scale })
+        
+      this.gameBoardRef.current.style.transform = this.transformToString(transform)
     })
 
     mc.on('panend pinchend', ev => {
-      this.scale = this.scale * ev.scale
-      this.translatex = this.translatex + ev.deltaX
-      this.translatey = this.translatey + ev.deltaY
-      this.ref.current.style.transform = `translate(${this.translatex}px,${this.translatey}px) scale(${this.scale})`
+      this.transform.scale = this.transform.scale * ev.scale
+      this.transform.translatex = this.transform.translatex + ev.deltaX
+      this.transform.translatey = this.transform.translatey + ev.deltaY
+      this.transform = this.constrainedTransform(this.transform)
+
+      this.gameBoardRef.current.style.transform = this.transformToString(this.transform)
     })
   }
 
   panViewPort = () => {}
 
-  zoomViewPort = () => {}
+  constrainedTransform = ({ translatex, translatey, scale }) => {
+    const viewportRect = this.viewportRef.current.getBoundingClientRect()
+    const { w, h } = this.mazeSize(scale)
+    const minX = w / 2 - viewportRect.width / 2
+    const minY = h / 2 - viewportRect.height / 2
+    const maxX = w / 2 + viewportRect.width / 2
+    const maxY = h / 2 + viewportRect.height / 2
+    const minScale = 1
+    const maxScale = 5
+
+    if (w < maxX - minX)
+    {
+      translatex = 0
+    }
+    else
+    {
+      translatex = Math.min(translatex, minX)
+      if (translatex + w < maxX) {
+        translatex = maxX - w
+      }
+    }
+
+    if (h < maxY - minY)
+    {
+      translatey = 0
+    }
+    else
+    {
+      translatey = Math.min(translatey, minY)
+      if (translatey + h < maxY) {
+        translatey = maxY - h
+      }
+    }
+
+    scale = Math.min(Math.max(scale, minScale), maxScale) 
+
+    return { translatex, translatey, scale}
+  }
+
+  transformToString = ({ translatex, translatey, scale}) => `translate(${translatex}px,${translatey}px) scale(${scale})`
+
+  mazeSize = (scale) => {
+    const w = this.props.tileSize * this.props.maze.params.numColumns * scale
+    const h = this.props.tileSize * this.props.maze.params.numRows * scale
+    return this.props.rotateMaze ? { w: h, h: w } : { w, h }
+  }
 
   render() {
     const { translatex, translatey, scale } = this.state
     return (
-      <div className="game-viewport">
+      <div
+        className="game-viewport"
+        ref={this.viewportRef}
+        >
         <div
           className="game-board"
-          ref={this.ref}
-        >
+          ref={this.gameBoardRef}
+          >
           {makeMazeTileGrid(this.props.maze.mazeTiles, this.props.rotateMaze)}
           <MazePath
             pathErrorTime={this.props.pathErrorTime}
