@@ -20,20 +20,31 @@ export class MazeComponent extends Component {
     maze: null,
   }
 
+  initMazeWithSeed = () => {
+    let seed = getUrlParameter('seed')
+    seed = seed || generateDateSeed()
+    this.props.initializeMaze({
+      seed,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    })
+  }
+
   updateViewPort = debounce(this.props.updateViewPort, 100, { trailing: true })
 
   componentDidMount() {
     if (!this.props.maze) {
-      let seed = getUrlParameter('seed')
-      seed = seed || generateDateSeed()
-      this.props.initializeMaze({
-        seed,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
+      this.initMazeWithSeed()
     }
     this.updateViewPort()
     window.addEventListener('resize', this.updateViewPort)
+  }
+
+  componentWillUpdate(nextProps) {
+    if (!nextProps.maze) {
+      this.initMazeWithSeed()
+    }
+    this.updateViewPort()
   }
 
   componentWillUnmount() {
