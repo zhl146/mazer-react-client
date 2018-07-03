@@ -15,7 +15,7 @@ import {
   UPDATE_VIEWPARAMS,
 } from '../../store/action-constants'
 
-import {} from '../../server/url-generator'
+import { leaderboardUrl } from '../../server/url-generator'
 
 export const undoAction = () => createStaticAction(UNDO_ACTION)
 export const initializeMaze = seed => createUpdateAction(INIT_MAZE, seed)
@@ -25,8 +25,9 @@ export const updateView = viewParams =>
 export const fetchHighScore = seed => async dispatch => {
   dispatch(createStartAction(FETCH_HIGHSCORE))
   try {
-    // let { data: { scores } } = await axios.get(generateScoreUrl(seed, 1))
-    const scores = []
+    let {
+      data: { scores },
+    } = await axios.post(leaderboardUrl + '/scores', { seed })
     if (scores.length === 0) {
       dispatch(createSuccessAction(FETCH_HIGHSCORE, 0))
     } else {
