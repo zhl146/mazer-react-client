@@ -52,8 +52,7 @@ export class GameBoard extends Component {
       this.transform.translatey = this.transform.translatey + ev.deltaY
       this.transform = this.constrainedTransform(this.transform)
 
-      this.velocity = { x: ev.velocityX, y: ev.velocityY }
-      console.log(this.velocity)
+      this.velocity = { x: ev.overallVelocityX, y: ev.overallVelocityY }
       window.requestAnimationFrame(this.applyVelocity())
 
       this.gameBoardRef.current.style.transform = this.transformToString(this.transform)
