@@ -12,7 +12,6 @@ export class MazeComponent extends Component {
   static propTypes = {
     initializeMaze: func.isRequired,
     updateViewPort: func.isRequired,
-    pathErrorTime: number,
     maze: object,
   }
 
@@ -44,7 +43,10 @@ export class MazeComponent extends Component {
     if (!nextProps.maze) {
       this.initMazeWithSeed()
     }
-    this.updateViewPort()
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.maze != nextProps.maze
   }
 
   componentWillUnmount() {
@@ -52,14 +54,13 @@ export class MazeComponent extends Component {
   }
 
   render() {
-    let { maze, tileSize, path, rotateMaze, pathErrorTime } = this.props
+    let { maze, tileSize, path, rotateMaze} = this.props
 
     if (!maze || !maze.mazeTiles) return null
     return (
       <div className="maze-component">
         <ConnectedScoreBar />
         <GameBoard
-          pathErrorTime={pathErrorTime}
           tileSize={tileSize}
           maze={maze}
           path={path}

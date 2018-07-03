@@ -13,7 +13,6 @@ export class GameBoard extends Component {
     maze: object.isRequired,
     path: array.isRequired,
     tileSize: number.isRequired,
-    pathErrorTime: number,
   }
 
   viewportRef = React.createRef()
@@ -135,7 +134,6 @@ export class GameBoard extends Component {
           >
           {makeMazeTileGrid(this.props.maze.mazeTiles, this.props.rotateMaze)}
           <MazePath
-            pathErrorTime={this.props.pathErrorTime}
             maze={this.props.maze}
             path={this.props.path}
             rotateMaze={this.props.rotateMaze}
