@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { string, func, array } from 'prop-types'
+import { string, func, array, number } from 'prop-types'
 
 import { generateDateSeed, getUrlParameter } from '../../utils/request.utils'
 
@@ -9,13 +9,14 @@ import './leader-board.component.css'
 export class LeaderBoardComponent extends Component {
   static propTypes = {
     fetchLeaderBoard: func.isRequired,
-    topTen: array,
+    scores: array,
     seed: string,
+    token: string,
   }
 
   static defaultProps = {
     seed: null,
-    topTen: [],
+    scores: [],
   }
 
   state = { seed: '' }
@@ -27,9 +28,20 @@ export class LeaderBoardComponent extends Component {
       this.props.fetchLeaderBoard(seed)
       this.props.initializeMaze(seed)
     } else {
-      this.props.fetchLeaderBoard(this.props.seed)
+      this.props.fetchLeaderBoard(this.props.seed, this.props.token)
     }
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (!nextProps.seed) {
+  //     let seed = getUrlParameter('seed')
+  //     seed = seed || generateDateSeed()
+  //     this.props.fetchLeaderBoard(seed)
+  //     this.props.initializeMaze(seed)
+  //   } else {
+  //     this.props.fetchLeaderBoard(nextProps.seed)
+  //   }
+  // }
 
   handleChange = event => {
     this.setState({ seed: event.target.value })
@@ -40,26 +52,29 @@ export class LeaderBoardComponent extends Component {
     this.props.fetchLeaderBoard(this.state.seed)
   }
 
-  renderTopTen = () => {
-    return this.props.topTen.map((score, index) => (
+  handleSolutionClick = () => {}
+
+  renderScores = () => {
+    return this.props.scores.map((score, index) => (
       <div className="leaderboard__score" key={index}>
         <span className="leaderboard__column">{index + 1}</span>
         <span className="leaderboard__column">{score.name}</span>
         <span className="leaderboard__column">{score.score}</span>
+        <i onClick={this.handleSolutionClick} className="fas fa-puzzle-piece" />
       </div>
     ))
   }
 
   render() {
-    if (!this.props.topTen) return null
+    if (!this.props.scores) return null
     return (
       <div className="leaderboard">
         <h1 className="leaderboard__h1">
-          LeaderBoard for seed "{this.props.seed}"{' '}
+          LeaderBoard for seed "{this.state.seed}"{' '}
         </h1>
         <h2 className="leaderboard__h2">Top 10</h2>
         <div className="leaderboard__score-container">
-          {this.renderTopTen()}
+          {this.renderScores()}
         </div>
         <form className="leaderboard__form" onSubmit={this.handleSubmit}>
           <input

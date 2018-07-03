@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import { LeaderBoardComponent } from './leader-board.component'
 import { initializeMaze } from '../maze/maze.action'
 
-const mapStateToProps = ({ mazeState, leaderboard }) => {
+const mapStateToProps = ({ mazeState, leaderboard, auth }) => {
+  console.log(auth)
   return {
     seed: R.pathOr(null, ['maze', 'seed'], mazeState),
-    topTen: leaderboard.topTen,
-    playerRank: null,
+    scores: leaderboard.scores,
     pending: leaderboard.leaderBoardPending,
+    token: R.path(['token', 'idToken'], auth),
   }
 }
 

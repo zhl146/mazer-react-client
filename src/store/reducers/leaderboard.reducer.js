@@ -2,13 +2,13 @@ import {
   ACTION_ERROR,
   ACTION_START,
   ACTION_SUCCESS,
-} from '../../utils/action-creator'
+} from 'utils/action-creator'
 import { FETCH_HIGHSCORE, FETCH_LEADERBOARD } from '../action-constants'
 
 export const initialState = {
   highScore: null,
   topTen: null,
-  closestThree: null,
+  closestFive: null,
   leaderBoardPending: false,
   leaderBoardError: false,
 }
@@ -29,7 +29,11 @@ const fetchLeaderboard = (state, { meta, payload }) => {
     case ACTION_START:
       return { ...state, leaderBoardPending: true }
     case ACTION_SUCCESS:
-      return { ...state, topTen: payload, leaderBoardPending: false }
+      return {
+        ...state,
+        scores: payload,
+        leaderBoardPending: false,
+      }
     case ACTION_ERROR:
       return { ...state, leaderBoardPending: false, leaderBoardError: payload }
     default:
