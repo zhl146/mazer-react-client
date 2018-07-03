@@ -17,9 +17,9 @@ const mapStateToProps = ({ auth, mazeState, view }) => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onResetClick: () => {
+  onResetClick: (seed) => {
     dispatch(
-      resetMaze({ width: window.innerWidth, height: window.innerHeight })
+      resetMaze({ seed: seed, width: window.innerWidth, height: window.innerHeight })
     )
   },
   toggleHelp: () => {

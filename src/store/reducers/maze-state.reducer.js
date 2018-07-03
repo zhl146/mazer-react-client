@@ -40,7 +40,7 @@ const updateError = (code, StatusCodes) => {
 const resetPathError = state => ({ ...state, pathError: false })
 const resetActionError = state => ({ ...state, actionError: false })
 const resetMaze = (state, { payload }) =>
-  initializeMaze({ seed: state.maze.seed, ...payload }, state)
+  initializeMaze({ ...payload }, state)
 
 const updateViewParams = (state, { payload }) => {
   let { tileSize, rotateMaze } = calculateViewParams(state.maze, payload)

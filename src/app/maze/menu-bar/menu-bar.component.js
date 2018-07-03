@@ -52,6 +52,8 @@ export function MenuBar({
     )
   }
 
+  const handleResetClick = (seed) => () => onResetClick(seed)
+
   const renderLogin = () =>
     user && token ? (
       <button className="menu-bar__btn generic__btn" onClick={onLogoutClick}>
@@ -92,7 +94,7 @@ export function MenuBar({
           </span>
         </div>
         <div className="menu-bar__section">
-          <button onClick={onResetClick} className="menu-bar__btn generic__btn">
+          <button onClick={handleResetClick(maze.seed)} className="menu-bar__btn generic__btn">
             Reset
           </button>
           {renderSubmit()}
