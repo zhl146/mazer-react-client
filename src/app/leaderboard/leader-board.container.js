@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { fetchLeaderBoard, fetchClosestScores } from './leader-board.action'
+import { fetchLeaderBoard, fetchClosestScores, toggleLeaderboard } from './leader-board.action'
 import { connect } from 'react-redux'
 import { LeaderBoardComponent } from './leader-board.component'
 import { initializeMaze } from '../maze/maze.action'
@@ -32,6 +32,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchClosestScores: seed => {
       dispatch(fetchClosestScores(seed))
+    },
+    toggleLeaderboard: () => {
+      dispatch(toggleLeaderboard())
     },
   }
 }

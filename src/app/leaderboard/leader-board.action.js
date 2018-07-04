@@ -1,11 +1,18 @@
 import {
+  createStaticAction,
   createErrorAction,
   createStartAction,
   createSuccessAction,
 } from '../../utils/action-creator'
 import axios from 'axios'
-import { FETCH_LEADERBOARD, FETCH_CLOSEST_SCORES } from 'store/action-constants'
+import {
+  TOGGLE_LEADERBOARD,
+  FETCH_LEADERBOARD,
+  FETCH_CLOSEST_SCORES
+} from 'store/action-constants'
 import { leaderboardUrl } from 'server/url-generator'
+
+export const toggleLeaderboard = () => createStaticAction(TOGGLE_LEADERBOARD)
 
 export const fetchLeaderBoard = seed => async dispatch => {
   dispatch(createStartAction(FETCH_LEADERBOARD))

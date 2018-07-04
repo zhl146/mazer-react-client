@@ -5,6 +5,7 @@ import {
   resetMaze,
   toggleHelp,
   toggleSubmit,
+  toggleLeaderboard,
   firebaseLogin,
   firebaseLogout,
 } from './menu-bar.action'
@@ -26,6 +27,9 @@ const mapDispatchToProps = (dispatch, props) => ({
   },
   toggleSubmit: () => {
     dispatch(toggleSubmit())
+  },
+  toggleLeaderboard: () => {
+    dispatch(toggleLeaderboard())
   },
   onLogoutClick: () => {
     dispatch(firebaseLogout())

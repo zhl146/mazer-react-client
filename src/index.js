@@ -1,21 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { ConnectedMaze } from './app/maze/maze.container'
 
 import registerServiceWorker from './registerServiceWorker'
 
 import './utils/styles/normalize.css'
 import './utils/styles/generic.css'
 
-import Routes from './routes.component'
 import configureStore from './store/store-config'
 
 ReactDOM.render(
   <Provider store={configureStore()}>
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <ConnectedMaze />
   </Provider>,
   document.getElementById('root')
 )

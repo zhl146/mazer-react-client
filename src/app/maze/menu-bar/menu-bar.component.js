@@ -2,12 +2,12 @@ import React from 'react'
 import { bool, func, object } from 'prop-types'
 
 import './menu-bar.css'
-import { Link } from 'react-router-dom'
 import { ConnectedNameSubmit } from '../name-submit/name-submit.container'
 
 MenuBar.propTypes = {
   onResetClick: func.isRequired,
   toggleHelp: func.isRequired,
+  toggleLeaderboard: func.isRequired,
   toggleSubmit: func.isRequired,
   token: object,
   displayHelp: bool.isRequired,
@@ -22,6 +22,7 @@ export function MenuBar({
   onResetClick,
   onLogoutClick,
   toggleHelp,
+  toggleLeaderboard,
   displayHelp,
 }) {
   const renderHelp = params => {
@@ -83,13 +84,12 @@ export function MenuBar({
           >
             ?
           </button>
-          <button className="menu-bar__btn generic__btn">
-            <Link to="/leaderboard">Leaderboard</Link>
+          <button
+            className="menu-bar__btn generic__btn"
+            onClick={toggleLeaderboard}
+            >
+            Leaderboard
           </button>
-          <span className="menu-bar__costs">
-            <div>Place: 1 AP</div>
-            <div>Remove: {maze.params.naturalBlockerRemovalCost} AP</div>
-          </span>
         </div>
         <div className="menu-bar__section">
           <button onClick={handleResetClick(maze.seed)} className="menu-bar__btn generic__btn">

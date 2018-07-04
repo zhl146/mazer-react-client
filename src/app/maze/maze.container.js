@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchHighScore, initializeMaze, updateView } from './maze.action'
 import { MazeComponent } from './maze.component'
 
-const mapStateToProps = ({ mazeState, leaderboard }) => {
+const mapStateToProps = ({ mazeState, leaderboard, view }) => {
   return {
     maze: mazeState.maze,
     path: mazeState.path,
@@ -13,6 +13,7 @@ const mapStateToProps = ({ mazeState, leaderboard }) => {
     pathError: mazeState.pathError,
     actionErrorTime: mazeState.actionErrorTime,
     pathErrorTime: mazeState.pathErrorTime,
+    displayLeaderboard: view.displayLeaderboard
   }
 }
 

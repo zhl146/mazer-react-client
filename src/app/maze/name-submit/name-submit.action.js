@@ -1,8 +1,12 @@
 import axios from 'axios'
 
-import { solutionUrl } from '../../../server/url-generator'
+import { TOGGLE_LEADERBOARD } from 'store/action-constants'
+import { createStaticAction } from 'utils/action-creator'
+import { solutionUrl } from 'server/url-generator'
 
-export const submitScore = (name, history) => async (dispatch, getState) => {
+export const toggleLeaderboard = () => createStaticAction(TOGGLE_LEADERBOARD)
+
+export const submitScore = (name) => async (dispatch, getState) => {
   let { mazeState, auth } = getState()
 
   let payload = {
@@ -15,7 +19,7 @@ export const submitScore = (name, history) => async (dispatch, getState) => {
   try {
     let response = await axios.post(solutionUrl, payload)
     console.log(response)
-    history.push('/leaderboard?seed=' + mazeState.maze.seed)
+    dispatch(toggleLeaderboard())
   } catch (e) {
     console.log(e)
   }

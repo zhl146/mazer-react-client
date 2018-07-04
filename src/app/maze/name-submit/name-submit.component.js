@@ -8,7 +8,6 @@ export class NameSubmit extends Component {
     toggleDisplay: func.isRequired,
     onSubmit: func.isRequired,
     display: bool.isRequired,
-    history: object.isRequired,
   }
 
   state = { input: '' }
@@ -16,7 +15,7 @@ export class NameSubmit extends Component {
   handleChange = e => this.setState({ input: e.target.value })
   handleSubmit = () => {
     this.props.toggleDisplay()
-    this.props.onSubmit(this.state.input, this.props.history)
+    this.props.onSubmit(this.state.input)
   }
 
   render() {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { string, func, array, number } from 'prop-types'
 
 import { generateDateSeed, getUrlParameter } from '../../utils/request.utils'
@@ -9,6 +8,7 @@ import './leader-board.component.css'
 export class LeaderBoardComponent extends Component {
   static propTypes = {
     fetchLeaderBoard: func.isRequired,
+    toggleLeaderboard: func.isRequired,
     topScores: array,
     closestScores: array,
     seed: string,
@@ -92,9 +92,9 @@ export class LeaderBoardComponent extends Component {
             Search
           </button>
         </form>
-        <Link className="leaderboard__link generic__btn" to="/maze">
+        <button className="leaderboard__btn generic__btn" onClick={this.props.toggleLeaderboard}>
           OK
-        </Link>
+        </button>
       </div>
     )
   }

@@ -3,6 +3,7 @@ import { func, object, bool, number } from 'prop-types'
 
 import './maze.css'
 import GameBoard from './game-board/game-board.container'
+import { ConnectedLeaderBoard } from '../leaderboard/leader-board.container'
 import { ConnectedMenuBar } from './menu-bar/menu-bar.container'
 import { generateDateSeed, getUrlParameter } from 'utils/request.utils'
 import { ConnectedScoreBar } from './score-bar/score-bar.container'
@@ -46,7 +47,8 @@ export class MazeComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.maze != nextProps.maze
+    return this.props.maze != nextProps.maze ||
+      this.props.displayLeaderboard != nextProps.displayLeaderboard
   }
 
   componentWillUnmount() {
@@ -57,17 +59,26 @@ export class MazeComponent extends Component {
     let { maze, tileSize, path, rotateMaze} = this.props
 
     if (!maze || !maze.mazeTiles) return null
-    return (
-      <div className="maze-component">
-        <ConnectedScoreBar />
-        <GameBoard
-          tileSize={tileSize}
-          maze={maze}
-          path={path}
-          rotateMaze={rotateMaze}
-        />
-        <ConnectedMenuBar />
-      </div>
-    )
+    if (!this.props.displayLeaderboard)
+    {
+      return (
+        <div className="maze-component">
+          <ConnectedScoreBar />
+          <GameBoard
+            tileSize={tileSize}
+            maze={maze}
+            path={path}
+            rotateMaze={rotateMaze}
+          />
+          <ConnectedMenuBar />
+        </div>
+      )
+    }
+    else
+    {
+      return (
+          <ConnectedLeaderBoard />
+      )
+    }
   }
 }

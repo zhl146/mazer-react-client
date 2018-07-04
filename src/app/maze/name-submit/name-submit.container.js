@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
 import { NameSubmit } from './name-submit.component'
 import { submitScore } from './name-submit.action'
@@ -10,10 +9,10 @@ const mapStateToProps = ({ view }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (name, history) => dispatch(submitScore(name, history)),
+  onSubmit: (name) => dispatch(submitScore(name)),
   toggleDisplay: () => dispatch(toggleSubmit()),
 })
 
 export const ConnectedNameSubmit = connect(mapStateToProps, mapDispatchToProps)(
-  withRouter(NameSubmit)
+  NameSubmit
 )
