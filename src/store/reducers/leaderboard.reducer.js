@@ -11,8 +11,8 @@ import {
 
 export const initialState = {
   highScore: null,
-  topScores: null,
-  closestScores: null,
+  topScores: [],
+  closestScores: [],
   leaderBoardPending: false,
   leaderBoardError: false,
 }

@@ -30,6 +30,7 @@ export class LeaderBoardComponent extends Component {
       this.props.initializeMaze(seed)
     } else {
       this.props.fetchLeaderBoard(this.props.seed, this.props.token)
+      this.props.fetchClosestScores(this.props.seed)
     }
   }
 
@@ -51,20 +52,20 @@ export class LeaderBoardComponent extends Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.fetchLeaderBoard(this.state.seed)
+    this.props.fetchClosestScores(this.props.seed)
   }
 
   handleSolutionClick = () => {}
 
-  renderTopScores = () => {
-    return this.props.topScores.map((score, index) => (
+  renderScores = scores =>
+    scores.map((score, index) => (
       <div className="leaderboard__score" key={index}>
-        <span className="leaderboard__column">{index + 1}</span>
+        <span className="leaderboard__column">{score.rank}</span>
         <span className="leaderboard__column">{score.name}</span>
         <span className="leaderboard__column">{score.score}</span>
         <i onClick={this.handleSolutionClick} className="fas fa-puzzle-piece" />
       </div>
     ))
-  }
 
   render() {
     if (!this.props.topScores) return null
@@ -75,7 +76,9 @@ export class LeaderBoardComponent extends Component {
         </h1>
         <h2 className="leaderboard__h2">Top 10</h2>
         <div className="leaderboard__score-container">
-          {this.renderTopScores()}
+          {this.renderScores(this.props.topScores)}
+          ......
+          {this.renderScores(this.props.closestScores)}
         </div>
         <form className="leaderboard__form" onSubmit={this.handleSubmit}>
           <input
