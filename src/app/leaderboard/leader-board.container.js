@@ -16,9 +16,7 @@ const mapStateToProps = ({ mazeState, leaderboard, auth }) => {
   return {
     seed: R.pathOr(null, ['maze', 'seed'], mazeState),
     topScores: leaderboard.topScores,
-    closestScores: topRanks.includes(R.prop('rank', playerScore))
-      ? []
-      : closestScores,
+    closestScores: closestScores,
     pending: leaderboard.leaderBoardPending,
     token: R.path(['token', 'idToken'], auth),
   }
