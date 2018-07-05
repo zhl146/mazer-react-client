@@ -9,6 +9,7 @@ import {
   UPDATE_MAZE,
   UPDATE_VIEWPARAMS,
   RESET_PATH_ERROR,
+  SHOW_SOLUTION,
 } from '../action-constants'
 
 export const initialState = {
@@ -39,8 +40,20 @@ const updateError = (code, StatusCodes) => {
 
 const resetPathError = state => ({ ...state, pathError: false })
 const resetActionError = state => ({ ...state, actionError: false })
-const resetMaze = (state, { payload }) =>
-  initializeMaze({ ...payload }, state)
+const resetMaze = (state, { payload }) => initializeMaze({ ...payload }, state)
+
+const showSolution = (state, { payload }) => {
+  const { solution, seed } = payload
+
+  const newMaze = createMaze(seed)
+  newMaze.applyUserChanges(solution)
+
+  return {
+    ...state,
+    maze: newMaze,
+    path: calculatePath(newMaze.path, state.tileSize, state.rotateMaze),
+  }
+}
 
 const updateViewParams = (state, { payload }) => {
   let { tileSize, rotateMaze } = calculateViewParams(state.maze, payload)
@@ -70,6 +83,8 @@ export default function appStateReducer(state = initialState, action) {
       return initMaze(state, action)
     case RESET_PATH_ERROR:
       return resetPathError(state)
+    case SHOW_SOLUTION:
+      return showSolution(state, action)
     default:
       return state
   }
