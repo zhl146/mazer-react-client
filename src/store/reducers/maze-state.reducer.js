@@ -107,8 +107,6 @@ function initializeMaze({ seed, width, height }, state) {
 function calculatePath(path, tileSize, rotateMaze) {
   const tileOffset = tileSize / 2
 
-  //const fullPath = path.reduce((path, segment) => path.concat(segment))
-
   if (rotateMaze) {
     return path.map(segment => segment.map(point => ({
       x: point.y * tileSize + tileOffset,

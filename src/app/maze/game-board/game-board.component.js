@@ -123,6 +123,12 @@ export class GameBoard extends Component {
     return this.props.rotateMaze ? { w: h, h: w } : { w, h }
   }
 
+  boardDimensions = () => {
+    let w = this.props.maze.params.numColumns * this.props.tileSize
+    let h = this.props.maze.params.numRows * this.props.tileSize
+    return this.props.rotateMaze ? { w: h, h: w } : { w, h}
+  }
+
   render() {
     return (
       <div
@@ -130,8 +136,8 @@ export class GameBoard extends Component {
         ref={this.viewportRef}
         >
           <svg
-            width={this.props.maze.params.numColumns * this.props.tileSize}
-            height={this.props.maze.params.numRows * this.props.tileSize}
+            width={this.boardDimensions().w}
+            height={this.boardDimensions().h}
             className="game-board"
             ref={this.gameBoardRef}
             >
@@ -139,7 +145,6 @@ export class GameBoard extends Component {
             <MazePath
               maze={this.props.maze}
               path={this.props.path}
-              rotateMaze={this.props.rotateMaze}
               tileSize={this.props.tileSize}
               />
           </svg>
@@ -149,17 +154,9 @@ export class GameBoard extends Component {
 }
 
 const makeMazeTileGrid = (mazeTiles, rotateMaze) => {
-  let tiles
-  if (rotateMaze) {
-    const transpose = m => m[0].map((x, i) => m.map(x => x[i]))
-    tiles = transpose(mazeTiles)
-  } else {
-    tiles = mazeTiles
-  }
-
-  return tiles.map((row, index) => makeMazeRow(row))
+  return mazeTiles.map((row) => makeMazeRow(row, rotateMaze))
 }
 
-const makeMazeRow = row => {
-  return row.map((tile, index) => <ConnectedMazeTile tile={tile} key={index} />)
+const makeMazeRow = (row, rotateMaze) => {
+  return row.map((tile, index) => <ConnectedMazeTile tile={tile} rotateMaze={rotateMaze} />)
 }

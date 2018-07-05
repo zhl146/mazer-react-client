@@ -26,13 +26,10 @@ class Path extends Component {
     maze: object.isRequired,
     path: array.isRequired,
     tileSize: number.isRequired,
-    rotateMaze: bool.isRequired,
     resetPathError: func.isRequired,
     pathError: bool,
   }
 
-  canvasWidth
-  canvasHeight
   polylineRef = React.createRef()
 
   componentDidMount() {
@@ -50,17 +47,6 @@ class Path extends Component {
       !isEqual(this.props.path, nextProps.path) ||
       this.props.pathError !== nextProps.pathError
     )
-  }
-
-  setDimensions = () => {
-    if (this.props.rotateMaze) {
-      this.canvasWidth = this.props.tileSize * this.props.maze.params.numRows
-      this.canvasHeight =
-        this.props.tileSize * this.props.maze.params.numColumns
-    } else {
-      this.canvasWidth = this.props.tileSize * this.props.maze.params.numColumns
-      this.canvasHeight = this.props.tileSize * this.props.maze.params.numRows
-    }
   }
 
   initializePathAnimation = () => {
@@ -87,11 +73,10 @@ class Path extends Component {
   }
 
   render() {
-    this.setDimensions()
-    const reducer = (pathString, segment) =>
-         pathString + ' ' + segment.map(point => `${point.x},${point.y}`).join(' ')
     const polylinePoints = this.props.path
-         .reduce(reducer, '')
+         .reduce((path, segment) => path.concat(segment))
+         .map(point => `${point.x},${point.y}`)
+         .join(' ')
 
     return (
         <polyline

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { isEqual } from 'lodash'
-import { object, func, number } from 'prop-types'
+import { object, func, number, bool } from 'prop-types'
 import { TileTypes } from 'mazer-shared'
 
 import './maze-tile.css'
@@ -9,6 +9,7 @@ export class MazeTile extends Component {
   static propTypes = {
     onClick: func.isRequired,
     tile: object.isRequired,
+    rotateMaze: bool.isRequired,
     tileSize: number.isRequired,
     colors: object.isRequired,
   }
@@ -35,14 +36,16 @@ export class MazeTile extends Component {
     return (
         <rect
           className="game-tile__pulse game-tile__noevent"
-          x={tile.x * tileSize}
-          y={tile.y * tileSize}
+          x={this.renderPosition().x * tileSize}
+          y={this.renderPosition().y * tileSize}
           width={tileSize + 1}  // not sure why we need the +1 but
           height={tileSize + 1} // without it the borders are visible
           fill='rgb(0,100, 0)'
         />
       )
   }
+
+  renderPosition = () => this.props.rotateMaze ? { x: this.props.tile.y, y: this.props.tile.x } : { x: this.props.tile.x, y: this.props.tile.y }
 
   getBlockerOverlay = () => {
     const { tile, colors, tileSize } = this.props
@@ -57,7 +60,7 @@ export class MazeTile extends Component {
       { x: 0, y: 0.3 },
     ]
 
-    const polygonString = points.map(point => `${(tile.x + point.x) * tileSize},${(tile.y + point.y) * tileSize}`).join(' ')
+    const polygonString = points.map(point => `${(this.renderPosition().x + point.x) * tileSize},${(this.renderPosition().y + point.y) * tileSize}`).join(' ')
 
     return (
         tile.type === TileTypes.Blocker && (
@@ -85,8 +88,8 @@ export class MazeTile extends Component {
     return (
         <text
           className='game-tile__noevent'
-          x={(tile.x + 0.5) * tileSize}
-          y={(tile.y + 0.5) * tileSize}
+          x={(this.renderPosition().x + 0.5) * tileSize}
+          y={(this.renderPosition().y + 0.5) * tileSize}
           textAnchor='middle'
           alignmentBaseline='middle'
           fontFamily='VT323,monospace'
@@ -109,8 +112,8 @@ export class MazeTile extends Component {
         <rect
           className='game-tile'
           onClick={this.handleClick}
-          x={tile.x * tileSize}
-          y={tile.y * tileSize}
+          x={this.renderPosition().x * tileSize}
+          y={this.renderPosition().y * tileSize}
           width={tileSize}
           height={tileSize}
           fill={background}
