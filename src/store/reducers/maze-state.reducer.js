@@ -107,18 +107,18 @@ function initializeMaze({ seed, width, height }, state) {
 function calculatePath(path, tileSize, rotateMaze) {
   const tileOffset = tileSize / 2
 
-  const fullPath = path.reduce((path, segment) => path.concat(segment))
+  //const fullPath = path.reduce((path, segment) => path.concat(segment))
 
   if (rotateMaze) {
-    return fullPath.map(point => ({
+    return path.map(segment => segment.map(point => ({
       x: point.y * tileSize + tileOffset,
       y: point.x * tileSize + tileOffset,
-    }))
+    })))
   }
-  return fullPath.map(point => ({
+  return path.map(segment => segment.map(point => ({
     x: point.x * tileSize + tileOffset,
     y: point.y * tileSize + tileOffset,
-  }))
+  })))
 }
 
 function calculateViewParams(maze, windowParams) {

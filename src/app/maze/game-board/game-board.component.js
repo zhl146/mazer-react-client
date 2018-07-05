@@ -19,6 +19,7 @@ export class GameBoard extends Component {
   gameBoardRef = React.createRef()
   transform = { translatex: 0, translatey: 0, scale: 1 }
   velocity = { x: 0, y: 0 }
+  viewportRect = null
 
   componentDidMount() {
     var mc = new Hammer.Manager(this.gameBoardRef.current)
@@ -29,6 +30,8 @@ export class GameBoard extends Component {
     pinch.recognizeWith(pan)
 
     mc.add([pinch, pan])
+    this.viewportRect = this.viewportRef.current.getBoundingClientRect()
+    console.log(this.viewportRect)
 
     // Prevent long press saving on mobiles.
     document.addEventListener('touchstart', function(e) {
@@ -75,12 +78,11 @@ export class GameBoard extends Component {
   }
 
   constrainedTransform = ({ translatex, translatey, scale }) => {
-    const viewportRect = this.viewportRef.current.getBoundingClientRect()
     const { w, h } = this.mazeSize(scale)
-    const minX = w / 2 - viewportRect.width / 2
-    const minY = h / 2 - viewportRect.height / 2
-    const maxX = w / 2 + viewportRect.width / 2
-    const maxY = h / 2 + viewportRect.height / 2
+    const minX = w / 2 - this.viewportRect.width / 2
+    const minY = h / 2 - this.viewportRect.height / 2
+    const maxX = w / 2 + this.viewportRect.width / 2
+    const maxY = h / 2 + this.viewportRect.height / 2
     const minScale = 1
     const maxScale = 5
 
@@ -127,18 +129,20 @@ export class GameBoard extends Component {
         className="game-viewport"
         ref={this.viewportRef}
         >
-        <div
-          className="game-board"
-          ref={this.gameBoardRef}
-          >
-          {makeMazeTileGrid(this.props.maze.mazeTiles, this.props.rotateMaze)}
-          <MazePath
-            maze={this.props.maze}
-            path={this.props.path}
-            rotateMaze={this.props.rotateMaze}
-            tileSize={this.props.tileSize}
-            />
-        </div>
+          <svg
+            width={this.props.maze.params.numColumns * this.props.tileSize}
+            height={this.props.maze.params.numRows * this.props.tileSize}
+            className="game-board"
+            ref={this.gameBoardRef}
+            >
+            {makeMazeTileGrid(this.props.maze.mazeTiles, this.props.rotateMaze)}
+            <MazePath
+              maze={this.props.maze}
+              path={this.props.path}
+              rotateMaze={this.props.rotateMaze}
+              tileSize={this.props.tileSize}
+              />
+          </svg>
       </div>
     )
   }
@@ -152,11 +156,8 @@ const makeMazeTileGrid = (mazeTiles, rotateMaze) => {
   } else {
     tiles = mazeTiles
   }
-  return tiles.map((row, index) => (
-    <div key={index} className="container-row">
-      {makeMazeRow(row)}
-    </div>
-  ))
+
+  return tiles.map((row, index) => makeMazeRow(row))
 }
 
 const makeMazeRow = row => {

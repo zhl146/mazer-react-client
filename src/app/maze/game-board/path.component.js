@@ -88,26 +88,22 @@ class Path extends Component {
 
   render() {
     this.setDimensions()
-    let polylinePoints = this.props.path
-      .map(point => `${point.x},${point.y}`)
-      .join(' ')
+    const reducer = (pathString, segment) =>
+         pathString + ' ' + segment.map(point => `${point.x},${point.y}`).join(' ')
+    const polylinePoints = this.props.path
+         .reduce(reducer, '')
 
     return (
-      <svg
-        className="maze-path"
-        width={this.canvasWidth}
-        height={this.canvasHeight}
-      >
         <polyline
           ref={this.polylineRef}
           points={polylinePoints}
+          className="maze-path"
           fill="none"
           stroke={ColorToString(NormalPathColor)}
           strokeWidth={NormalLineWidth}
-          strokeDasharray="10 5"
-        />
-      </svg>
-    )
+          strokeDasharray='10 5'
+          />
+        )
   }
 }
 
