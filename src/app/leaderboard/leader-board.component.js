@@ -94,18 +94,6 @@ export class LeaderBoardComponent extends Component {
           ......
           {this.renderScores(this.props.closestScores)}
         </div>
-        <form className="leaderboard__form" onSubmit={this.handleSubmit}>
-          <input
-            className="leaderboard__input"
-            type="text"
-            placeholder="Check other seeds"
-            value={this.state.seed}
-            onChange={this.handleChange}
-          />
-          <button className="leaderboard__btn generic__btn" type="submit">
-            Search
-          </button>
-        </form>
         <button
           className="leaderboard__btn generic__btn"
           onClick={this.props.toggleLeaderboard}
