@@ -8,16 +8,16 @@ import './maze-tile.css'
 export class MazeTile extends Component {
   static propTypes = {
     onClick: func.isRequired,
-    tile: object.isRequired,
     rotateMaze: bool.isRequired,
     tileSize: number.isRequired,
+    tile: object.isRequired,
     colors: object.isRequired,
   }
 
   shouldComponentUpdate(nextProps) {
     return (
-      !isEqual(this.props.tile, nextProps.tile) ||
-      !isEqual(this.props.tileSize, nextProps.tileSize)
+      this.props.tile !== nextProps.tile ||
+      this.props.tileSize !== nextProps.tileSize
     )
   }
 

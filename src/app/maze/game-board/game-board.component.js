@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import { bool, object, number, array } from 'prop-types'
+import { func, bool, object, number, array } from 'prop-types'
 import Hammer from 'hammerjs'
 
 import MazePath from './path.container'
-import { ConnectedMazeTile } from './maze-tile/maze-tile.container'
+import { MazeTile } from './maze-tile/maze-tile.component'
 
 import './game-board.css'
 
 export class GameBoard extends Component {
   static propTypes = {
+    onTileClick: func.isRequired,
     rotateMaze: bool.isRequired,
     maze: object.isRequired,
     path: array.isRequired,
@@ -129,34 +130,42 @@ export class GameBoard extends Component {
     return this.props.rotateMaze ? { w: h, h: w } : { w, h}
   }
 
+  makeMazeTileGrid = () => {
+    const { onTileClick, tileSize, colors, rotateMaze } = this.props
+    return this.props.maze.mazeTiles.map((row) => row.map((tile, index) =>
+        (
+          <MazeTile
+            onClick={onTileClick}
+            tileSize={tileSize}
+            colors={colors}
+            tile={tile}
+            rotateMaze={rotateMaze}
+            key={row.length * tile.y + tile.x}
+          />
+        )
+    ))
+  }
+
   render() {
     return (
       <div
         className="game-viewport"
         ref={this.viewportRef}
         >
-          <svg
-            width={this.boardDimensions().w}
-            height={this.boardDimensions().h}
-            className="game-board"
-            ref={this.gameBoardRef}
-            >
-            {makeMazeTileGrid(this.props.maze.mazeTiles, this.props.rotateMaze)}
-            <MazePath
-              maze={this.props.maze}
-              path={this.props.path}
-              tileSize={this.props.tileSize}
-              />
-          </svg>
+        <svg
+          width={this.boardDimensions().w}
+          height={this.boardDimensions().h}
+          className="game-board"
+          ref={this.gameBoardRef}
+          >
+          {this.makeMazeTileGrid()}
+          <MazePath
+            maze={this.props.maze}
+            path={this.props.path}
+            tileSize={this.props.tileSize}
+            />
+        </svg>
       </div>
     )
   }
-}
-
-const makeMazeTileGrid = (mazeTiles, rotateMaze) => {
-  return mazeTiles.map((row) => makeMazeRow(row, rotateMaze))
-}
-
-const makeMazeRow = (row, rotateMaze) => {
-  return row.map((tile, index) => <ConnectedMazeTile tile={tile} rotateMaze={rotateMaze} key={row.length * tile.y + tile.x}/>)
 }

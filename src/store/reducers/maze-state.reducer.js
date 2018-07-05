@@ -22,8 +22,22 @@ export const initialState = {
 }
 
 const updateMaze = (state, { payload }) => {
-  let newMaze = cloneDeep(state.maze)
+  let newMaze = {
+    ...state.maze,
+    mazeTiles: [
+      ...state.maze.mazeTiles.slice(0, payload.y),
+      [
+        ...state.maze.mazeTiles[payload.y].slice(0, payload.x),
+        cloneDeep(state.maze.mazeTiles[payload.y][payload.x]),
+        ...state.maze.mazeTiles[payload.y].slice(payload.x+1)
+      ],
+      ...state.maze.mazeTiles.slice(payload.y+1)
+    ]
+  }
+
+  Object.setPrototypeOf(newMaze, Object.getPrototypeOf(state.maze))
   let code = newMaze.doActionOnTile(payload)
+
   return {
     ...state,
     maze: newMaze,

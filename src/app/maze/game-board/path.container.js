@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Path from './path.component'
-import { resetPathError } from './actions'
+import { resetPathError } from './path.actions'
 
 const mapStateToProps = ({ mazeState }) => ({
   pathError: mazeState.pathError
