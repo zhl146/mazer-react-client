@@ -38,6 +38,7 @@ export class MazeComponent extends Component {
     }
     this.updateViewPort()
     window.addEventListener('resize', this.updateViewPort)
+    window.addEventListener('orientationchange', this.props.updateViewPort)
   }
 
   componentWillUpdate(nextProps) {
@@ -47,20 +48,24 @@ export class MazeComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.maze != nextProps.maze ||
-      this.props.displayLeaderboard != nextProps.displayLeaderboard
+    return (
+      this.props.maze !== nextProps.maze ||
+      this.props.displayLeaderboard !== nextProps.displayLeaderboard ||
+      this.props.rotateMaze !== nextProps.rotateMaze ||
+      this.props.tileSize !== nextProps.tileSize
+    )
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateViewPort)
+    window.removeEventListener('orientationchange', this.props.updateViewPort)
   }
 
   render() {
-    let { maze, tileSize, path, rotateMaze} = this.props
+    let { maze, tileSize, path, rotateMaze } = this.props
 
     if (!maze || !maze.mazeTiles) return null
-    if (!this.props.displayLeaderboard)
-    {
+    if (!this.props.displayLeaderboard) {
       return (
         <div className="maze-component">
           <ConnectedScoreBar />
@@ -73,12 +78,8 @@ export class MazeComponent extends Component {
           <ConnectedMenuBar />
         </div>
       )
-    }
-    else
-    {
-      return (
-          <ConnectedLeaderBoard />
-      )
+    } else {
+      return <ConnectedLeaderBoard />
     }
   }
 }
