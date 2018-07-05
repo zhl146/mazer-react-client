@@ -14,8 +14,8 @@ const ErrorFlashTime = 500
 const ErrorBounces = 2
 
 // Path colors
-const NormalPathColor = Color(20,150,150,0.5)
-const ErrorPathColor = Color(250,0,0,0.5)
+const NormalPathColor = Color(20, 150, 150, 0.5)
+const ErrorPathColor = Color(250, 0, 0, 0.5)
 
 // Stroke widths
 const NormalLineWidth = 3
@@ -40,8 +40,7 @@ class Path extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.pathError)
-    {
+    if (this.props.pathError) {
       this.doErrorFlash()
     }
   }
@@ -89,7 +88,9 @@ class Path extends Component {
 
   render() {
     this.setDimensions()
-    let polylinePoints = this.props.path.map((point) => `${point.x},${point.y}`).join(' ')
+    let polylinePoints = this.props.path
+      .map(point => `${point.x},${point.y}`)
+      .join(' ')
 
     return (
       <svg
