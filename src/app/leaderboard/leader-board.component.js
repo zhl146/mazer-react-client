@@ -52,10 +52,13 @@ export class LeaderBoardComponent extends Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.fetchLeaderBoard(this.state.seed)
-    this.props.fetchClosestScores(this.props.seed)
+    this.props.fetchClosestScores(this.state.seed)
   }
 
-  handleSolutionClick = () => {}
+  handleSolutionClick = solution => () => {
+    this.props.showSolution(this.props.seed, solution)
+    this.props.toggleLeaderboard()
+  }
 
   renderScores = scores =>
     scores.map((score, index) => (
@@ -63,7 +66,12 @@ export class LeaderBoardComponent extends Component {
         <span className="leaderboard__column">{score.rank}</span>
         <span className="leaderboard__column">{score.name}</span>
         <span className="leaderboard__column">{score.score}</span>
-        <i onClick={this.handleSolutionClick} className="fas fa-puzzle-piece" />
+        {score.solution && (
+          <i
+            onClick={this.handleSolutionClick(score.solution)}
+            className="fas fa-puzzle-piece"
+          />
+        )}
       </div>
     ))
 
@@ -72,7 +80,7 @@ export class LeaderBoardComponent extends Component {
     return (
       <div className="leaderboard">
         <h1 className="leaderboard__h1">
-          LeaderBoard for seed "{this.props.seed}"{' '}
+          LeaderBoard for seed "{this.props.seed}"
         </h1>
         <h2 className="leaderboard__h2">Top 10</h2>
         <div className="leaderboard__score-container">
@@ -92,7 +100,10 @@ export class LeaderBoardComponent extends Component {
             Search
           </button>
         </form>
-        <button className="leaderboard__btn generic__btn" onClick={this.props.toggleLeaderboard}>
+        <button
+          className="leaderboard__btn generic__btn"
+          onClick={this.props.toggleLeaderboard}
+        >
           OK
         </button>
       </div>

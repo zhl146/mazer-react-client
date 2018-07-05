@@ -45,6 +45,8 @@ const resetMaze = (state, { payload }) => initializeMaze({ ...payload }, state)
 const showSolution = (state, { payload }) => {
   const { solution, seed } = payload
 
+  console.log(payload)
+
   const newMaze = createMaze(seed)
   newMaze.applyUserChanges(solution)
 

@@ -3,12 +3,14 @@ import {
   createErrorAction,
   createStartAction,
   createSuccessAction,
+  createUpdateAction,
 } from '../../utils/action-creator'
 import axios from 'axios'
 import {
   TOGGLE_LEADERBOARD,
   FETCH_LEADERBOARD,
-  FETCH_CLOSEST_SCORES
+  FETCH_CLOSEST_SCORES,
+  SHOW_SOLUTION,
 } from 'store/action-constants'
 import { leaderboardUrl } from 'server/url-generator'
 
@@ -41,3 +43,6 @@ export const fetchClosestScores = (seed, userId) => async dispatch => {
     dispatch(createErrorAction(FETCH_CLOSEST_SCORES, e))
   }
 }
+
+export const showSolution = (seed, solution) =>
+  createUpdateAction(SHOW_SOLUTION, { seed, solution })

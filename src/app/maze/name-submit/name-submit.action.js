@@ -6,7 +6,7 @@ import { solutionUrl } from 'server/url-generator'
 
 export const toggleLeaderboard = () => createStaticAction(TOGGLE_LEADERBOARD)
 
-export const submitScore = (name) => async (dispatch, getState) => {
+export const submitScore = name => async (dispatch, getState) => {
   let { mazeState, auth } = getState()
 
   let payload = {
@@ -18,7 +18,6 @@ export const submitScore = (name) => async (dispatch, getState) => {
 
   try {
     let response = await axios.post(solutionUrl, payload)
-    console.log(response)
     dispatch(toggleLeaderboard())
   } catch (e) {
     console.log(e)
