@@ -30,12 +30,13 @@ export const fetchLeaderBoard = seed => async dispatch => {
 
 export const fetchClosestScores = (seed, userId) => async dispatch => {
   dispatch(createStartAction(FETCH_CLOSEST_SCORES))
+    console.log("userId", userId)
   try {
     const {
       data: { scores },
     } = await axios.post(leaderboardUrl + '/range', {
       seed,
-      userId: '100539363718454838066',
+      userId,
       range: 2,
     })
     dispatch(createSuccessAction(FETCH_CLOSEST_SCORES, scores))

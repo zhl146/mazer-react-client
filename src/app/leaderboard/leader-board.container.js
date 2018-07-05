@@ -34,8 +34,8 @@ const mapDispatchToProps = dispatch => {
     fetchLeaderBoard: seed => {
       dispatch(fetchLeaderBoard(seed))
     },
-    fetchClosestScores: seed => {
-      dispatch(fetchClosestScores(seed))
+    fetchClosestScores: (seed, userId) => {
+      dispatch(fetchClosestScores(seed, userId))
     },
     toggleLeaderboard: () => {
       dispatch(toggleLeaderboard())

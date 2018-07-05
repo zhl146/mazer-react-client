@@ -5,6 +5,12 @@ import { generateDateSeed, getUrlParameter } from '../../utils/request.utils'
 
 import './leader-board.component.css'
 
+const userIdFromIdToken = (idToken) => {
+  const base64Url = idToken.split('.')[1]
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+  return JSON.parse(window.atob(base64)).sub
+}
+
 export class LeaderBoardComponent extends Component {
   static propTypes = {
     fetchLeaderBoard: func.isRequired,
@@ -30,7 +36,7 @@ export class LeaderBoardComponent extends Component {
       this.props.initializeMaze(seed)
     } else {
       this.props.fetchLeaderBoard(this.props.seed, this.props.token)
-      this.props.fetchClosestScores(this.props.seed)
+      this.props.fetchClosestScores(this.props.seed, `${userIdFromIdToken(this.props.token)}`)
     }
   }
 
@@ -52,7 +58,7 @@ export class LeaderBoardComponent extends Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.fetchLeaderBoard(this.state.seed)
-    this.props.fetchClosestScores(this.state.seed)
+    this.props.fetchClosestScores(this.props.seed, `${userIdFromIdToken(this.props.token)}`)
   }
 
   handleSolutionClick = solution => () => {
@@ -103,18 +109,6 @@ export class LeaderBoardComponent extends Component {
           <hr />
           {this.renderScores(this.props.closestScores)}
         </div>
-        <form className="leaderboard__form" onSubmit={this.handleSubmit}>
-          <input
-            className="leaderboard__input"
-            type="text"
-            placeholder="Check other seeds"
-            value={this.state.seed}
-            onChange={this.handleChange}
-          />
-          <button className="leaderboard__btn generic__btn" type="submit">
-            Search
-          </button>
-        </form>
         <button
           className="leaderboard__btn generic__btn"
           onClick={this.props.toggleLeaderboard}
