@@ -158,5 +158,5 @@ const makeMazeTileGrid = (mazeTiles, rotateMaze) => {
 }
 
 const makeMazeRow = (row, rotateMaze) => {
-  return row.map((tile, index) => <ConnectedMazeTile tile={tile} rotateMaze={rotateMaze} />)
+  return row.map((tile, index) => <ConnectedMazeTile tile={tile} rotateMaze={rotateMaze} key={row.length * tile.y + tile.x}/>)
 }

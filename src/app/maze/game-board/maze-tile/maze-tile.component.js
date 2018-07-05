@@ -122,9 +122,13 @@ export class MazeTile extends Component {
   }
 
   render() {
-    return [this.getBackground(),
-      this.getPulseOverlay(),
-      this.getBlockerOverlay(),
-      this.getTextOverlay()]
+    return (
+      <React.Fragment>
+        {this.getBackground()}
+        {this.getPulseOverlay()}
+        {this.getBlockerOverlay()}
+        {this.getTextOverlay()}
+      </React.Fragment>
+    )
   }
 }
