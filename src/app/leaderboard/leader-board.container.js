@@ -13,12 +13,16 @@ import { initializeMaze } from '../maze/maze.action'
 const mapStateToProps = ({ mazeState, leaderboard, auth }) => {
   const { topScores, closestScores } = leaderboard
 
+  const myScore = closestScores.find(score => score.myScore)
+  const myRank = R.prop('rank', myScore)
+
   return {
     seed: R.pathOr(null, ['maze', 'seed'], mazeState),
     topScores: leaderboard.topScores,
     closestScores: closestScores,
     pending: leaderboard.leaderBoardPending,
     token: R.path(['token', 'idToken'], auth),
+    myRank,
   }
 }
 

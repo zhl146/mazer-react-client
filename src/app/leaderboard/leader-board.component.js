@@ -62,7 +62,13 @@ export class LeaderBoardComponent extends Component {
 
   renderScores = scores =>
     scores.map((score, index) => (
-      <div className="leaderboard__score" key={index}>
+      <div
+        style={{
+          outline: score.rank === this.props.myRank ? '1px solid black' : null,
+        }}
+        className="leaderboard__score"
+        key={index}
+      >
         <span className="leaderboard__column">{score.rank}</span>
         <span className="leaderboard__column">{score.name}</span>
         <span className="leaderboard__column">{score.score}</span>
