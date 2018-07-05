@@ -72,10 +72,19 @@ export class LeaderBoardComponent extends Component {
         <span className="leaderboard__column">{score.rank}</span>
         <span className="leaderboard__column">{score.name}</span>
         <span className="leaderboard__column">{score.score}</span>
-        {score.solution && (
+        {score.solution ? (
           <i
             onClick={this.handleSolutionClick(score.solution)}
-            className="fas fa-puzzle-piece"
+            className="far fa-eye"
+            style={{
+              color: 'grey',
+              cursor: 'pointer',
+            }}
+          />
+        ) : (
+          <i
+            className="far fa-eye-slash"
+            style={{ color: 'grey', cursor: 'not-allowed' }}
           />
         )}
       </div>
@@ -91,7 +100,7 @@ export class LeaderBoardComponent extends Component {
         <h2 className="leaderboard__h2">Top 10</h2>
         <div className="leaderboard__score-container">
           {this.renderScores(this.props.topScores)}
-          ......
+          <hr />
           {this.renderScores(this.props.closestScores)}
         </div>
         <form className="leaderboard__form" onSubmit={this.handleSubmit}>
